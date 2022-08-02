@@ -21,9 +21,9 @@ class Timeline {
         this.shapeTimeline = []
         this.gameInst = null
         this.maxShapes = maxShapes
-
         this.indexer = new Indexer(this.getDrawX(0), this.getDrawY(),
             this.index_size, this.index_size, this.context, this.indexColor);
+        this.step = -1
     }
 
     appendTimeline(shape){
@@ -74,6 +74,7 @@ class Timeline {
             shape.draw()
             i++
         }
+        this.updateIndexer(this.step)
         this.indexer.draw()
     }
 

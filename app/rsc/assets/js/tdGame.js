@@ -261,6 +261,7 @@ class TDGame {
 
         this.currSelected = 0
         this.currStep++
+        this.timeline.step++
     }
 
     // Generate a block from the shapes' weights
