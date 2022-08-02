@@ -1,0 +1,31 @@
+{
+  "triWeight": 3,
+  "cirWeight": 3,
+  "squWeight": 3,
+  "croWeight": 3,
+  "nbTargets": 5,
+  "timeLearning": 30000,
+  "nbSliders": 1,
+  "nbLocks": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "gridWidth": 4,
+  "gridHeight": 4,
+  "shapeNames": [
+    "Triangle",
+    "Circle",
+    "Square",
+    "Cross"
+  ],
+  "showTimeline": true,
+  "easyMode": true,
+  "maxStep": -1,
+  "maxTimer": 60000,
+  "noviceTime": 4200,
+  "breakTimer": 180000,
+  "debug": true
+}

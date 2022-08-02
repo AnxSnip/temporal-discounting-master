@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User study in Human-Computer Interaction</title>
+    <link rel="stylesheet" href="rsc/assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+
+
+<body>
+    <div id="explainGame">
+
+        <div class="blackBG"></div>
+        <div id="explainGameBox" class="infoBox">
+            <div class="infoTitle">Experiment</div>
+            <pre>
+The goal is to clear as many steps as possible during the allotted time. (10 minutes)
+</pre>
+            <pre>
+There are four different shapes with varying frequencies. Upcoming shapes are visible on the timeline.
+<img src="https://kome.s-ul.eu/AeaysnzT.png"  alt="Timeline example"/>
+All shapes matching the target shape must be selected to progress.
+
+Only Novice Mode (Manually clicking every shape) is available at the start.
+ * You may commit time to remove a lock instead of directly moving onto the next step.
+Shapes for which all locks have been cleared may be selected using Expert Mode.
+
+Breaks will be occurring every two minutes. The experiment's timer is frozen during breaks.
+
+When you are ready, click "Start" to begin the experiment.
+            </pre>
+
+            <div class="infoDivButton">
+                <button class="infoButton">START</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="mobileRestriction" style="display: none;">
+        <div class="blackBG" style="background-color: #4CAF50;"></div>
+        <div class="infoBox">
+            <div class="infoTitle">IHM Expert</div>
+            <pre>
+Thank you for your interest however this 
+
+website isn't suited for mobile or tablet.
+            </pre>
+        </div>
+    </div>
+
+    <div id="ipRestriction" style="display: none;">
+        <div class="blackBG" style="background-color: #4CAF50;"></div>
+        <div class="infoBox">
+            <div class="infoTitle">IHM Expert</div>
+            <pre>
+Thank you for your interest! However, you 
+
+can not do the experiment more than once.
+            </pre>
+        </div>
+    </div>
+
+    <div class="container">
+        <canvas id="timelineCanvas"></canvas>
+        <canvas id="formsBoardCanvas"></canvas>
+    </div>
+    <!--<canvas id="scoreCanvas"></canvas>-->
+    <canvas id="targetCanvas"></canvas>
+    <canvas id="learningCanvas"></canvas>
+
+    <button id="nextButton" style="display: none;">Next</button>
+
+    <canvas id="canvasConfetti" style="position: absolute;top: 0;left: 0;"></canvas>
+
+    <div id="breakTime" class="blackBG" style="display: none;">
+        <div id="breakTimeBox" class="infoBox">
+            <div class="infoTitle">Break Time</div>
+            <pre>
+                Take a short break.
+                When ready, click on the button.<br />
+                Time left: <span id="timeLeft"></span> <br />
+            </pre>
+            <div class="infoDivNextButton">
+                <button class="closeBreak">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="endGame" class="blackBG" style="display: none;">
+        <div id="endGameBox" class="infoBox">
+            <div class="infoTitle">END</div>
+            <pre>
+Your results were recorded.
+Thank you for your participation.
+            </pre>
+            <div id="commentSection">
+                <textarea name="comment" id="experienceComment" cols="50" rows="10" placeholder="Write your comments here."></textarea><br>
+
+                <div class="infoDivButton">
+                    <button class="infoButton">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="rsc/assets/js/verification.js"></script>
+    <script type="module" src="rsc/assets/js/main.js"></script>
+    <script src="rsc/assets/js/confetti.js"></script>
+
+    <script>
+        function sendEmail() {
+            const content = document.getElementById("experienceComment").value.replace(/\n\r?/g, '<br />');
+            if (content === '') return;
+            const mail = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: {}
+            };
+            mail.body = JSON.stringify({
+                content: content
+            });
+            fetch('/mail', mail);
+            console.log('mail sent');
+        }
+    </script>
+
+</body>
+
+</html>

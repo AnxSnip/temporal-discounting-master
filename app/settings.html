@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Settings</title>
+    <meta charset="utf-8">
+
+    <!-- <link rel="stylesheet" href="rsc/assets/css/style.css"> -->
+    <!-- import the webpage's javascript file -->
+
+    <script src="rsc/assets/js/settings.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="rsc/assets/css/main.css">
+</head>
+
+<body class="classic_font blue_background transition_2">
+    <h1 class="align_center ">Settings</h1>
+
+    <!--<p>
+        Parses CSV into JSON.
+    </p>-->
+    <div id="pass" class="password-form">
+        <div class="field-password">
+            <i class="fa fa-key"></i>
+            <input id="input-password" type="password" placeholder="Password" required>
+            <i id="password-arrow" class="fa fa-arrow-right"></i>
+        </div>
+    </div>
+
+    <div id="after-login" class="hidden">
+
+        <!--</label>
+        <label class="custom-file-upload">
+        <input type="file" id="uploadButton">
+        <i class="fa fa-upload"></i> Upload CSV
+        <div id="fileName"></div>
+
+        <div id="json-output" class="left"></div>
+        -->
+		
+        <form id="settingsForm" action="#" onsubmit="return false;" oninput="updateFormsDisplay(parseInt(nbForms.value));" class="LFloat border" >
+            <!--oninput=" rangeOutput.value=parseInt(nbTrials.value);"-->
+			<div class="margin20">
+				<p>
+					<label for="nbBlocksToDo">Number of Blocks to do : </label>
+					<input id="nbBlocksToDo" name="nbBlocksToDo" type="number" min="2" max="10" value="2" required>
+				</p>
+				<p>
+					<label for="nbForms">Number of different Forms by block :  </label>
+					<input id="nbForms" name="nbForms" type="range" list="tickmarks" value="2" min="2" max="4">
+					<output id="nbFormsOutput" name="rangeOutput" value="10"></output>
+					<datalist id="tickmarks">
+						<option value="2">
+						<option value="3">
+						<option value="4">
+					  </datalist>
+				</p>
+				<p>
+					Numbers of figures appearance by block :
+					<ul>
+						<li id="figure1">Figure 1 : <input id="freqFigure1" class="formFrequence" name="freqFigure" type="number" required min="1"></li>
+						<li id="figure2">Figure 2 : <input id="freqFigure2" class="formFrequence" name="freqFigure" type="number" required min="1"></li>
+						<li id="figure3">Figure 3 : <input id="freqFigure3" class="formFrequence" name="freqFigure" type="number" required min="1"></li>
+						<li id="figure4">Figure 4 : <input id="freqFigure4" class="formFrequence" name="freqFigure" type="number" required min="1"></li>
+					</ul>
+				</p>
+				<p>
+					Forms to choose from :
+					<div>
+						<table>
+							<tr>
+								<th> <input id="formSquare" class="selectForm" name="Square" value="Square" type="checkbox"> Square </th>
+								<th> <input id="formCircle" class="selectForm" name="Circle" value="Circle" type="checkbox"> Circle </th>
+								<th> <input id="formTriangle" class="selectForm" name="Triangle" value="Triangle" type="checkbox"> Triangle</th>
+								<th> <input id="formCross" class="selectForm" name="Cross" value="Cross" type="checkbox"> Cross </th>
+							</tr>
+						</table>
+					</div>
+				</p>
+				<p>
+					<label for="nbTargetToSelect">Number of elements to select in the Novice Panel  : </label>
+					<input id="nbTargetToSelect" name="nbTargetToSelect" type="number" min="1" max="16" value="3" required>
+				</p>
+				<p>
+					Add condition <button id="addBetweenElementer" onclick="addBetweenElement()" class="pointer"><i id="iconPlus" class="fa fa-plus"></i></button>
+					<div id="betweenElementList"></div>
+				</p>
+				<p>
+					Display Timeline :
+					<input type="radio" id="displayTimeline" name="displayTimeline" value="true">True
+					<input type="radio" id="notDisplayTimeline" name="displayTimeline" value="false">False
+				</p>
+				<p>
+					Authorize user to retest the game :
+					<input type="radio" id="authorizeRetest" name="authorizeRetest" value="true">True
+					<input type="radio" id="notAuthorizeRetest" name="authorizeRetest" value="false">False
+				</p>
+				<p>
+					<span>
+						<button onclick="updateSettings()" class="pointer">UPDATE Settings</button>
+						<div id="waitSpinner" class="loader hidden"></div>
+					</span>
+					<a id="indexRef" href="index.html" class="hidden">See changes</a>
+				</p>
+			</div>
+        </form>
+		
+        <div id="divInfo" class= "RFloat margin100 border">
+			<div class="margin20">
+				<b>Implicit information</b>
+				<div>nb Total Trials is : <span id="infoNbTotalTrials"></span></div>
+				<div>Number of figure to unlock : <span id="infoFigs"></span> </div>
+				<div>Block size is : <span id="blockSize"></span></div>
+			</div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

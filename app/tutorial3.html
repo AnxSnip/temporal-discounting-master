@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User study in Human-Computer Interaction - Tutorial</title>
+    <link rel="stylesheet" href="rsc/assets/css/main.css">
+</head>
+
+<body>
+    <div class="blackBG"></div>
+    <div id="explainGameBox" class="infoBox">
+        <div class="infoTitle">Tutorial: Unlocking Expert Mode</div>
+        <div id="part1">
+            <pre>
+During the experiment, Expert Mode is not unlocked by default.
+Expert Mode may be unlocked for each shape by removing each of its corresponding locks.
+Unlock progress is not shared between shapes.
+</pre>
+            <pre>
+On every step, you may remove a lock for the ongoing target shape by committing time to perform a small task.
+</pre>
+
+            <div class="infoDivButton">
+                <button class="infoButton" onclick="nextSlide()">NEXT</button>
+            </div>
+        </div>
+
+        <div id="part2" style="display: none;">
+            <pre>
+To unlock the <b>Expert</b> mode:
+                </pre>
+            <pre class="condition" id="tuto3step1">
+1. Click on every shape in the grid matching the target.
+            </pre>
+            <pre id="tuto3step2" class="condition">2. Instead of clicking "Next", click on the "Unlock" shown below the target.
+A slider will then be taking its place.</pre>
+            <pre id="tuto3step3" class="condition">
+3. Click and move the slider's handle back and forth until it disappears.
+The task will be completed and a lock for the shape will be removed.
+                </pre>
+            <pre id="tuto3step4" class="condition">
+4. Repeat until all locks are removed.
+                </pre>
+            <pre id="tuto3step5" class="condition">
+5. Expert Mode may now be used to complete the step.
+                </pre>
+
+
+            <div id="boardTuto3" class="board">
+                <div class="container">
+                    <canvas id="timelineCanvasTuto3" class="timelineCanvas"></canvas>
+                    <canvas id="formsBoardCanvasTuto3" class="formsBoardCanvas"></canvas>
+                </div>
+                <canvas id="scoreCanvasTuto3" class="scoreCanvas"></canvas>
+                <canvas id="targetCanvasTuto3" class="targetCanvas"></canvas>
+                <canvas id="learningCanvasTuto3" class="learningCanvas"></canvas>
+
+                <button id="nextButtonTuto3" style="display: none;">Next</button>
+
+            </div>
+
+        </div>
+        <div id="buttonRedoTuto3" class="infoDivButton" style="display: none;">
+            <button class="infoButton" onclick="redoTuto3()">Retry last tutorial<i class="fa fa-repeat"></i></button>
+        </div>
+		
+        <div id="endTuto" class="infoDivButton" style="display: none; margin-top:3px">
+            <button class="infoButton" onclick="location.href='index.html'">Start the experiment</button>
+        </div>
+    </div>
+
+    <script>
+        function nextSlide() {
+            document.getElementById('part1').style.display = 'none';
+            document.getElementById('part2').style.display = '';
+            //GameTuto3();
+        }
+
+        function redoTuto3() {
+            document.getElementById("buttonRedoTuto3").style.display = 'none';
+            const conditions = document.getElementsByClassName("condition");
+            Array.prototype.forEach.call(conditions, condition => {
+                condition.style.color = '';
+            });
+            GameTuto3();
+            document.getElementById('boardTuto3').style.display = "";
+        }
+    </script>
+
+    <script src="rsc/assets/js/tutorial3.js"></script>
+
+</body>
+
+</html>
