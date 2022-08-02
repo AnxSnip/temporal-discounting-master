@@ -1,75 +1,79 @@
-import tdGame from "../tdGame.js";
+// noinspection DuplicatedCode
+
 import Button from "../shapes/button.js";
+import tdGame from "../tdGame.js";
 
+class TargetCanvas {
+    constructor(canvasElement, height, width, topMargin, cellSize,
+                unlockHeight, unlockWidth, unlockRadius, unlockX, unlockY,
+                top, left, stroke) {
+        this.height = height
+        this.width = width
 
-class LearningPanel{
-    constructor(canvasElement, cellSize, maxLockCount, shapeNames, top, left, stroke)  {
         this.cellSize = cellSize
-        this.imgWidth = 4 * cellSize / 12
-        this.imgHeight = 5 * cellSize / 12
-        this.imgMargin = cellSize / 2
-        this.canvMargin = cellSize
-        this.height = cellSize * (shapeNames.length + 1)
-        this.width = 6 / 5 * cellSize + (maxLockCount + 1) * (this.imgWidth + this.imgMargin / 3)
-
-        this.canvasElement = canvasElement
-        this.canvasElement.height = this.height
-        this.canvasElement.width = this.width
-        this.canvasElement.style.top = String(top) + "px"
-        this.canvasElement.style.left = String(left) + "px"
+        this.topMargin = topMargin
 
         this.top = top
         this.left = left
         this.stroke = stroke
 
-
         this.colorBoard = "gainsboro"
         this.colorBorder = "grey"
-        this.colorSelect = "white"
-
         this.targetColorFont = "red"
         this.targetColorFontUnlocked = "#4CAF50"
         this.unlockButtonColorUnlit = "white";
         this.unlockButtonColorLit = "gray";
         this.unlockButtonColorStroke = "darkgrey";
 
+        this.canvasElement = canvasElement
+        this.canvasElement.height = this.height
+        this.canvasElement.width = this.width
+
+        this.canvasElement.style.top = String(this.topMargin + top) + "px"
+        this.canvasElement.style.left = String(left + stroke) + "px"
+
         this.context = this.canvasElement.getContext("2d")
-        this.stroke = stroke
         this.context.lineWidth = stroke
 
-        this.gameInst = null
-
-        this.shapeDisplay = []
-
-        this.imgLock = new Image()
-        this.imgLock.src = 'rsc/img/lock.png'
-
-        this.imgUnlock = new Image()
-        this.imgUnlock.src = 'rsc/img/unlock.png'
-
         this.displayUnlockButton = true
-        this.unlockButtonClickable = true
-        this.unlockHeight =33
-        this.unlockWidth = 160
-        this.unlockX = this.width/2
-        this.unlockY = 30
-        this.unlockRadius = 10
+        this.unlockButtonClickable = false
+        this.unlockHeight = unlockHeight
+        this.unlockWidth = unlockWidth
+        this.unlockX = unlockX
+        this.unlockY = unlockY
+        this.unlockRadius = unlockRadius
         this.unlockButton = new Button(this.unlockX, this.unlockY,
             this.unlockWidth, this.unlockHeight, this.unlockRadius, this.context)
 
-        for(let i = 0; i < shapeNames.length; i++){
-            this.shapeDisplay.push(tdGame.shapeFromName(shapeNames[i],
-                this.getDrawX(), this.getDrawY(i), this.cellSize, false, this.context))
-        }
-
         this.canvasElement.addEventListener("mousemove", (event) => this.highlightButton(event))
         this.canvasElement.addEventListener("mousedown", (event) => this.unlockClick(event))
-        this.slider = null
-        this.unlockUsed = false
 
+        this.targetShapeDisplay = null
+
+        this.slider = null
+        this.gameInst = null
+        this.unlockUsed = false
     }
 
-
+    newStepProcess(){
+        this.sliderLifeTimeIfKilled = null
+        if(this.gameInst.isShapeUnlocked(this.gameInst.currShape)) {
+            this.displayUnlockButton = false
+            this.unlockButton = null
+        }
+        else{
+            this.displayUnlockButton = true
+            this.unlockButtonClickable = false
+            this.unlockButton = new Button(this.unlockX, this.unlockY,
+                this.unlockWidth, this.unlockHeight, this.unlockRadius, this.context)
+        }
+        if(this.slider) {
+            this.slider.killSlider()
+            this.slider = null
+        }
+        this.targetShapeDisplay = this.getTargetShape()
+        this.unlockUsed = false
+    }
 
     destroySlider() {
         if(this.slider) {
@@ -109,72 +113,28 @@ class LearningPanel{
         }
     }
 
-    newStepProcess(){
-        this.sliderLifeTimeIfKilled = null
-        if(this.gameInst.isShapeUnlocked(this.gameInst.currShape)) {
-            this.displayUnlockButton = false
-            this.unlockButton = null
-        }
-        else{
-            this.displayUnlockButton = true
-            this.unlockButtonClickable = true
-            this.unlockButton = new Button(this.unlockX, this.unlockY,
-                this.unlockWidth, this.unlockHeight, this.unlockRadius, this.context)
-        }
-        if(this.slider) {
-            this.slider.killSlider()
-            this.slider = null
-        }
-        this.targetShapeDisplay = this.getTargetShape()
-        this.unlockUsed = false
-    }
-
-
     unlockClick(event){
         if(!this.unlockButtonClickable)
             return
-        this.gameInst.SLmode = "l"
         let x = event.offsetX
         let y = event.offsetY
-        let targetShapeDisplay =  this.getTargetShape()
+
         if(this.unlockButton.contains(x, y)){
-            this.slider = new Slider(this, this.top  + this.unlockButton.top,
-                this.left + this.width* 0.15, this.width * 0.7,
-                targetShapeDisplay.colorUnlit, this.gameInst.sliderDuration)
+            this.slider = new Slider(this, this.top + this.topMargin * 0.75 + this.unlockButton.top
+                , this.left + this.unlockRadius, this.width * 0.9,
+                this.targetShapeDisplay.colorUnlit, this.gameInst.sliderDuration)
             this.displayUnlockButton = false
             this.unlockButtonClickable = false
             document.body.style.cursor = "auto";
         }
     }
 
-    getTargetShape(){
-        return tdGame.shapeFromName(this.gameInst.currShape, this.width / 2, this.height / 2,
-            this.cellSize, false, this.context)
-    }
     processUnlock() {
         this.sliderLifeTimeIfKilled = this.slider.getLifeTime()
         this.slider.killSlider()
         this.slider = null
         this.gameInst.shapeUnlockOne()
         this.unlockUsed = true
-        this.gameInst.nextButton.disabled = false
-    }
-
-
-    getDrawX() {
-        return 3 / 4 * this.cellSize
-    }
-
-    getDrawY(row){
-        return this.canvMargin + this.cellSize * row
-    }
-
-    getImgX(col){
-        return 3 / 2 * this.cellSize + col * this.imgMargin - this.imgWidth / 2
-    }
-
-    getImgY(row){
-        return this.canvMargin + this.cellSize * row - this.imgHeight / 2
     }
 
     draw(){
@@ -183,43 +143,36 @@ class LearningPanel{
         this.context.fillRect(0, 0, this.width, this.height)
         this.context.strokeRect(this.stroke / 2, this.stroke / 2,
             this.width - this.stroke, this.height - this.stroke)
+        this.targetShapeDisplay.draw()
 
-        for(let shape in this.shapeDisplay){
-            this.shapeDisplay[shape].draw()
-        }
         if(this.displayUnlockButton) {
             this.unlockButton.draw()
         }
 
-        for(let i = 0; i < this.gameInst.settings.shapeNames.length; i++){
-            let shapeLockState = this.gameInst.lockStates[i]
-            for(let j = 0; j < this.gameInst.settings.nbLocks; j++){
-                let lockImg = this.imgLock
-                if(j < shapeLockState){
-                    lockImg = this.imgUnlock
-                }
-                this.context.drawImage(lockImg, this.getImgX(j), this.getImgY(i),
-                    this.imgWidth, this.imgHeight)
-            }
-        }
 
-        if(this.slider)
-            return
         this.context.fillStyle = this.targetColorFont
         this.context.font = "bold 18px arial"
         this.context.textAlign = "center"
+
+        if(this.slider)
+            return
+
         if(this.gameInst.isShapeUnlocked()) {
             this.context.fillStyle = this.targetColorFontUnlocked
-
-            this.context.fillText("EXPERT", this.width/2, this.unlockY + 4)
+            this.context.fillText("EXPERT", this.width / 2, this.unlockY + 5)
         }
         else if(this.unlockUsed){
             this.context.fillStyle = this.targetColorFontUnlocked
-            this.context.fillText("UNLOCKED", this.width/2, this.unlockY + 4)
+            this.context.fillText("UNLOCKED", this.width / 2, this.unlockY + 5)
         }
         else{
-            this.context.fillText("UNLOCK", this.width/2, this.unlockY + 4)
+            this.context.fillText("UNLOCK", this.width / 2, this.unlockY + 5)
         }
+    }
+
+    getTargetShape(){
+        return tdGame.shapeFromName(this.gameInst.currShape, this.width / 2, this.height / 2,
+            this.cellSize, false, this.context)
     }
 
     gameEndHandle() {
@@ -322,4 +275,5 @@ class Slider {
         }
     }
 }
-export default LearningPanel
+
+export default TargetCanvas

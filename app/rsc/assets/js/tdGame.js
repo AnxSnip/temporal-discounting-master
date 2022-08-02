@@ -44,6 +44,8 @@ class TDGame {
         this.stepClicks = 0
         this.stepMode = "novice"
 
+        this.SLmode = null
+
         this.gameLog = new GameLog(this.startTime, this.sliderDuration, this.sumWeight(),
             this.settings.shapeNames, this.settings.nbLocks, this.settings.nbTargets,
             this.settings.triWeight, this.settings.cirWeight, this.settings.squWeight,
@@ -75,7 +77,7 @@ class TDGame {
         // If a break has been queued, interrupt next step setup and go to break screen instead
         if(this.setToBreak && (this.currStep < this.settings.maxStep - 1 || this.settings.maxStep === -1)) {
             this.endedStepTime = Date.now()
-            this.targetCanvas.destroySlider()
+            this.learningPanel.destroySlider()
             this.startBreak()
             return
         }
@@ -108,7 +110,7 @@ class TDGame {
         this.gameLog.registerEnd(this.currStep, Date.now() - this.startTime)
         document.getElementById("endGame").style.display = "flex"
         // Kill dynamic elements in target canvas
-        this.targetCanvas.gameEndHandle()
+        this.learningPanel.gameEndHandle()
 
         // Save data to log file
         let data = this.gameLog.exportAsString()
@@ -156,7 +158,8 @@ class TDGame {
 
     // Logs data to gameLog object
     logData(timeTakenStep) {
-        let sliderApparition = this.targetCanvas.getSliderLifetime()
+        //TODO change here
+        let sliderApparition = this.learningPanel.getSliderLifetime()
 
         this.gameLog.registerStep(this.getCurrStep(), this.currShape,
             this.getLockState(this.currShape), timeTakenStep, this.allShapesSelectedTime
@@ -253,6 +256,8 @@ class TDGame {
         this.currShapeGrid = this.gridBacklog.shift()
 
         this.targetCanvas.newStepProcess()
+        this.learningPanel.newStepProcess()
+        this.SLmode = null
 
         this.currSelected = 0
         this.currStep++
@@ -345,6 +350,7 @@ class TDGame {
     }
 
     selectShape(row, col){
+        this.learningPanel.unlockButtonClickable = false
         if(this.currShapeGrid[row][col].getShapeName() === this.currShape){
             if(this.isShapeUnlocked(this.currShape)){
                 for(let i = 0; i < this.settings.gridHeight; i++) {
@@ -372,7 +378,6 @@ class TDGame {
 
     allSelected(){
         this.allShapesSelectedTime = Date.now() - this.startStepTime
-        this.targetCanvas.unlockButtonClickable = true
         this.nextButton.disabled = false
     }
 

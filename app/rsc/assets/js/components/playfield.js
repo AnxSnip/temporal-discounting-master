@@ -1,3 +1,5 @@
+import tdGame from "../tdGame.js";
+
 class PlayField {
     constructor(canvasElement, framerate, height, width, nbRow, nbCol, cellSize, top, left, stroke) {
         this.framerate = framerate
@@ -53,6 +55,9 @@ class PlayField {
                 if (shape.contains(x, y, this.gameInst.settings.easyMode) && !shape.selected) {
                     shape.highlight = true
                     document.body.style.cursor = "pointer";
+                    if(this.gameInst.SLmode === "l"){
+                        document.body.style.cursor = "not-allowed";
+                    }
                     return
                 }
             }
@@ -60,15 +65,23 @@ class PlayField {
     }
 
     selectShape(event) {
-        let x = event.offsetX;
-        let y = event.offsetY;
-        for (let row = 0; row < this.gameInst.currShapeGrid.length; row++) {
-            for (let col = 0; col < this.gameInst.currShapeGrid[row].length; col++) {
-                let shape = this.gameInst.currShapeGrid[row][col]
-                if(shape.contains(x, y, this.gameInst.settings.easyMode) && !shape.selected){
-                    this.gameInst.selectShape(row, col)
+        if (this.gameInst.SLmode ==null){
+            this.gameInst.SLmode = "p"
+            this.gameInst.learningPanel.unlockButtonClickable = false
+        }
+        if (this.gameInst.SLmode === "p"){
+            let x = event.offsetX;
+            let y = event.offsetY;
+            for (let row = 0; row < this.gameInst.currShapeGrid.length; row++) {
+                for (let col = 0; col < this.gameInst.currShapeGrid[row].length; col++) {
+                    let shape = this.gameInst.currShapeGrid[row][col]
+                    if(shape.contains(x, y, this.gameInst.settings.easyMode) && !shape.selected){
+                        this.gameInst.selectShape(row, col)
+                    }
                 }
             }
+        }else {
+            //nothing
         }
     }
 

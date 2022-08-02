@@ -77,8 +77,8 @@ async function Game() {
             // Initialize target canvas (Target shape indicator)
             let targetCanvasLeft = playField.width + playfieldLeft + 6
             let targetCanvas = new TargetCanvas(document.getElementById("targetCanvas"),
-                160, 160, 50, cellSize, 33, 2/3 * 160,
-                10, 160/2, 130, 60, targetCanvasLeft, stroke)
+                160, 160, 50, cellSize,
+                 60, targetCanvasLeft, stroke)
 
             // Initialize target canvas (Lock status panel)
             let learningPanelLeft = targetCanvas.width + targetCanvasLeft + 10
