@@ -24,6 +24,7 @@
   "showTimeline": true,
   "easyMode": true,
   "maxStep": 6,
+  "nbBlock" : 3,
   "maxTimer": -1,
   "noviceTime": 4200,
   "breakTimer": 180000,

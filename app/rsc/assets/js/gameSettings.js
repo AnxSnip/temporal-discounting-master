@@ -2,7 +2,7 @@ class gameSettings{
     constructor(weights, triWeight, cirWeight, squWeight, croWeight, nbTargets,
                 timeLearning, nbSliders, nbLocks, gridWidth, gridHeight,
                 shapeNames = ["Triangle", "Circle", "Square", "Cross"],
-                maxStep, maxTimer, noviceTime, breakTimer, lockDecider = 0,
+                maxStep,nbBlock, maxTimer, noviceTime, breakTimer, lockDecider = 0,
                 showTimeline = true, easyMode = false, debug= false) {
 
         // Shape generation
@@ -29,6 +29,7 @@ class gameSettings{
         this.easyMode = easyMode
 
         this.maxStep = maxStep
+        this.nbBlock = nbBlock
         this.maxTimer = maxTimer
         this.noviceTime = noviceTime
         this.breakTimer = breakTimer

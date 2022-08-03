@@ -51,6 +51,7 @@ class TDGame {
             this.settings.triWeight, this.settings.cirWeight, this.settings.squWeight,
             this.settings.croWeight, this.settings.timeLearning, this.userIp)
 
+        this.nbBlock = this.settings.nbBlock
 
         document.body.addEventListener("mousedown", () => this.addClick())
 
@@ -121,7 +122,6 @@ class TDGame {
             },
             body: JSON.stringify({value: data})
         }
-
         fetch('/logdata', options).then(r => function (r) {
             console.log('Log status: ' + r)
         })
@@ -158,7 +158,6 @@ class TDGame {
 
     // Logs data to gameLog object
     logData(timeTakenStep) {
-        //TODO change here
         let sliderApparition = this.learningPanel.getSliderLifetime()
 
         this.gameLog.registerStep(this.getCurrStep(), this.currShape,
@@ -244,16 +243,17 @@ class TDGame {
             return
         }
         // Fill backlog when it runs low
-        if(this.gridBacklog.length < this.sumWeight()){
-            for(let i = 0; i < 10; i++)
+        //
+        if(this.gridBacklog.length === 0){
+              for(let i = 0; i < this.nbBlock; i++)
                 this.generateBlock()
         }
 
         // Refresh timeline
         this.timeline.refreshTimeline()
         // Pops a grid from queue
-        this.currShape = this.shapeBacklog.shift()
-        this.currShapeGrid = this.gridBacklog.shift()
+        this.currShape = this.shapeBacklog[this.currStep]
+        this.currShapeGrid = this.gridBacklog[this.currStep]
 
         this.targetCanvas.newStepProcess()
         this.learningPanel.newStepProcess()

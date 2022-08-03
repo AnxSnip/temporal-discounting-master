@@ -57,10 +57,9 @@ async function Game() {
                 json.croWeight, json.nbTargets,
                 json.timeLearning, json.nbSliders,
                 json.nbLocks, json.gridWidth, json.gridHeight,
-                json.shapeNames, json.maxStep, json.maxTimer, json.noviceTime, json.breakTimer, lockDecider,
+                json.shapeNames, json.maxStep,json.nbBlock, json.maxTimer, json.noviceTime, json.breakTimer, lockDecider,
                 json.showTimeline, json.easyMode, json.debug)
             let shapeWeights = json.triWeight + json.cirWeight + json.squWeight + json.croWeight
-
             // Initialize game logic component
             let tdGame = new TDGame(settings, ipAddress)
 
