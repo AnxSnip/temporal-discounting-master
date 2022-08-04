@@ -202,13 +202,10 @@ class TDGame {
             this.gridBacklog.push(this.generateGrid(this.currShape))
             let first = this.targetCanvas.targetShapeDisplay
             let last = this.timeline.shapeTimeline[this.timeline.shapeTimeline.length -1]
+            setTimeout(f => this.timeline.refreshTimeline(),3000)
             this.unlockAnimation(this.targetCanvas.left + first.x,this.targetCanvas.top + first.y,
                 20 + last.x, last.y)
-            this.timeline.refreshTimeline()
-            //if (this.animationEnded){
-            //    let toRemove = document.getElementById("animation")
-            //    document.body.removeChild(toRemove);
-            //}
+
             this.lockStates[index]++
         }
     }
@@ -422,26 +419,30 @@ class TDGame {
     }
 
     unlockAnimation(xStart,yStart,xStop,yStop,sizeStart = 80,sizeStop = 20,frame = 30){
-        var animationCanvas = document.createElement("canvas");
-        animationCanvas.id = "animation"
+        var animationCanvas = document.getElementById("animation");
+        if (!animationCanvas){
+            animationCanvas = document.createElement("canvas");
+            animationCanvas.id = "animation"
+            animationCanvas.style.position = "absolute";
+            animationCanvas.style.left = "20px";
+            animationCanvas.style.top = "10px";
+            var body = document.getElementsByTagName("body")[0];
+            body.appendChild(animationCanvas);
+        }
         animationCanvas.height = 700;
         animationCanvas.width = 1200;
-        animationCanvas.style.position = "absolute";
-        animationCanvas.style.left = "20px";
-        animationCanvas.style.top = "10px";
-        var body = document.getElementsByTagName("body")[0];
-        body.appendChild(animationCanvas);
-        console.log(xStart,xStop,yStart,yStop,sizeStart,sizeStop)
+
         var ctx = animationCanvas.getContext("2d");
         var shapeToMove = this.targetCanvas.targetShapeDisplay
-        var listx = []
-        var listy = []
-        var listsize = []
+        var listx = [xStart]
+        var listy = [yStart]
+        var listsize = [sizeStart]
         for (let i = 1; i<frame;i++){
             listx.push(xStart + (xStop-xStart)/frame *i)
             listy.push(yStart + (yStop-yStart)/frame *i)
             listsize.push(sizeStart + (sizeStop-sizeStart)/frame *i)
         }
+
 
         function animFrame(animationCanvas,shapeToMove,x,y,size,ctx){
             ctx.clearRect(0,0,animationCanvas.width,animationCanvas.height)
@@ -457,7 +458,9 @@ class TDGame {
             this.animationEnded = false
             if (Date.now()-start >=3000){
                 clearInterval(timer)
-                this.animationEnded = true
+                animationCanvas.height = 0;
+                animationCanvas.width = 0;
+                this.timeline.refreshTimeline()
                 return;
             }
             animFrame(animationCanvas,shapeToMove,listx[i],listy[i],listsize[i],ctx)
