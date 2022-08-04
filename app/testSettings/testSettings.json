@@ -1,10 +1,10 @@
 {
-  "triWeight": 3,
-  "cirWeight": 3,
-  "squWeight": 3,
-  "croWeight": 3,
+  "triWeight": 2,
+  "cirWeight": 2,
+  "squWeight": 2,
+  "croWeight": 2,
   "nbTargets": 5,
-  "timeLearning": 30000,
+  "timeLearning": 10000,
   "nbSliders": 1,
   "nbLocks": [
     1,
@@ -23,10 +23,10 @@
   ],
   "showTimeline": true,
   "easyMode": true,
-  "maxStep": 6,
-  "nbBlock" : 3,
+  "maxStep": 8,
+  "nbBlock" : 1,
   "maxTimer": -1,
   "noviceTime": 4200,
   "breakTimer": 180000,
-  "debug": true
+  "debug": false
 }

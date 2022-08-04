@@ -45,6 +45,8 @@ class TDGame {
         this.stepMode = "novice"
 
         this.SLmode = null
+        this.internMaxStep = this.settings.maxStep
+        this.learningDone = 0
 
         this.gameLog = new GameLog(this.startTime, this.sliderDuration, this.sumWeight(),
             this.settings.shapeNames, this.settings.nbLocks, this.settings.nbTargets,
@@ -76,7 +78,7 @@ class TDGame {
         }
 
         // If a break has been queued, interrupt next step setup and go to break screen instead
-        if(this.setToBreak && (this.currStep < this.settings.maxStep - 1 || this.settings.maxStep === -1)) {
+        if(this.setToBreak && (this.currStep < this.internMaxStep - 1 || this.internMaxStep === -1)) {
             this.endedStepTime = Date.now()
             this.learningPanel.destroySlider()
             this.startBreak()
@@ -91,12 +93,18 @@ class TDGame {
         this.logData(timeTakenStep)
 
         // If a maximum number of step is set and has been crossed, end the game
-        if(this.currStep > this.settings.maxStep - 1 && this.settings.maxStep !== -1 && !this.gameEnded)
+        if(this.currStep > this.internMaxStep - 1 && this.internMaxStep !== -1 && !this.gameEnded) {
+            this.learningDone--
+            this.timeline.refreshTimeline()
+            this.timeline.draw()
             this.endGame()
-
+        }
         // Reset metrics
         this.stepClicks = 0
         // Reset mode used to novice
+        if(this.stepMode === "learning"){
+            this.learningDone++
+        }
         this.stepMode = "novice"
         this.startStepTime = Date.now()
         // Disable nextButton
@@ -188,6 +196,13 @@ class TDGame {
 
         if(!this.isShapeUnlocked(shape)){
             this.stepMode = "learning"
+            this.internMaxStep++
+            this.shapeBacklog.push(this.currShape)
+            this.gridBacklog.push(this.generateGrid(this.currShape))
+            let first = this.targetCanvas.targetShapeDisplay
+            let last = this.timeline.shapeTimeline[this.timeline.shapeTimeline.length -1]
+            this.unlockAnimation(this.targetCanvas.left + first.x,this.targetCanvas.top + first.y,
+                20 + last.x, last.y)
             this.lockStates[index]++
         }
     }
@@ -391,14 +406,61 @@ class TDGame {
     }
 
     getCurrStep(){
-        if(this.currStep > this.settings.maxStep && this.settings.maxStep !== -1)
+        if(this.currStep > this.internMaxStep && this.internMaxStep !== -1)
             return this.settings.maxStep
-        return this.currStep
+        return this.currStep-this.learningDone
     }
 
     getMaxTime() {
         return this.settings.maxTimer
     }
+
+    unlockAnimation(xStart,yStart,xStop,yStop,sizeStart = 80,sizeStop = 20,frame = 30){
+        var animationCanvas = document.createElement("canvas");
+        animationCanvas.id = "animation"
+        animationCanvas.height = 700;
+        animationCanvas.width = 1200;
+        animationCanvas.style.position = "absolute";
+        animationCanvas.style.left = "20px";
+        animationCanvas.style.top = "10px";
+        var body = document.getElementsByTagName("body")[0];
+        body.appendChild(animationCanvas);
+        console.log(xStart,xStop,yStart,yStop,sizeStart,sizeStop)
+        var ctx = animationCanvas.getContext("2d");
+        var shapeToMove = this.targetCanvas.targetShapeDisplay
+        var listx = []
+        var listy = []
+        var listsize = []
+        for (let i = 1; i<frame;i++){
+            listx.push(xStart + (xStop-xStart)/frame *i)
+            listy.push(yStart + (yStop-yStart)/frame *i)
+            listsize.push(sizeStart + (sizeStop-sizeStart)/frame *i)
+        }
+
+        function animFrame(animationCanvas,shapeToMove,x,y,size,ctx){
+            ctx.clearRect(0,0,animationCanvas.width,animationCanvas.height)
+            let c = TDGame.shapeFromName(shapeToMove.getShapeName(),x,y,
+                size,false,ctx)
+            c.draw()
+            console.log(c)
+        }
+
+        let start = Date.now()
+        let i =0
+        let timer = setInterval(function (){
+            if (Date.now()-start >=3000){
+                clearInterval(timer)
+                return;
+            }
+            animFrame(animationCanvas,shapeToMove,listx[i],listy[i],listsize[i],ctx)
+            i++
+        },100)
+
+        body.removeChild(animationCanvas);
+    }
+
+
+
 
     static shuffle(a) {
         for (let i = a.length - 1; i > 0; i--) {
@@ -422,6 +484,8 @@ class TDGame {
                 console.log('Unknown shape specified: ' + shapeName)
         }
     }
+
+
 }
 
 export default TDGame
