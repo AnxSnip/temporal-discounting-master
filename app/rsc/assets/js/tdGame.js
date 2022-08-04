@@ -47,6 +47,7 @@ class TDGame {
         this.SLmode = null
         this.internMaxStep = this.settings.maxStep
         this.learningDone = 0
+        this.animationEnded = true
 
         this.gameLog = new GameLog(this.startTime, this.sliderDuration, this.sumWeight(),
             this.settings.shapeNames, this.settings.nbLocks, this.settings.nbTargets,
@@ -203,6 +204,11 @@ class TDGame {
             let last = this.timeline.shapeTimeline[this.timeline.shapeTimeline.length -1]
             this.unlockAnimation(this.targetCanvas.left + first.x,this.targetCanvas.top + first.y,
                 20 + last.x, last.y)
+            this.timeline.refreshTimeline()
+            //if (this.animationEnded){
+            //    let toRemove = document.getElementById("animation")
+            //    document.body.removeChild(toRemove);
+            //}
             this.lockStates[index]++
         }
     }
@@ -448,15 +454,17 @@ class TDGame {
         let start = Date.now()
         let i =0
         let timer = setInterval(function (){
+            this.animationEnded = false
             if (Date.now()-start >=3000){
                 clearInterval(timer)
+                this.animationEnded = true
                 return;
             }
             animFrame(animationCanvas,shapeToMove,listx[i],listy[i],listsize[i],ctx)
             i++
         },100)
 
-        body.removeChild(animationCanvas);
+
     }
 
 
