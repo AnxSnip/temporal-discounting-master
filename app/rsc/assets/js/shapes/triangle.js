@@ -35,6 +35,9 @@ class Triangle extends Shape {
         if (this.doVibrate) {
             this.vibrate()
         }
+        if(this.grey){
+            this.colorUnlit = this.colorGrey
+        }
         if (this.selected || this.unlocked) {
             this.ctx.fillStyle = this.colorUnlit;
             this.ctx.beginPath();

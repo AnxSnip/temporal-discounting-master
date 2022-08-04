@@ -9,7 +9,7 @@ class Circle extends Shape {
         this.top = y - radius;
         this.right = x + radius;
         this.left = x - radius;
-        this.colorUnlit = "royalblue"
+        this.colorUnlit = "#4169e1"
         this.colorLit = "lightsteelblue"
         this.marginFactor = minSize / 16
     }
@@ -18,6 +18,10 @@ class Circle extends Shape {
         if (this.doVibrate) {
             this.vibrate()
         }
+        if(this.grey){
+            this.colorUnlit = this.colorGrey
+        }
+
         if (this.selected || this.unlocked) {
             this.ctx.fillStyle = this.colorUnlit;
             this.ctx.beginPath();

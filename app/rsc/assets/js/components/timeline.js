@@ -69,6 +69,9 @@ class Timeline {
 
         let i = 0
         for(let shape of this.shapeTimeline){
+            if(i<this.step){
+                shape.grey = true
+            }
             if(i >= this.maxShapes)
                 break
             shape.draw()
