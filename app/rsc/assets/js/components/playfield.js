@@ -8,7 +8,6 @@ class PlayField {
         this.nbRow = nbRow
         this.nbCol = nbCol
         this.cellSize = cellSize
-
         this.stroke = stroke
         this.margin = 3 / 2 * cellSize
         this.selectMargin = cellSize / 8

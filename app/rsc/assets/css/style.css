@@ -2,6 +2,10 @@ body {
     overflow-y: hidden;
 }
 
+textarea {
+    height: auto;
+}
+
 #timelineCanvas {
     position: absolute;
     top: 0;
@@ -48,6 +52,7 @@ button:disabled {
 
 button:enabled:hover {
     box-shadow: 5px 12px 16px 0 rgba(0, 0, 0, 0.25), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    background-color: #4CAF50;
 }
 
 button:disabled:hover {
@@ -207,4 +212,26 @@ input[type=range]::-ms-thumb {
     border-radius: 3px;
     background: #ffffff;
     /*cursor: pointer;*/
+}
+
+.endGame{
+    border: 2px solid #4CAF50;
+    border-radius: 4px;
+}
+
+input[type=text]:focus {
+    border: 1px solid lightgray;
+}
+
+textarea[type=text]:focus {
+    border: 1px solid lightgray;
+}
+
+select:focus{
+    border: 1px solid lightgray;
+}
+
+input,textarea,select {
+    border: 1px solid #5d5a5a;
+    border-radius: 2px;
 }

@@ -23,7 +23,7 @@
   ],
   "showTimeline": true,
   "easyMode": true,
-  "maxStep": 8,
+  "maxStep": 1,
   "nbBlock" : 1,
   "maxTimer": -1,
   "noviceTime": 4200,

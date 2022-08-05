@@ -94,13 +94,75 @@ can not do the experiment more than once.
 Your results were recorded.
 Thank you for your participation.
             </pre>
-            <div id="commentSection">
-                <textarea name="comment" id="experienceComment" cols="50" rows="10" placeholder="Write your comments here."></textarea><br>
+
+                <form action="/PLACEHOLDER" method="post">
+
+                    <legend>Your gender:</legend>
+                    <div>
+                        <input type="radio" id="Male" name="gender" value="Male"
+                               checked>
+                        <label for="Male">Male</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="Female" name="gender" value="Female">
+                        <label for="Female">Female</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="Non-binary" name="gender" value="Non-binary">
+                        <label for="Non-binary">Non-binary</label>
+                    </div>
+
+
+                    <div style="margin-top:10px">
+                        <label for="age-select">Your age:</label>
+
+                        <select name="ages" id="age-select" required>
+                            <option value="">--Please choose an option--</option>
+                            <option value="18-30">18-30</option>
+                            <option value="31-40">31-40</option>
+                            <option value="41-50">41-50</option>
+                            <option value="51-60">51-60</option>
+                            <option value=">60">>60</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-top:10px">
+                        <label for="country">Country of residence:</label>
+
+                        <input type="text" id="country" name="country" required>
+                    </div>
+
+                    <div style="margin-top:10px">
+                        <label for="edu-select">Level of education:</label>
+
+                        <select name="education" id="edu-select" required>
+                            <option value="">--Please choose an option--</option>
+                            <option value="a">No schooling completed, or less than 1 year,</option>
+                            <option value="b">Nursery, kindergarten, and elementary (grades 1-8)</option>
+                            <option value="c">Some high school, no diploma</option>
+                            <option value="d">High school (grades 9-12, no degree)</option>
+                            <option value="e">High school graduate (or equivalent)</option>
+                            <option value="f">Some college (1-4 years, no degree)</option>
+                            <option value="g">Associate’s degree (occupational & academic)</option>
+                            <option value="h">Bachelor’s degree (BA, BS, AB, etc)</option>
+                            <option value="i">Master’s degree (MA, MS, MENG, MSW, etc)</option>
+                            <option value="j">Professional school degree (MD, DDC, JD, etc)</option>
+                            <option value="k">Doctorate degree (PhD, EdD, etc)</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-top:10px">
+                        <textarea name="comment" style="resize:none" rows="10" cols="50"
+                                  placeholder="Do you have any comments for the study?."></textarea><br>
+                    </div>
+                </form>
 
                 <div class="infoDivButton">
                     <button class="infoButton">Submit</button>
                 </div>
-            </div>
+
         </div>
     </div>
 
