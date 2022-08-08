@@ -47,7 +47,6 @@ class TDGame {
         this.SLmode = null
         this.internMaxStep = this.settings.maxStep
         this.learningDone = 0
-        this.animationEnded = true
 
         this.gameLog = new GameLog(this.startTime, this.sliderDuration, this.sumWeight(),
             this.settings.shapeNames, this.settings.nbLocks, this.settings.nbTargets,
@@ -60,6 +59,36 @@ class TDGame {
 
         let closeBreak = document.querySelector(".infoDivNextButton")
         closeBreak.addEventListener('click', () => this.endBreak())
+
+        let form =document.querySelector("form")
+        form.addEventListener('submit', (event) => {
+            var data = new FormData(form)
+            var str = String(ipAddress)+",";
+            var line = '';
+            for (const entry of data) {
+                var value = entry[1] + "";
+                line += '"' + value.replace(/"/g, '""') + '",';
+            }
+            line = line.slice(0, -1);
+            str += line + '\r\n';
+            console.log(str)
+            event.preventDefault();
+
+            let options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({value: str})
+            }
+            console.log(options)
+            fetch('/userInfo', options).then(r => function (r) {
+                console.log('Log status: ' + r)
+            })
+
+            window.location='/thankPage.html';
+        },false)
+
     }
 
     // Called every frame

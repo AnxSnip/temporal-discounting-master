@@ -58,3 +58,33 @@ app.post('/logdata', (request, response) => {
         status: status,
     })
 })
+
+app.post('/userInfo', (request, response) => {
+    let path = 'rsc/data/userInfo.csv'
+    let data = request.body.value
+    let success = false
+
+    let header = 'user_ip,genre,Age,Country,Education,Commentary\n'
+
+    fs.writeFile(path, header, { flag: 'wx' }, function (err) {
+        if (err){
+            return
+        }
+        console.log("File created successfully");
+    });
+
+    fs.appendFile(path, data + '\n', function(err) {
+        if(err) {
+            console.log(path + ' : error while accessing: ' + err)
+            return
+        }
+        console.log('Data saved successfully')
+        success = true
+    })
+    let status = 'failure'
+    if(success)
+        status = 'success'
+    response.json({
+        status: status,
+    })
+})

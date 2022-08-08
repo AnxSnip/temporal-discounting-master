@@ -92,10 +92,10 @@ can not do the experiment more than once.
             <div class="infoTitle">END</div>
             <pre>
 Your results were recorded.
-Thank you for your participation.
+Please fill out this form to complete the experience.
             </pre>
 
-                <form action="/PLACEHOLDER" method="post">
+                <form id="form"  action="thankPage.html">
 
                     <legend>Your gender:</legend>
                     <div>
@@ -139,7 +139,7 @@ Thank you for your participation.
 
                         <select name="education" id="edu-select" required>
                             <option value="">--Please choose an option--</option>
-                            <option value="a">No schooling completed, or less than 1 year,</option>
+                            <option value="a">No schooling completed, or less than 1 year</option>
                             <option value="b">Nursery, kindergarten, and elementary (grades 1-8)</option>
                             <option value="c">Some high school, no diploma</option>
                             <option value="d">High school (grades 9-12, no degree)</option>
@@ -157,11 +157,10 @@ Thank you for your participation.
                         <textarea name="comment" style="resize:none" rows="10" cols="50"
                                   placeholder="Do you have any comments for the study?."></textarea><br>
                     </div>
+                    <div class="infoDivButton">
+                        <button class="infoButton" form="form" type="submit"  >Submit</button>
+                    </div>
                 </form>
-
-                <div class="infoDivButton">
-                    <button class="infoButton">Submit</button>
-                </div>
 
         </div>
     </div>
@@ -171,25 +170,7 @@ Thank you for your participation.
     <script type="module" src="rsc/assets/js/main.js"></script>
     <script src="rsc/assets/js/confetti.js"></script>
 
-    <script>
-        function sendEmail() {
-            const content = document.getElementById("experienceComment").value.replace(/\n\r?/g, '<br />');
-            if (content === '') return;
-            const mail = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: {}
-            };
-            mail.body = JSON.stringify({
-                content: content
-            });
-            fetch('/mail', mail);
-            console.log('mail sent');
-        }
-    </script>
-
+    <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
 </body>
 
 </html>
