@@ -63,8 +63,7 @@ class Timeline {
             stepString += " / " + this.gameInst.settings.maxStep
         let timerString = ""
         if(this.gameInst.settings.debug)
-            timerString = " Time left: " + Math.max(0,(Timeline.msToSeconds(this.gameInst.getMaxTime() -
-                this.gameInst.getCurrTime()))) + "s"
+            timerString = " Time passed: " + Math.max(0,(Timeline.msToSeconds(this.gameInst.getCurrTime()))) + "s"
         this.context.fillText(stepString + timerString , textX, textY)
 
         let i = 0
@@ -97,7 +96,7 @@ class Timeline {
 
     static msToSeconds(time) {
         let s = time / 1000
-        return (Math.round(s * 100) / 100).toFixed(2)
+        return (Math.round(s * 100) / 100).toFixed(0)
     }
 }
 
