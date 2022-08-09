@@ -63,8 +63,9 @@ async function Game() {
             // Initialize game logic component
             let tdGame = new TDGame(settings, ipAddress)
 
+            let timelineSize = 20
             // Initialize playfield (Grid of shapes)
-            let playfieldTop = 60
+            let playfieldTop = 20 + 18 + 20 + timelineSize * json.nbBlock
             let playfieldLeft = 20
             // TODO: This should be determined depending on grid size
             let playfieldHeight = 510
@@ -73,10 +74,15 @@ async function Game() {
                 framerate, playfieldHeight, playfieldWidth, settings.gridWidth, settings.gridHeight,
                 cellSize, playfieldTop, playfieldLeft, stroke)
 
+
+            // Initialize timeline
+            let timeline = new Timeline(document.getElementById("timelineCanvas"),
+                timelineSize, playfieldLeft, 64, shapeWeights )
+
             // Initialize target canvas (Target shape indicator)
             let targetCanvasLeft = playField.width + playfieldLeft + 6
             let targetCanvas = new TargetCanvas(document.getElementById("targetCanvas"),
-                160, 160, 50, cellSize,
+                160, 160, playfieldTop+50, cellSize,
                  60, targetCanvasLeft, stroke)
 
             // Initialize target canvas (Lock status panel)
@@ -84,16 +90,13 @@ async function Game() {
             let learningPanel = new LearningPanel(document.getElementById("learningCanvas"),
                 cellSize, settings.nbLocks, settings.shapeNames, playfieldTop, learningPanelLeft, stroke)
 
-            // Initialize timeline
-            let timeline = new Timeline(document.getElementById("timelineCanvas"),
-                20, playfieldLeft, 64, shapeWeights * 6)
 
             // Initialize button that needs to be clicked by the user to proceed to next step
             let nextButton = document.getElementById("nextButton")
             nextButton.style.display = ''
             nextButton.style.top = String(500) + "px;"
             nextButton.style.marginLeft = String(targetCanvasLeft + 4) + "px"
-            nextButton.style.marginTop = String(280) + "px"
+            nextButton.style.marginTop = String(playfieldTop +280) + "px"
             nextButton.disabled = true
 
             // Bind visual elements to game logic

@@ -2,3 +2,5 @@
 /app/myexpress-init/**
 /report/**
 /visualisation/**
+app/rsc/data/gameData.csv
+app/testSettings/testSettings.json

@@ -5,12 +5,12 @@ class Timeline {
         this.size = size
         this.margin = 20
         this.index_size = (size / 2) + 3
-        this.height = size + 2 * this.margin
+        this.height = maxShapes*(size+10) + 2 * this.margin
         this.width = size * step
 
         this.font = "bold 24px arial"
         this.fontColor = "darkgrey"
-        this.indexColor = "darkgrey"
+        this.indexColor = "black"
         this.timelineBoardColor = "white"
 
         this.timelineElement = timelineElement
@@ -22,7 +22,7 @@ class Timeline {
         this.gameInst = null
         this.maxShapes = maxShapes
         this.indexer = new Indexer(this.getDrawX(0), this.getDrawY(),
-            this.index_size, this.index_size, this.context, this.indexColor);
+            this.index_size, this.index_size, this.context, this.indexColor,this.maxShapes,this.size);
         this.step = -1
     }
 
@@ -34,7 +34,7 @@ class Timeline {
         this.shapeTimeline = []
         for(let i = 0; i < this.gameInst.shapeBacklog.length; i++){
             this.shapeTimeline.push(tdGame.shapeFromName(this.gameInst.shapeBacklog[i],
-                this.getDrawX(i), this.getDrawY(),
+                this.getDrawX(i%this.maxShapes), this.getDrawY() + Math.floor(i/this.maxShapes)*(this.size/2 +10),
                 this.size, false, this.context))
         }
     }
@@ -49,7 +49,9 @@ class Timeline {
     }
 
     updateIndexer(step) {
-        this.indexer.x = this.getDrawX(step)
+        this.indexer.x = this.getDrawX(step%this.maxShapes)
+        this.indexer.y = this.getDrawY() + Math.floor(step/this.maxShapes)*(this.size/2 +10)
+        this.indexer.currentBlock = Math.floor(step/this.maxShapes)
     }
 
     drawStep(){
@@ -71,8 +73,6 @@ class Timeline {
             if(i<this.step){
                 shape.grey = true
             }
-            if(i >= this.maxShapes)
-                break
             shape.draw()
             i++
         }
@@ -101,19 +101,34 @@ class Timeline {
 }
 
 class Indexer {
-    //sqare in the timeline canvas showing the current form to select
-    constructor(x, y, w, h, ctx, color) {
+
+    //square in the timeline canvas showing the current form to select
+    constructor(x, y, w, h, ctx, color,maxShape,size) {
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
         this.ctx = ctx;
         this.color = color
+        this.currentBlock = 0
+        this.maxShape = maxShape
+        this.size = size
     }
 
     draw() {
         this.ctx.strokeStyle = this.color;
         this.ctx.strokeRect(this.x - this.w / 2, this.y - this.h / 2, this.w, this.h);
+
+        let rect =new Path2D()
+        rect.moveTo(0,38 + this.currentBlock*this.size)
+        rect.lineTo(0,38 + (this.currentBlock+1)*this.size )
+        rect.lineTo(this.size*this.maxShape,38+(this.currentBlock+1)*this.size)
+        rect.lineTo(this.size*this.maxShape,38 + this.currentBlock*this.size)
+        rect.lineTo(this.size,38 + this.currentBlock*this.size)
+        rect.closePath()
+        this.ctx.fillStyle = "#D3D3D320"
+        this.ctx.fill(rect,"evenodd")
+
     }
 }
 

@@ -12,6 +12,7 @@ class Circle extends Shape {
         this.colorUnlit = "#4169e1"
         this.colorLit = "lightsteelblue"
         this.marginFactor = minSize / 16
+        this.colorGrey = "#4169e180"
     }
 
     draw() {
