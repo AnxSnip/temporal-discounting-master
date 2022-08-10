@@ -69,8 +69,6 @@ class LearningPanel{
 
     }
 
-
-
     destroySlider() {
         if(this.slider) {
             this.sliderLifeTimeIfKilled = this.slider.getLifeTime()
@@ -129,7 +127,6 @@ class LearningPanel{
         this.unlockUsed = false
     }
 
-
     unlockClick(event){
         if(!this.unlockButtonClickable)
             return
@@ -151,6 +148,7 @@ class LearningPanel{
         return tdGame.shapeFromName(this.gameInst.currShape, this.width / 2, this.height / 2,
             this.cellSize, false, this.context)
     }
+
     processUnlock() {
         this.sliderLifeTimeIfKilled = this.slider.getLifeTime()
         this.slider.killSlider()
@@ -159,7 +157,6 @@ class LearningPanel{
         this.unlockUsed = true
         this.gameInst.nextButton.disabled = false
     }
-
 
     getDrawX() {
         return 3 / 4 * this.cellSize
@@ -198,6 +195,12 @@ class LearningPanel{
                 if(j < shapeLockState){
                     lockImg = this.imgUnlock
                 }
+                if(shapeLockState === j && i ===this.getShapeIndex()){
+                    this.context.strokeStyle = "#5e5d5d";
+
+                    this.context.strokeRect(this.getImgX(j)-5, this.getImgY(i)-5 ,
+                        this.imgWidth +10, this.imgHeight +10);
+                }
                 this.context.drawImage(lockImg, this.getImgX(j), this.getImgY(i),
                     this.imgWidth, this.imgHeight)
             }
@@ -226,6 +229,22 @@ class LearningPanel{
         if(this.slider) {
             this.slider.killSlider()
             this.slider = null
+        }
+    }
+
+    getShapeIndex(){
+        switch (this.gameInst.currShape){
+            case "Triangle":
+                return 0;
+
+            case "Circle":
+                return 1;
+            case "Square":
+                return 2;
+            case "Cross":
+                return 3;
+            default:
+                console.log('error at getting learning shape')
         }
     }
 }
@@ -322,4 +341,6 @@ class Slider {
         }
     }
 }
+
+
 export default LearningPanel
