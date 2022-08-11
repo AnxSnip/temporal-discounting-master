@@ -9,25 +9,12 @@
 </head>
 
 <body>
-    <div class="blackBG"></div>
-    <div id="explainGameBox" class="infoBox">
-        <div class="infoTitle">Tutorial: Novice Mode</div>
-        <pre>
-Learn to use the <b>Novice</b> mode.
-            </pre>
-        <pre id="tuto1step1">
-1. Click all shapes on the grid matching the target.
-</pre>
-        <pre id="tuto1step2">
-2. The "Next" button will unlock and may be clicked to continue.
-</pre>
-        <pre id="tuto1step3">
-3. Repeat twice.
-</pre>
+    <div class="blackBG" ></div>
+    <div id="explainGameBox" class="infoBox" >
+        <div id="infoTitle" class="infoTitle"></div>
 
-        <!--<div class="infoDivButton">
-                <button class="infoButton" onclick="goToSlideTuto(int(2))">START TUTORIAL</button>
-            </div>-->
+        <pre id="ExplainText"></pre>
+
         <div id="boardTuto1" class="board">
             <div class="container">
                 <canvas id="timelineCanvasTuto1" class="timelineCanvas"></canvas>

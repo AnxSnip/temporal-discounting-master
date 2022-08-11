@@ -54,7 +54,7 @@ class TargetCanvas {
         this.context.fillStyle = this.targetColorFont
         this.context.font = "bold 18px arial"
         this.context.textAlign = "center"
-
+        this.context.fillText("TARGET", this.width / 2, this.height -25);
     }
 
     getTargetShape(){

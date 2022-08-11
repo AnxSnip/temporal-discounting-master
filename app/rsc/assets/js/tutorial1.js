@@ -3,27 +3,20 @@ import Circle from "./shapes/circle.js";
 import Square from "./shapes/square.js";
 import Cross from "./shapes/cross.js";
 
+
+
 //-----------------------------------------------------------------------------------
 //                            GAME PARAMETERS
 //-----------------------------------------------------------------------------------
 var STEP = 3;
 var NB_LOCKS = 1;
-var NB_SLIDES = 4;
-var TIME_SLIDER = 2000;
 var formsList = ["Square", "Circle", "Triangle"];
-var NB_TARGET_TO_SELECT = 3;
-var BETWEEN_ELEMENT_INDEX = 0;
-var nbBlocksToDo = 1;
-var nbFormsByBlock = 3;
-var blockFormFrequence = { 'Circle': 3 };
-var easyMode = true;
+var NB_TARGET_TO_SELECT = 6;
+var startTime = null
+var stopTime = null
 var displayTimeline = true;
-var unlockDone = 0; //var saying how current target was unlocked
-var currentUnlockTime = -1;
-
-const VIBRATION_STEP = 8;
 const learningState = { 'Square': 0, 'Circle': 0, 'Triangle': 0, 'Cross': 0 };
-const initDate = new Date(Date.now());
+
 
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -33,14 +26,12 @@ function shuffle(array) {
         array[j] = temp
     }
 }
-
-//useful for array sum
-const reducer = (accumulator, currentValue) => accumulator + currentValue;
-
 //launch Game
 GameTuto1();
 
 function GameTuto1() {
+
+
     class Indexer {
         constructor(x, y, w, h, ctx = ctxTimeline) {
             this.x = x;
@@ -55,67 +46,15 @@ function GameTuto1() {
         }
     }
 
-    class Button {
-        constructor(x, y, w, h, radius, context) {
-            this.w = w;
-            this.h = h;
-            this.bottom = y + h / 2;
-            this.top = y - h / 2;
-            this.right = x + w / 2;
-            this.left = x - w / 2;
-            this.radius = radius;
-            this.highlight = false;
-            //this.selectable = selectable;
-            //this.selected = false;
-            this.ctx = context; //necessary because of different canvas
-        }
-
-        draw() {
-            if (this.highlight) {
-                this.ctx.fillStyle = UNLOCK_BUTTON_COLOR_LIT;
-            } else {
-                this.ctx.fillStyle = UNLOCK_BUTTON_COLOR;
-            }
-            this.ctx.beginPath();
-            this.ctx.strokeStyle = UNLOCK_BUTTON_COLOR_STROKE;
-            this.ctx.lineWidth = "4";
-            this.ctx.moveTo(this.left + this.radius, this.top);
-            this.ctx.lineTo(this.right - this.radius, this.top);
-            this.ctx.quadraticCurveTo(this.right, this.top, this.right, this.top + this.radius);
-            this.ctx.lineTo(this.right, this.bottom - this.radius);
-            this.ctx.quadraticCurveTo(this.right, this.bottom, this.right - this.radius, this.bottom);
-            this.ctx.lineTo(this.left + this.radius, this.bottom);
-            this.ctx.quadraticCurveTo(this.left, this.bottom, this.left, this.bottom - this.radius);
-            this.ctx.lineTo(this.left, this.top + this.radius);
-            this.ctx.quadraticCurveTo(this.left, this.top, this.left + this.radius, this.top);
-            this.ctx.fill();
-            this.ctx.stroke();
-        }
-
-        contains(x, y) {
-            //method wich return true if (x,y) inside of the square
-            return x > this.left && x < this.right && y > this.top && y < this.bottom;
-        }
-    }
-    //-----------------------------end class-------------------------------------
-    //###################################################################################
-
-
-
     //--------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------
-    //                        set up the timeline canvas 
-    //----------------------errors----------------------------------------------------------
-    //var STEP = 5;
+    //                        set up the timeline canvas
+
     const MIN_SIZE = 20;
-    const MIN_CIRCLE_RADIUS = MIN_SIZE / 4; //
-    const MIN_SQUARE_SIZE = MIN_SIZE / 2; //      Same ratio
-    const MIN_TRIANGLE_HEIGHT = MIN_SIZE / 2; //      as before
-    const MIN_CROSS_THICKNESS = MIN_SIZE / 8; //
     const TL_MARGIN = 20; //Timeline margin to write step
-    const INDEX_SIZE = MIN_SQUARE_SIZE + 3;
+    const INDEX_SIZE = MIN_SIZE / 2 + 3;
     const TL_HEIGHT = MIN_SIZE + 2 * TL_MARGIN; //timeline height
-    const TL_WIDTH = 2 * MIN_SIZE * STEP; //timeline width
+    const TL_WIDTH = 550; //timeline width
 
     const COLOR_FONT = "darkgrey";
     const COLOR_INDEX = "darkgrey";
@@ -124,8 +63,8 @@ function GameTuto1() {
     var canvTimeline = document.getElementById("timelineCanvasTuto1");
     canvTimeline.height = TL_HEIGHT;
     canvTimeline.width = TL_WIDTH;
-    //canvTimeline.style.marginTop = "100 px;";
-
+    document.getElementById("ExplainText").innerText = "Click on all orange triangles below as fast as possible."
+    document.getElementById("infoTitle").innerText = "Practice: Novice Mode (1/3)"
     var currentStep = 0;
 
     //set up context
@@ -133,39 +72,10 @@ function GameTuto1() {
     //index
     var indexStep = new Indexer(getTimelineGridX(0), getTimelineGridY(), INDEX_SIZE, INDEX_SIZE);
 
-    var formTimeline = [];
+    var formTimeline = [new Triangle(getTimelineGridX(0), getTimelineGridY(), MIN_SIZE, false, ctxTimeline),
+        new Square(getTimelineGridX(1), getTimelineGridY(), MIN_SIZE, false, ctxTimeline),
+            new Circle(getTimelineGridX(2), getTimelineGridY(), MIN_SIZE, false, ctxTimeline)];
 
-    for (let i = 0; i < nbBlocksToDo; i++) {
-        var formToAdd = JSON.parse(JSON.stringify(blockFormFrequence));
-
-        for (let j = 0; j < nbFormsByBlock; j++) {
-            var currentIndex = i * nbFormsByBlock + j;
-            var currentForm = null;
-            var tempFormSelected = Object.keys(formToAdd)[Math.floor(Math.random() * Object.keys(formToAdd).length)]
-            formToAdd[tempFormSelected] -= 1;
-            if (formToAdd[tempFormSelected] == 0) {
-                delete formToAdd[tempFormSelected];
-            }
-            switch ("Triangle") {
-                case "Square":
-                    currentForm = new Square(getTimelineGridX(currentIndex),getTimelineGridY(), MIN_SIZE, false, ctxTimeline)
-                    break;
-                case "Circle":
-                    currentForm = new Circle(getTimelineGridX(currentIndex),getTimelineGridY(), MIN_SIZE, false, ctxTimeline)
-                    break;
-                case "Triangle":
-                    currentForm = new Triangle(getTimelineGridX(currentIndex),getTimelineGridY(), MIN_SIZE, false, ctxTimeline)
-                    break;
-                case "Cross":
-                    currentForm = new Cross(getTimelineGridX(currentIndex),getTimelineGridY(), MIN_SIZE, false, ctxTimeline)
-                    break;
-                default:
-                    console.log("Error while selecting forms for the timeline");
-                    break;
-            }
-            formTimeline[currentIndex] = currentForm;
-        }
-    }
 
     var nameCurrentForm = formTimeline[0].constructor.name;
 
@@ -183,9 +93,18 @@ function GameTuto1() {
     }
 
     function drawStep() {
+        let timerString =""
+        if(startTime!==null){
+            if (stopTime === null){
+                timerString = " Time passed: " + Math.max(0,(msToSeconds(Date.now() - startTime))) + "s"
+            }else{
+                timerString = " Time passed: " + Math.max(0,(msToSeconds(stopTime - startTime))) + "s"
+            }
+        }
         ctxTimeline.fillStyle = COLOR_FONT;
         ctxTimeline.font = "bold 18px arial";
-        ctxTimeline.fillText("Step " + (currentStep + 1) + "/" + STEP, 2, 23);
+        let stepString = "Step " + (currentStep + 1) + "/" + STEP
+        ctxTimeline.fillText(stepString+timerString, 2, 23);
         if (displayTimeline) {
             for (let form of formTimeline) {
                 form.draw();
@@ -196,9 +115,9 @@ function GameTuto1() {
 
     function drawTimelineBoard() {
         ctxTimeline.fillStyle = COLOR_TIMELINEBOARD;
-        //ctxTimeline.strokeStyle = COLOR_TIMELINEBOARDER;
         ctxTimeline.fillRect(0, 0, TL_WIDTH, TL_HEIGHT);
-        //ctxTimeline.strokeRect(STROKE / 2, STROKE / 2, WIDTH - STROKE, HEIGHT - STROKE)
+
+
     }
     //-----------------------------------------------------------------------------------
     //                              set up formBoardCanvas
@@ -207,42 +126,25 @@ function GameTuto1() {
     const FPS = 30; //frames per second
     const HEIGHT = 382;
     const WIDTH = 371;
-    const GRID_SIZE = 3; //number of rows(and columns)
+    const GRID_SIZE = 5; //number of rows(and columns)
 
     const CELL = WIDTH / (GRID_SIZE + 2); //size of cells
     const STROKE = CELL / 12; //stroke width
-    const CIRCLE_RADIUS = CELL / 4;
-    const SQUARE_SIZE = CELL / 2;
-    const TRIANGLE_HEIGHT = CELL / 2;
-    const CROSS_THICKNESS = CELL / 8;
     const MARGIN = 3 / 2 * CELL; //HEIGHT - (GRID_SIZE + 1) * CELL; //top margin for scores
-    const SELECT_MARGIN = CELL / 8;
+
 
     //colours
     const COLOR_BOARD = "gainsboro";
     const COLOR_BOARDER = "grey";
-    const COLOR_SQUARE = "crimson";
-    const COLOR_SQUARE_LIT = "lightpink";
-    const COLOR_CROSS = "limegreen";
-    const COLOR_CROSS_LIT = "lightgreen";
-    const COLOR_CIRCLE = "royalblue";
-    const COLOR_CIRCLE_LIT = "lightsteelblue";
-    const COLOR_TRIANGLE = "darkorange";
-    const COLOR_TRIANGLE_LIT = "#ffcc66";
-    const COLOR_SELECT = "white";
-
     //set up game canvas 
     var canv = document.getElementById("formsBoardCanvasTuto1");
     canv.height = HEIGHT;
     canv.width = WIDTH;
     canv.style.marginTop = String(TL_HEIGHT) + "px"; //set the top here because of canvasTiimeline changing size
-    //document.body.appendChild(canv); //have to attach it to html (if created in js file)
-    var canvBoundings = canv.getBoundingClientRect();
 
     //set up context
     var ctxFormsBoard = canv.getContext("2d");
     ctxFormsBoard.lineWidth = STROKE;
-
 
     //start a new game with tab of differents forms
     var boardInfos = newGame(formTimeline[0].constructor.name);
@@ -260,9 +162,7 @@ function GameTuto1() {
         drawForms(formsBoard);
         drawTimelineBoard();
         drawStep();
-        //drawScore();
         drawTarget();
-        //drawLearning();
     }
 
     function drawBoard() {
@@ -270,6 +170,11 @@ function GameTuto1() {
         ctxFormsBoard.strokeStyle = COLOR_BOARDER;
         ctxFormsBoard.fillRect(0, 0, WIDTH, HEIGHT);
         ctxFormsBoard.strokeRect(STROKE / 2, STROKE / 2, WIDTH - STROKE, HEIGHT - STROKE);
+
+        ctxFormsBoard.fillStyle = "black";
+        ctxFormsBoard.font = "bold 18px arial";
+        ctxFormsBoard.textAlign = "center";
+        ctxFormsBoard.fillText("GRID", WIDTH / 2, HEIGHT -25);
     }
 
     function drawForms(formsBoard) {
@@ -362,6 +267,9 @@ function GameTuto1() {
     }
 
     function selectForm( /* type MouseEvent*/ event) {
+        if(startTime===null){
+            startTime = Date.now()
+        }
         //get mouse position relative to the canvas
         let x = event.offsetX;
         let y = event.offsetY;
@@ -376,12 +284,11 @@ function GameTuto1() {
                     } else {
                         form.selected = true;
                         nbCurrentFormSelected++;
-                        document.getElementById("tuto1step1").style.color = "#4CAF50";
-                        if (learningState[form.constructor.name] == NB_LOCKS) {
+                        if (learningState[form.constructor.name] === NB_LOCKS) {
                             selectAllUnlockForm = form.constructor.name;
                         } else if (nbCurrentFormSelected >= nbFormToSelect) {
+                            stopTime = Date.now()
                             document.getElementById("nextButtonTuto1").disabled = false;
-                            document.getElementById("tuto1step2").style.color = "#4CAF50";
                         }
                         break OUTER; //if one form is to highlight no need to look further
                     }
@@ -389,10 +296,10 @@ function GameTuto1() {
             }
         }
 
-        if (selectAllUnlockForm != 'none') {
+        if (selectAllUnlockForm !== 'none') {
             for (let row of formsBoard) {
                 for (let form of row) {
-                    if (form.constructor.name == selectAllUnlockForm && form.selectable && !form.selected) {
+                    if (form.constructor.name === selectAllUnlockForm && form.selectable && !form.selected) {
                         form.selected = true; //create this attribute !
                         nbCurrentFormSelected++;
                     }
@@ -404,22 +311,32 @@ function GameTuto1() {
     }
 
     function gameUpdate() {
-        //update Game Variable to save :
-        //update Game
-        start = new Date(); //useful for chrono
+        startTime = Date.now()
+        stopTime = null
         formTimeline[currentStep].highlight = true;
         currentStep++;
-        //currentScore += 10;
-        unlockable = true; //to authorize to unlock again
-        sliderable = true; //to authorize to slider again
+        let TextElement = document.getElementById("ExplainText")
+        let TextTitle = document.getElementById("infoTitle")
         if (currentStep >= STEP) {
             console.log("END OF THE GAME");
             document.getElementById("boardTuto1").style.display = 'none';
             document.getElementById("buttonToTuto2").style.display = '';
-
-            document.getElementById("tuto1step4").style.color = "#4CAF50";
-
+            TextElement.innerText = "You just learned how to use NOVICE mode of the game.  \n" +
+                "\n" +
+                "The game also has an EXPERT mode where you need only one click per target. \n" +
+                "\n" +
+                "Click on the button “Next” to practice the EXPERT mode.\n"
+            TextTitle.style.fontSize = '14px'
+            TextTitle.innerText = "CONGRATULATIONS!"
             return;
+        }
+        if(currentStep === 1 ){
+            TextElement.innerText = "Click on all red rectangles below as fast as possible."
+            TextTitle.innerText = "Practice: Novice Mode (2/3)"
+        }
+        if(currentStep === 2 ){
+            TextElement.innerText = "Click on all blue circles below as fast as possible."
+            TextTitle.innerText = "Practice: Novice Mode (3/3)"
         }
         //set current parameters
         nameCurrentForm = formTimeline[currentStep].constructor.name;
@@ -430,45 +347,9 @@ function GameTuto1() {
         nbFormToSelect = boardInfos.nbFormToSelect;
         nbCurrentFormSelected = 0;
         nextButton.disabled = true;
-        unlockDone = 0;
-        currentUnlockTime = -1;
+
     }
-    /*
-        //------------------------------------------------------------------------------
-        //                             scoreCanvas
-        //------------------------------------------------------------------------------
-    */
-    const SC_HEIGHT = 0;
-    const SC_WIDTH = 160;
-    /*    const SCORE_COLOR_FONT = COLOR_BOARDER;
 
-        var scoreCanvas = document.getElementById("scoreCanvas");
-        scoreCanvas.height = SC_HEIGHT;
-        scoreCanvas.width = SC_WIDTH;
-        //scoreCanvas.style.top = String(TL_HEIGHT) + "px";
-        scoreCanvas.style.left = String(WIDTH + STROKE) + "px";
-
-        //score value
-        var currentScore = 0;
-
-        //set up context
-        var ctxScore = scoreCanvas.getContext("2d");
-        ctxScore.lineWidth = STROKE;
-
-        //--------------------------------  function ---------------------------------
-        function drawScore() {
-            //draw Score Board
-            ctxScore.fillStyle = COLOR_BOARD;
-            ctxScore.strokeStyle = COLOR_BOARDER;
-            ctxScore.fillRect(0, 0, SC_WIDTH, SC_HEIGHT);
-            ctxScore.strokeRect(STROKE / 2, STROKE / 2, SC_WIDTH - STROKE, SC_HEIGHT - STROKE);
-            //draw the text
-            ctxScore.fillStyle = SCORE_COLOR_FONT;
-            ctxScore.font = "bold 18px arial";
-            ctxScore.textAlign = "center";
-            ctxScore.fillText("SCORE : " + currentScore, SC_WIDTH / 2, SC_HEIGHT / 2 + 7); //magic numbers ...
-        }
-    */
     //------------------------------------------------------------------------------
     //                             targetCanvas
     //------------------------------------------------------------------------------
@@ -477,203 +358,22 @@ function GameTuto1() {
     const TC_WIDTH = 160; //target canvas width
     const TC_TOP_MARGIN = 50;
     const TC_CELL = 100;
-    const TC_CIRCLE_RADIUS = TC_CELL / 4;
-    const TC_SQUARE_SIZE = TC_CELL / 2;
-    const TC_TRIANGLE_HEIGHT = TC_CELL / 2;
-    const TC_CROSS_THICKNESS = TC_CELL / 8;
     const TARGET_COLOR_FONT = "red";
-    const UNLOCK_X = TC_WIDTH / 2;
-    const UNLOCK_Y = TC_HEIGHT - 30;
-    const UNLOCK_W = 2 / 3 * TC_WIDTH;
-    const UNLOCK_H = 33;
-    const UNLOCK_RADIUS = 10;
-    const UNLOCK_BUTTON_COLOR = "white";
-    const UNLOCK_BUTTON_COLOR_LIT = "gray";
-    const UNLOCK_BUTTON_COLOR_STROKE = "darkgrey";
+
 
     var targetCanvas = document.getElementById("targetCanvasTuto1");
     targetCanvas.height = TC_HEIGHT;
     targetCanvas.width = TC_WIDTH;
-    targetCanvas.style.marginTop = String(TL_HEIGHT + SC_HEIGHT + TC_TOP_MARGIN) + "px";
+    targetCanvas.style.marginTop = String(TL_HEIGHT + TC_TOP_MARGIN) + "px";
     targetCanvas.style.left = String(WIDTH + STROKE) + "px";
-    var targetCanvasBoundings = targetCanvas.getBoundingClientRect();
-    var targetSelectable = false; //authorize to clic on the target to unlock
-    //chrono variables
-    var start = new Date(); //begin the timer
-    var end = 0;
-    var diff = 0;
-    var timer = "00:00";
 
     //set up context
     var ctxTarget = targetCanvas.getContext("2d");
     ctxTarget.lineWidth = STROKE;
 
     var currentTarget = createTarget(formTimeline[0].constructor.name);
-    var sliderDisplaySpan;
-
-    //condition to kill slider
-    var timerComplete = false;
-    var nbSlideComplete = false;
-
-    //to authorize only one unlock at the time
-    var unlockable = true;
-    //to authorize only one slider at the time
-    var sliderable = true;
-    //unlock button
-    var unlockButton = new Button(UNLOCK_X, UNLOCK_Y, UNLOCK_W, UNLOCK_H, UNLOCK_RADIUS, ctxTarget);
-
-    targetCanvas.addEventListener("mousemove", (event) => {
-        highlightTarget(event);
-        highlightButton(event);
-    }); //add highlights just with mousemouve
-    targetCanvas.addEventListener("mousedown", (event) => {
-        unlocker(event);
-        selectTarget(event);
-    }); //add highlights with mouse click
 
     //--------------------------------  function ---------------------------------
-    function highlightButton( /* type MouseEvent*/ event) {
-        if (!unlockButton) return;
-        //get mouse position relative to the canvas
-        let x = event.offsetX;
-        let y = event.offsetY;
-        //reset cursor done by highlightTarget()
-
-        //clear previous highlight
-        unlockButton.highlight = false;
-
-        //look for forms to highlight
-        if (unlockButton.contains(x, y)) {
-            if (nbCurrentFormSelected >= nbFormToSelect) {
-                unlockButton.highlight = true;
-                document.body.style.cursor = "pointer";
-            } else {
-                document.body.style.cursor = "not-allowed";
-            }
-
-        }
-    }
-
-    function unlocker( /* type MouseEvent*/ event) {
-        if (!unlockButton) return;
-        //get mouse position relative to the canvas
-        let x = event.offsetX;
-        let y = event.offsetY;
-        if (unlockButton.contains(x, y) && nbCurrentFormSelected >= nbFormToSelect && learningState[nameCurrentForm] != NB_LOCKS) {
-            unlockDone = 2;
-            sliderDisplay();
-            unlockButton = null;
-        }
-    }
-
-    function sliderDisplay() {
-        if (!sliderable) {
-            return;
-        } else {
-            sliderable = false;
-        }
-        sliderDisplaySpan = Date.now();
-        var startTimeSlider;
-        const slider = document.createElement('input');
-        slider.id = 'slider';
-        slider.type = 'range'
-        slider.style.marginTop = String(TL_HEIGHT + SC_HEIGHT + 2 * TC_TOP_MARGIN + TC_HEIGHT) + "px";
-        slider.style.left = String(WIDTH + STROKE) + "px";
-        slider.style.position = 'absolute';
-        slider.style.width = String(TC_WIDTH - STROKE) + "px";
-        slider.onmouseover = function() { this.style.cursor = 'grab' };
-        slider.onmousedown = function() {
-            this.style.cursor = 'grabbing';
-            startTimeSlider = Date.now();
-        };
-        slider.onmouseup = function() { this.style.cursor = 'grab' };
-        var color;
-        switch (nameCurrentForm) {
-            case 'Square':
-                color = COLOR_SQUARE;
-                break;
-            case 'Circle':
-                color = COLOR_CIRCLE;
-                break;
-            case 'Triangle':
-                color = COLOR_TRIANGLE;
-                break;
-            case 'Cross':
-                color = COLOR_CROSS;
-                break;
-        }
-        slider.style.background = color;
-        var nbSlide = 0;
-        var oldValue = 0;
-        var slideDirection = 'right';
-        slider.oninput = (slider = this) => {
-            unlockDone = 3;
-            //timer part
-            if (Date.now() - startTimeSlider > TIME_SLIDER) {
-                timerComplete = true;
-                unlock();
-            }
-            //action part
-            var newValue = parseInt(slider['target'].value);
-            if (slideDirection == 'right') {
-                if (newValue >= oldValue) {
-                    oldValue = newValue;
-                } else {
-                    oldValue = newValue;
-                    slideDirection = 'left';
-                    nbSlide++;
-                }
-            } else {
-                if (newValue <= oldValue) {
-                    oldValue = newValue;
-                } else {
-                    oldValue = newValue;
-                    slideDirection = 'right';
-                    nbSlide++;
-                }
-            }
-
-            //unclock part
-            if (nbSlide > NB_SLIDES) {
-                nbSlideComplete = true;
-                unlock();
-            }
-        }
-        document.body.appendChild(slider);
-    }
-
-    function unlock() {
-        if (!(timerComplete && nbSlideComplete)) {
-            return
-        }
-        if (!unlockable) return;
-        if (learningState[nameCurrentForm] == NB_LOCKS) return;
-        if (firstUnlockOccurence[nameCurrentForm] < 0) firstUnlockOccurence[nameCurrentForm] = jsonOccurence[nameCurrentForm];
-        if (firstUnlockTrial[nameCurrentForm] < 0) firstUnlockTrial[nameCurrentForm] = currentStep + 1; //+1 'cause current step start from 0
-        lastUnlockOccurence[nameCurrentForm] = jsonOccurence[nameCurrentForm];
-        lastUnlockTrial[nameCurrentForm] = currentStep + 1;
-        //next if is to test if learning state can improve
-        if (learningState[nameCurrentForm] < NB_LOCKS) {
-            learningState[nameCurrentForm] += 1;
-            unlockable = false;
-            unlockDone = 1; //for listTryUnlock
-            var timestamp = Date.now();
-            currentUnlockTime = (timestamp - start);
-            nbLockOpened++;
-        }
-        sliderDisplaySpan = Date.now() - sliderDisplaySpan;
-        killSlider();
-        timerComplete = false;
-        nbSlideComplete = false;
-    }
-
-    function killSlider() {
-        try {
-            document.getElementById('slider').remove();
-        } catch {
-            console.log('slider already killed');
-        }
-    }
 
     function drawTarget() {
         //draw Target Board
@@ -683,49 +383,26 @@ function GameTuto1() {
         ctxTarget.strokeRect(STROKE / 2, STROKE / 2, TC_WIDTH - STROKE, TC_HEIGHT - STROKE);
         //draw the target
         currentTarget.draw();
-        //draw chronometer
-        chronometer();
-        ctxTarget.fillStyle = TARGET_COLOR_FONT;
-        ctxTarget.font = "bold 24px arial";
-        ctxTarget.textAlign = "center";
-        // ctxTarget.fillText(timer, TC_WIDTH / 2, 33);
-        //draw unlock button
-        unlockButton = false;
-        if (unlockButton) unlockButton.draw();
-        //draw unlock text
         ctxTarget.fillStyle = TARGET_COLOR_FONT;
         ctxTarget.font = "bold 18px arial";
         ctxTarget.textAlign = "center";
-        var text = "UNLOCK";
-        //if (learningState[nameCurrentForm] == NB_LOCKS) text = "UNLOCKED";
-        if (true) text = "TARGET";
-        else if (!unlockButton) text = '';
-        ctxTarget.fillText(text, TC_WIDTH / 2, UNLOCK_Y + 5);
+        ctxTarget.fillText("TARGET", TC_WIDTH / 2, TC_HEIGHT -25);
     }
 
     function createTarget(currentTargetName) {
-        //recreation du bouton si necessaire
-        unlockButton = null;
-        if (!(learningState[nameCurrentForm] == NB_LOCKS)) {
-            unlockButton = new Button(UNLOCK_X, UNLOCK_Y, UNLOCK_W, UNLOCK_H, UNLOCK_RADIUS, ctxTarget);
-        }
         //creation of the target form
         switch (currentTargetName) {
             case "Square":
-                targetSelectable = learningState["Square"] == NB_LOCKS ? true : false;
-                currentTarget = new Square(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, targetSelectable, ctxTarget);
+                currentTarget = new Square(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
                 break;
             case "Circle":
-                targetSelectable = learningState["Circle"] == NB_LOCKS ? true : false;
-                currentTarget = new Circle(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, targetSelectable, ctxTarget);
+                currentTarget = new Circle(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
                 break;
             case "Triangle":
-                targetSelectable = learningState["Triangle"] === NB_LOCKS ? true : false;
-                currentTarget = new Triangle(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, targetSelectable, ctxTarget);
+                currentTarget = new Triangle(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
                 break;
             case "Cross":
-                targetSelectable = learningState["Cross"] == NB_LOCKS ? true : false;
-                currentTarget = new Cross(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, targetSelectable, ctxTarget);
+                currentTarget = new Cross(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
                 break;
             default:
                 console.log("Error while selecting forms for the target");
@@ -734,172 +411,28 @@ function GameTuto1() {
         return currentTarget;
     }
 
-    function chronometer() {
-        end = new Date();
-        diff = end - start;
-        diff = new Date(diff);
-        var sec = diff.getSeconds();
-        var min = diff.getMinutes();
-        if (min < 10) {
-            min = "0" + min;
-        }
-        if (sec < 10) {
-            sec = "0" + sec;
-        }
-        timer = min + ":" + sec;
-        return timer;
+     function msToSeconds(time) {
+        let s = time / 1000
+        return (Math.round(s * 100) / 100).toFixed(2)
     }
 
-    function highlightTarget( /* type MouseEvent*/ event) {
-        //highlights forms inside the forms board canvas
-        //get mouse position relative to the canvas
-        let x = event.offsetX;
-        let y = event.offsetY;
-        //reset cursor
-        document.body.style.cursor = "auto";
-        //clear previous highlight
-        currentTarget.highlight = false; //create this attribute
-
-        //look for forms to highlight
-        if (currentTarget.contains(x, y) && !currentTarget.selected && currentTarget.selectable) {
-            currentTarget.highlight = true; //create this attribute !
-            document.body.style.cursor = "pointer";
-        }
-    }
-
-    function selectTarget( /* type MouseEvent*/ event) {
-        //get mouse position relative to the canvas
-        let x = event.offsetX;
-        let y = event.offsetY;
-
-        //look for forms to select
-        if (currentTarget.contains(x, y) && currentTarget.selectable && !currentTarget.selected) {
-            currentTarget.selected = true; //create this attribute !
-            for (let row of formsBoard) {
-                for (let form of row) {
-                    if (form.constructor.name == nameCurrentForm && form.selectable && !form.selected) {
-                        form.selected = true; //create this attribute !
-                        nbCurrentFormSelected++;
-                    }
-                }
-
-            }
-            document.getElementById("nextButtonTuto1").disabled = false;
-        }
-    }
-
-    //------------------------------------------------------------------------------
-    //                             learningCanvas
-    //------------------------------------------------------------------------------
-    /*
-    const LC_CELL = 70;
-    //var NB_LOCKS = 3;
-    const IMG_WIDTH = 4 * LC_CELL / 12;
-    const IMG_HEIGHT = 5 * LC_CELL / 12;
-    const IMG_MARGIN = LC_CELL / 2;
-    const LC_MARGIN = LC_CELL; //tester differentes valeurs
-    const LC_HEIGHT = LC_CELL * (formsList.length + 1) + LC_MARGIN / 2; //LearningCanvas Height
-    const LC_WIDTH = 3 / 2 * LC_CELL + parseInt(NB_LOCKS) * (IMG_WIDTH + IMG_MARGIN / 3); //LearningCanvas Width
-
-
-    const LC_CIRCLE_RADIUS = LC_CELL / 4;
-    const LC_SQUARE_SIZE = LC_CELL / 2;
-    const LC_TRIANGLE_HEIGHT = LC_CELL / 2;
-    const LC_CROSS_THICKNESS = LC_CELL / 8;
-
-    var learningCanvas = document.getElementById("learningCanvas");
-    learningCanvas.height = LC_HEIGHT;
-    learningCanvas.width = LC_WIDTH;
-    learningCanvas.style.marginTop = String(TL_HEIGHT) + "px";
-    learningCanvas.style.left = String(WIDTH + STROKE + SC_WIDTH + STROKE) + "px";
-
-    //load img
-    var imgLock = new Image();
-    imgLock.src = 'lock.png';
-    var imgUnlock = new Image();
-    imgUnlock.src = 'unlock.png';
-
-    //set up context
-    var ctxLearning = learningCanvas.getContext("2d");
-    ctxLearning.lineWidth = STROKE;
-
-    const learningForms = [];
-    if (formsList.includes("Square")) {
-        learningForms.push(new Square(getLearningGridX(), getLearningGridY(formsList.indexOf("Square")), LC_SQUARE_SIZE, LC_SQUARE_SIZE, false, ctxLearning));
-    }
-    if (formsList.includes("Circle")) {
-        learningForms.push(new Circle(getLearningGridX(), getLearningGridY(formsList.indexOf("Circle")), LC_CIRCLE_RADIUS, false, ctxLearning));
-    }
-    if (formsList.includes("Triangle")) {
-        learningForms.push(new Triangle(getLearningGridX(), getLearningGridY(formsList.indexOf("Triangle")), LC_TRIANGLE_HEIGHT, false, ctxLearning));
-    }
-    if (formsList.includes("Cross")) {
-        learningForms.push(new Cross(getLearningGridX(), getLearningGridY(formsList.indexOf("Cross")), LC_SQUARE_SIZE, LC_SQUARE_SIZE, LC_CROSS_THICKNESS, false, ctxLearning));
-    }
-
-    //-----------------------------   function   -----------------------------------
-
-    function getLearningGridX() {
-        return 3 / 4 * LC_CELL;
-    }
-
-    function getLearningGridY(row) {
-        return LC_MARGIN + CELL * row;
-    }
-
-    function getImgGridX(j) {
-        return 3 / 2 * LC_CELL + j * IMG_MARGIN - IMG_WIDTH / 2;
-    }
-
-    function getImgGridY(row) {
-        return LC_MARGIN + CELL * row - IMG_HEIGHT / 2;
-    }
-
-    function drawLearning() {
-        //draw Learning Board
-        ctxLearning.fillStyle = COLOR_BOARD;
-        ctxLearning.strokeStyle = COLOR_BOARDER;
-        ctxLearning.fillRect(0, 0, LC_WIDTH, LC_HEIGHT);
-        ctxLearning.strokeRect(STROKE / 2, STROKE / 2, LC_WIDTH - STROKE, LC_HEIGHT - STROKE);
-        //draw forms
-        for (let form of learningForms) {
-            form.draw();
-        }
-        drawLocks();
-    }
-
-    function drawLocks() {
-        for (let i = 0; i < formsList.length; i++) {
-            for (let j = 0; j < NB_LOCKS; j++) {
-                if (learningState[formsList[i]] > j || learningState[formsList[i]] == NB_LOCKS) {
-                    ctxLearning.drawImage(imgUnlock, getImgGridX(j), getImgGridY(i), IMG_WIDTH, IMG_HEIGHT);
-                } else {
-                    ctxLearning.drawImage(imgLock, getImgGridX(j), getImgGridY(i), IMG_WIDTH, IMG_HEIGHT);
-                }
-            }
-        }
-    }
-*/
     //------------------------------------------------------------------------------
     //                              Button
     //------------------------------------------------------------------------------
 
     var nextButton = document.getElementById("nextButtonTuto1");
-    //find a better way to choose the position of the nextButton
     nextButton.style.display = '';
-    //nextButton.style.marginTop = String(TL_HEIGHT + HEIGHT - nextButton.height) + "px;";
     nextButton.style.marginLeft = String(WIDTH + STROKE) + "px";
-    nextButton.style.marginTop = String(WIDTH + STROKE) + "px";;
+    nextButton.style.marginTop = String(WIDTH + STROKE) + "px";
     nextButton.disabled = true;
 
     //--------------------    function   -------------------------------------------
     nextButton.onclick = function() {
-
         if (nbCurrentFormSelected >= nbFormToSelect) {
             gameUpdate();
-            document.getElementById("tuto1step3").style.color = "#4CAF50";
         }
     }
+
 
     //------------------------------------------------------------------------------
     //                              game update

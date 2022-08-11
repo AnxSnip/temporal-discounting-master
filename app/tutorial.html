@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">
@@ -12,36 +12,57 @@
 
     <div class="blackBG"></div>
     <div id="explainGameBox" class="infoBox">
-        <div class="infoTitle" style="width: 200px;">Welcome to our study</div>
-        <pre>
-<b>Introduction:</b> You are invited to participate in a study to improve understanding of user
-behavior with interactive systems.
-            </pre>
-        <pre>
-This study is conducted by Gilles Bailly and Evanthia Dimara (Sorbonne University) who will
-be delighted to answer your questions (gilles.bailly@sorbonne-universite.fr). This study
-was approved by The INSEAD Internal Review Board (reference 201915).
-            </pre>
-        <pre>
-<b>Task:</b> Pick all shapes on the grid that match the target.
-A quick 3-step tutorial is here to guide you through the basics:
-    - Novice Mode: Manually clicking every shape
-    - Expert Mode: Click one to select all shapes
-    - Learning Mode: How to unlock Expert Mode
+        <div id="Step1">
 
-Shapes are not distributed evenly, i.e. some shapes will be more common than others.
-Keep an eye out for the timeline to see upcoming shapes. <br />
-<img src="https://kome.s-ul.eu/AeaysnzT.png"  alt="Timeline example"/>
-            </pre>
+        <div class="infoTitle" style="width: 200px;">Welcome to our study</div>
+        <pre style="word-wrap: break-word;white-space: pre-wrap;word-break: break-word;">
+            This study is being conducted by Sorbonne University.The goal of the study is to help us understand user behavior with interactive systems.It will take approximately [X]  minutes.
+You will be asked to click on a number of colored symbols as fast as possible. There is no risk to participating in the study. You may stop the study at any time.
+            By clicking "I do consent", you agree to participate in this study, that you should refrain from providing identifiable data in open-ended questions and that you are at least 18 years of age. If you have questions or concerns, you can contact Gilles Bailly  at <a href="mailto:gilles.bailly@sorbonne-universite.fr"><b>gilles.bailly@sorbonne-universite.fr</b></a>. We cannot ensure the confidentiality of information sent by email.
+            This study was approved by The INSEAD Internal Review Board (reference 201915).
+        </pre>
+        <input type="checkbox" id="consent" >
+        <label for="consent">I do consent</label>
         <pre>
 Press "Start Tutorial" to continue...
-            </pre>
+        </pre>
 
         <div class="infoDivButton">
-            <button class="infoButton" onclick="location.href='tutorial1.html'">START TUTORIAL</button>
+            <button class="infoButton" onclick="checked()">START TUTORIAL</button>
+        </div>
+
+        </div>
+
+        <div id="Step2" style="display: none">
+            <div class="infoTitle">TASK</div>
+                <pre>
+In this game you need to click on target symbols as fast as possible.
+For example, your target below is an orange triangle.
+So you will have to click on all three orange triangles on the grid.
+Click on the button “Next” to practice.
+<img src="rsc/img/tuto0.png" width="600"  alt="Task example"/>
+                </pre>
+
+            <div class="infoDivButton">
+                <button class="infoButton" onclick="window.location = 'tutorial1.html'">Next</button>
+            </div>
         </div>
     </div>
 
 </body>
 
+
+<script>
+    let checked = function (){
+        let x = document.getElementById("consent")
+        if (x.checked) {
+            let a =document.getElementById("Step1")
+            a.style.display = "none"
+            let b = document.getElementById("Step2")
+            b.style.display = 'block'
+        }else{
+            alert("please check I do consent before starting the tutorial")
+        }
+    }
+</script>
 </html>
