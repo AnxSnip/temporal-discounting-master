@@ -67,7 +67,6 @@ async function Game() {
             // Initialize playfield (Grid of shapes)
             let playfieldTop = 20 + 18 + 20 + timelineSize * json.nbBlock
             let playfieldLeft = 20
-            // TODO: This should be determined depending on grid size
             let playfieldHeight = 510
             let playfieldWidth = 495
             let playField = new PlayField(document.getElementById("formsBoardCanvas"),

@@ -242,14 +242,19 @@ thead th {
 button {
     cursor: pointer;
     border-radius: 4px;
-    padding: 10px 30px;
+    padding: 25px 50px;
+    transition: all 0.2s;
     font: 1em Ubuntu, sans-serif;
     color: black;
+    background-color: white;
     border: 2px solid #1AA7EC;
 }
 
 pre {
     font: 1em Ubuntu, sans-serif;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    word-break: break-word;
 }
 
 button:disabled {
@@ -296,6 +301,7 @@ button:disabled:hover {
     display: block;
     transform: translate(-50%, 0);
     margin-bottom: 50px;
+    width: 520px;
 }
 
 .infoTitle {
@@ -448,4 +454,24 @@ input[type=range]::-ms-thumb {
 	position: absolute;
 	top: 0;
 	left: 0;
+}
+
+.boardTuto3{
+    position: absolute;
+    top:50px;
+    left: 500px;
+    height: 605px;
+    width: 970px;
+    background-color: white;
+}
+
+.infoBoxTuto3 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: whitesmoke;
+    padding: 50px;
+    position: absolute;
+    top: 50px;
+    display: block;
+    margin-bottom: 50px;
+    width: 350px;
 }

@@ -5,6 +5,7 @@ import Cross from "./shapes/cross.js";
 import GameLog from "./gameLog.js";
 import Timeline from "./components/timeline.js";
 
+
 class TDGame {
     constructor(settings, ipAddress = null) {
         this.settings = settings
@@ -14,7 +15,7 @@ class TDGame {
         this.targetCanvas = null
         this.nextButton = false
 
-        this.sliderDuration = Math.max(0, this.settings.timeLearning / this.settings.nbLocks - this.settings.noviceTime)
+        this.sliderDuration = Math.max(0, this.settings.timeLearning / this.settings.nbLocks)
         this.currStep = 0
         this.currSelected = 0
 
@@ -461,7 +462,7 @@ class TDGame {
             animationCanvas.style.position = "absolute";
             animationCanvas.style.left = "20px";
             animationCanvas.style.top = "10px";
-            var body = document.getElementsByTagName("body")[0];
+            var body = document.getElementById("board");
             body.appendChild(animationCanvas);
         }
         animationCanvas.height = 700;
@@ -489,7 +490,7 @@ class TDGame {
         let start = Date.now()
         let i =0
         let timer = setInterval(function (){
-            this.animationEnded = false
+
             if (Date.now()-start >=1000){
                 clearInterval(timer)
                 animationCanvas.height = 0;

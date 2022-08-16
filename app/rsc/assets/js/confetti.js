@@ -227,3 +227,4 @@ window.requestAnimFrame = (function() {
 })();
 
 //InitializeConfetti();
+export default BeginConfetti()

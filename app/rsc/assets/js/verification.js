@@ -22,8 +22,8 @@ async function testIfNewIp(ipAdress, authorizeRetest) {
     } else {
         const response = await fetch('/api');
         const data = await response.json();
-        for (element of data) {
-            if (element['ipUser'] == ipAdress) {
+        for (let element of data) {
+            if (element['ipUser'] === ipAdress) {
                 document.getElementById('ipRestriction').style.display = '';
                 document.getElementById("explainGame").style.display = 'none';
                 return false;

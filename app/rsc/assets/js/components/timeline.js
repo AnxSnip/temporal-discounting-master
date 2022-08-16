@@ -6,8 +6,7 @@ class Timeline {
         this.margin = 20
         this.index_size = (size / 2) + 3
         this.height = maxShapes*(size+10) + 2 * this.margin
-        this.width = size * step
-
+        this.width = Math.max(size * maxShapes,500)
         this.font = "bold 24px arial"
         this.fontColor = "darkgrey"
         this.indexColor = "black"

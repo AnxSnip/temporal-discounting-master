@@ -31,7 +31,6 @@ GameTuto1();
 
 function GameTuto1() {
 
-
     class Indexer {
         constructor(x, y, w, h, ctx = ctxTimeline) {
             this.x = x;
@@ -196,7 +195,6 @@ function GameTuto1() {
 
     function newGame(selectableForm) { //add number of each form or the proportion in the futur
         var prepareFormsBoard = [];
-        console.log('formsList is ' + formsList);
         var prepareFormsList = formsList.slice(0, formsList.indexOf(selectableForm)).concat(formsList.slice(formsList.indexOf(selectableForm) + 1));
 
         for (let i = 0; i < GRID_SIZE; i++) {
@@ -311,7 +309,7 @@ function GameTuto1() {
     }
 
     function gameUpdate() {
-        startTime = Date.now()
+        startTime = null
         stopTime = null
         formTimeline[currentStep].highlight = true;
         currentStep++;
