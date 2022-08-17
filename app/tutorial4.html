@@ -10,28 +10,30 @@
 <body>
 
 <div class="blackBG"></div>
-<div id="explainGameBox" class="infoBox">
+<div id="explainGameBox" class="infoBox" style="width: 600px">
     <div id="Step1">
         <div class="infoTitle" style="width: 210px;"><b>Almost ready to play !</b></div>
         <pre>Congratulations! You learned how to play this game choosing any of the two modes:
-1) <b>NOVICE</b> mode clicking  on all targets
-2) <b>EXPERT</b> mode clicking on only 1 target,  but only after unlocking the corresponding lockers..
+1) <b>NOVICE</b> mode by clicking on all targets
+2) <b>EXPERT</b> mode by clicking on only 1 target, but only after <b>unlocking</b> the corresponding lockers..
 </pre>
-        <img src="rsc/img/tuto4.png" width="520"/>
+        <img src="rsc/img/tuto4.png" width="600" alt=""/>
         <div class="infoDivButton">
             <button class="infoButton" onclick="nextPage()">Continue</button>
         </div>
     </div>
 
     <div id="Step2" style="display: none">
-        <div class="infoTitle"><b>Should I always UNLOCK the expert mode?</b></div>
-        <pre>
-Not necessarily! You have to choose which strategy <b>NOVICE</b> or <b>Unlocking the-EXPERT</b> mode is better for you.</pre>
+        <div class="infoTitle"><b>TIPS</b></div>
+        <pre><b>Should I always UNLOCK the expert mode?</b>
+Not necessarily! You have to choose which strategy <b>NOVICE</b> or <b>Unlocking the EXPERT</b> mode is better for you.</pre>
 
-        <pre style="border: solid red; text-align: center"><b>How will I make this choice?</b>
+        <div style="border: solid red;">
+            <pre style="margin: 10px"><b>How will I make this choice?</b>
             CHAMPIONS TIP: You will have to look at the <b>timeline</b>b> on top of your screen. The timeline shows your next targets. You will notice that <u>some targets are more frequent than others</u>.
-                </pre>
-        <div style="text-align: center"><img src="rsc/img/tuto4_part2.png" width="260"/></div>
+            </pre>
+        </div>
+        <div style="text-align: center;margin-top: 10px;"><img src="rsc/img/tuto4_part2.png" width="260" alt=""/></div>
 
         <div class="infoDivButton">
             <button class="infoButton" onclick="nextPage2()">Continue</button>
@@ -39,8 +41,10 @@ Not necessarily! You have to choose which strategy <b>NOVICE</b> or <b>Unlocking
     </div>
 
     <div id="Step3" style="display: none">
-        <div class="infoTitle" style="width: 300px;">The 3 fastest participants of this game will receive bonus payment!</div>
+        <div class="infoTitle">Bonus</div>
         <pre>
+The 3 fastest participants of this game will receive bonus payment!
+
 1st PRIZE: X $
 
 2nd  PRIZE: X $
@@ -48,8 +52,8 @@ Not necessarily! You have to choose which strategy <b>NOVICE</b> or <b>Unlocking
 3rd PRIZE: X $</pre>
         <div>
             <pre>Did not understand ? You can retry the tutorial !</pre>
-            <button onclick="window.location =  'tutorial1.html'"> Retry the tutorials</button>
-            <button onclick="window.location =  'index.html'"> Start the Experiment</button>
+            <button onclick="window.location = 'tutorial1.html'"> Retry the tutorials</button>
+            <button onclick="window.location = 'index.html'"> Start the Experiment</button>
         </div>
     </div>
 </div>

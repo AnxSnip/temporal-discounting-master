@@ -21,9 +21,9 @@ class LearningPanelTuto3 extends LearningPanel{
         this.gameInst.SLmode = "l"
         let x = event.offsetX
         let y = event.offsetY
-        let targetShapeDisplay =  this.getTargetShape()
+        let targetShapeDisplay = this.getTargetShape()
         if(this.unlockButton.contains(x, y)){
-            this.slider = new Slider(this, this.top  + this.unlockButton.top,
+            this.slider = new Slider(this, this.top + this.unlockButton.top,
                 this.left + this.width* 0.15, this.width * 0.7,
                 targetShapeDisplay.colorUnlit, this.gameInst.sliderDuration)
             this.displayUnlockButton = false
@@ -44,7 +44,7 @@ GameTuto3();
 
 async function GameTuto3() {
     let framerate = 30
-    let cellSize = 80
+    let cellSize = 495 / (5 + 2)
     let stroke = 2
 
     let settings = new gameSettings(
@@ -105,14 +105,12 @@ async function GameTuto3() {
             tdGame.SLmode = null
         }
         if (tdGame.step === 1 || tdGame.step === 4 || tdGame.step === 7){
-            document.getElementById("tuto3step1").style.color = "#00000050";
             document.getElementById("tuto3step2").style.color = "#00000050";
         }
         if (tdGame.step === 2 || tdGame.step === 5 || tdGame.step === 8){
             document.getElementById("tuto3step3").style.color = "#00000050";
         }
         if (tdGame.step === 3 ) {
-            document.getElementById("tuto3step1").style.color = "#000000";
             document.getElementById("tuto3step2").style.color = "#000000";
             document.getElementById("tuto3step3").style.color = "#000000";
             document.getElementById("tuto3step4").style.color = "#000000";
@@ -120,21 +118,19 @@ async function GameTuto3() {
             document.getElementsByClassName("infoTitle").textContent = "PRACTICE LOCKER PANEL (2/3)";
         }
         if(tdGame.step === 6){
-            document.getElementById("tuto3step1").style.color = "#000000";
             document.getElementById("tuto3step2").style.color = "#000000";
             document.getElementById("tuto3step3").style.color = "#000000";
             document.getElementById("tuto3step4").style.color = "#000000";
             document.getElementsByClassName("infoTitle").textContent = "PRACTICE LOCKER PANEL (3/3)";
-            document.getElementById("tuto3step3").innerHTML = "Drag the slider back and forth until <b>you unlock one locker</b>. This is your last locker.";
-            document.getElementById("tuto3step4").innerHTML = "<b>STEP 4.</b> Click on “Next” to use the EXPERT mode for yout next target";
+            document.getElementById("tuto3step3").innerHTML = "<b>STEP 2.</b>Drag the slider back and forth until <b>you unlock one locker</b>. This is your last locker.";
+            document.getElementById("tuto3step4").innerHTML = "<b>STEP 3.</b> Click on “Next” to use the EXPERT mode for your next target";
             document.getElementById("tuto3step5").style.display = "none";
         }
         if(tdGame.step === 9){
-            let step1 = document.getElementById("tuto3step1");
+            let step1 = document.getElementById("tuto3step0");
             step1.style.color = "#000000";
             let step2 = document.getElementById("tuto3step2");
             step2.style.color = "#000000";
-            document.getElementById("tuto3step0").style.display = "none";
             document.getElementById("tuto3step3").style.display = "none";
             document.getElementById("tuto3step4").style.display = "none";
             document.getElementsByClassName("infoTitle").textContent = "EXPERT MODE UNLOCKED";

@@ -38,7 +38,7 @@ async function Game() {
     // Get game settingggs
     fetch(path).then(response => response.json()).then(json => {
         let framerate = 30
-        let cellSize = 80
+
         let stroke = 2
 
         let options = {
@@ -69,6 +69,7 @@ async function Game() {
             let playfieldLeft = 20
             let playfieldHeight = 510
             let playfieldWidth = 495
+            let cellSize = playfieldWidth /(settings.gridWidth + 2)
             let playField = new PlayField(document.getElementById("formsBoardCanvas"),
                 framerate, playfieldHeight, playfieldWidth, settings.gridWidth, settings.gridHeight,
                 cellSize, playfieldTop, playfieldLeft, stroke)

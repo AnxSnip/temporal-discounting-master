@@ -223,6 +223,9 @@ class LearningPanel{
         else{
             this.context.fillText("UNLOCK", this.width/2, this.unlockY + 4)
         }
+
+        this.context.fillStyle = "black"
+        this.context.fillText("LOCKER PANEL", this.width/2 +3, this.height-30)
     }
 
     gameEndHandle() {

@@ -319,7 +319,7 @@ function GameTuto1() {
             console.log("END OF THE GAME");
             document.getElementById("boardTuto1").style.display = 'none';
             document.getElementById("buttonToTuto2").style.display = '';
-            TextElement.innerText = "You just learned how to use NOVICE mode of the game.  \n" +
+            TextElement.innerText = "You just learned how to use NOVICE mode of the game. \n" +
                 "\n" +
                 "The game also has an EXPERT mode where you need only one click per target. \n" +
                 "\n" +
@@ -411,7 +411,7 @@ function GameTuto1() {
 
      function msToSeconds(time) {
         let s = time / 1000
-        return (Math.round(s * 100) / 100).toFixed(2)
+        return (Math.round(s * 100) / 100).toFixed(0)
     }
 
     //------------------------------------------------------------------------------

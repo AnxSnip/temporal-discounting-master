@@ -322,11 +322,11 @@ function GameTuto2() {
             console.log("END OF THE GAME");
             document.getElementById("boardTuto2").style.display = 'none';
             document.getElementById("buttonToTuto3").style.display = '';
-            TextElement.innerHTML = "You just learned how to use <b>EXPERT</b> mode of the game.  \n" +
+            TextElement.innerHTML = "You just learned how to use <b>EXPERT</b> mode of the game. \n" +
                 "\n" +
-                "Unfortunately,  the  <b>EXPERT</b> mode is not available by default. To make it available,  you need to unlock it using the locker panel mode first. \n" +
+                "Unfortunately, the <b>EXPERT</b> mode is not available by default. To make it available, you need to unlock it using the locker panel mode first. \n" +
                 "\n" +
-                "Click on “Next” to practice  the <b>locker panel</b> mode.\n"
+                "Click on “Next” to practice the <b>locker panel</b> mode.\n"
             TextTitle.style.fontSize = '14px'
             TextTitle.innerText = "CONGRATULATIONS!"
             return;
@@ -364,7 +364,7 @@ function GameTuto2() {
     var targetCanvas = document.getElementById("targetCanvasTuto2");
     targetCanvas.height = TC_HEIGHT;
     targetCanvas.width = TC_WIDTH;
-    targetCanvas.style.marginTop = String(TL_HEIGHT  + TC_TOP_MARGIN) + "px";
+    targetCanvas.style.marginTop = String(TL_HEIGHT + TC_TOP_MARGIN) + "px";
     targetCanvas.style.left = String(WIDTH + STROKE) + "px";
 
     //set up context

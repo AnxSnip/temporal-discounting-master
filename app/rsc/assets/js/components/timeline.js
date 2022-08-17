@@ -5,7 +5,7 @@ class Timeline {
         this.size = size
         this.margin = 20
         this.index_size = (size / 2) + 3
-        this.height = maxShapes*(size+10) + 2 * this.margin
+        this.height = maxShapes*(size+1) + 2 * this.margin
         this.width = Math.max(size * maxShapes,500)
         this.font = "bold 24px arial"
         this.fontColor = "darkgrey"
@@ -15,7 +15,7 @@ class Timeline {
         this.timelineElement = timelineElement
         this.timelineElement.style.left = String(left) + "px"
         this.timelineElement.height = this.height
-        this.timelineElement.width = this.width
+        this.timelineElement.width = 1280
         this.context = this.timelineElement.getContext("2d")
         this.shapeTimeline = []
         this.gameInst = null
@@ -77,6 +77,11 @@ class Timeline {
         }
         this.updateIndexer(this.step)
         this.indexer.draw()
+
+        //TODO change this
+        this.context.fillStyle = "black";
+        this.context.font = "18px arial";
+        this.context.fillText("TIMELINE", 750, 100);
 
     }
 
