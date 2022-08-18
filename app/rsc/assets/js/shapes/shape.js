@@ -17,7 +17,6 @@ class Shape{
         this.colorLit = "gray"
         this.marginFactor = 0.3
         this.grey = false
-        this.colorGrey = "slategray"
     }
 
     vibrate(){

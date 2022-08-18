@@ -1,5 +1,5 @@
 import Triangle from "./shapes/triangle.js"
-import Circle from "./shapes/circle.js";
+import Diamond from "./shapes/diamond.js";
 import Square from "./shapes/square.js";
 import Cross from "./shapes/cross.js";
 
@@ -10,12 +10,12 @@ import Cross from "./shapes/cross.js";
 //-----------------------------------------------------------------------------------
 var STEP = 3;
 var NB_LOCKS = 1;
-var formsList = ["Square", "Circle", "Triangle"];
+var formsList = ["Square", "Diamond", "Triangle"];
 var NB_TARGET_TO_SELECT = 6;
 var startTime = null
 var stopTime = null
 var displayTimeline = true;
-const learningState = { 'Square': 0, 'Circle': 0, 'Triangle': 0, 'Cross': 0 };
+const learningState = { 'Square': 0, 'Diamond': 0, 'Triangle': 0, 'Cross': 0 };
 
 
 function shuffle(array) {
@@ -73,7 +73,7 @@ function GameTuto1() {
 
     var formTimeline = [new Triangle(getTimelineGridX(0), getTimelineGridY(), MIN_SIZE, false, ctxTimeline),
         new Square(getTimelineGridX(1), getTimelineGridY(), MIN_SIZE, false, ctxTimeline),
-            new Circle(getTimelineGridX(2), getTimelineGridY(), MIN_SIZE, false, ctxTimeline)];
+            new Diamond(getTimelineGridX(2), getTimelineGridY(), MIN_SIZE, false, ctxTimeline)];
 
 
     var nameCurrentForm = formTimeline[0].constructor.name;
@@ -217,9 +217,9 @@ function GameTuto1() {
                         formsBoard[i][j] = new Square(getGridX(j), getGridY(i), CELL, selectableForm === "Square", ctxFormsBoard)
                         nbFormToSelect += selectableForm === "Square" ? 1 : 0;
                         break;
-                    case "Circle":
-                        formsBoard[i][j] = new Circle(getGridX(j), getGridY(i), CELL, selectableForm === "Circle", ctxFormsBoard)
-                        nbFormToSelect += selectableForm === "Circle" ? 1 : 0;
+                    case "Diamond":
+                        formsBoard[i][j] = new Diamond(getGridX(j), getGridY(i), CELL, selectableForm === "Diamond", ctxFormsBoard)
+                        nbFormToSelect += selectableForm === "Diamond" ? 1 : 0;
                         break;
                     case "Cross":
                         formsBoard[i][j] = new Cross(getGridX(j), getGridY(i), CELL, selectableForm === "Cross", ctxFormsBoard)
@@ -333,7 +333,7 @@ function GameTuto1() {
             TextTitle.innerText = "Practice: Novice Mode (2/3)"
         }
         if(currentStep === 2 ){
-            TextElement.innerText = "Click on all blue circles below as fast as possible."
+            TextElement.innerText = "Click on all blue diamond below as fast as possible."
             TextTitle.innerText = "Practice: Novice Mode (3/3)"
         }
         //set current parameters
@@ -393,8 +393,8 @@ function GameTuto1() {
             case "Square":
                 currentTarget = new Square(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
                 break;
-            case "Circle":
-                currentTarget = new Circle(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
+            case "Diamond":
+                currentTarget = new Diamond(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
                 break;
             case "Triangle":
                 currentTarget = new Triangle(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
