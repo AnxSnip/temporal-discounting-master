@@ -141,6 +141,12 @@ class LearningPanel{
             this.displayUnlockButton = false
             this.unlockButtonClickable = false
             document.body.style.cursor = "auto";
+
+            let shape = this.gameInst.currShape
+            this.gameInst.addLearningStep(shape)
+            setTimeout(f => this.gameInst.timeline.refreshTimeline(),
+                1000)
+            this.gameInst.animate(this.gameInst.settings.shapeNames.indexOf(shape))
         }
     }
 
@@ -205,7 +211,8 @@ class LearningPanel{
                     this.imgWidth, this.imgHeight)
             }
         }
-
+        this.context.fillStyle = "black"
+        this.context.fillText("LOCKER PANEL", this.width/2 +3, this.height-30)
         if(this.slider)
             return
         this.context.fillStyle = this.targetColorFont
@@ -223,9 +230,6 @@ class LearningPanel{
         else{
             this.context.fillText("UNLOCK", this.width/2, this.unlockY + 4)
         }
-
-        this.context.fillStyle = "black"
-        this.context.fillText("LOCKER PANEL", this.width/2 +3, this.height-30)
     }
 
     gameEndHandle() {

@@ -1,7 +1,7 @@
 import tdGame from "../tdGame.js";
 
 class Timeline {
-    constructor(timelineElement, size, left, step = 8, maxShapes = 8) {
+    constructor(timelineElement, size, left, step = 8, maxShapes = 8,width,height) {
         this.size = size
         this.margin = 20
         this.index_size = (size / 2) + 3
@@ -10,12 +10,13 @@ class Timeline {
         this.font = "bold 24px arial"
         this.fontColor = "darkgrey"
         this.indexColor = "black"
-        this.timelineBoardColor = "white"
+        this.timelineBoardColor = "gainsboro"
+        this.colorBorder = "grey"
 
         this.timelineElement = timelineElement
         this.timelineElement.style.left = String(left) + "px"
-        this.timelineElement.height = this.height
-        this.timelineElement.width = 1280
+        this.timelineElement.height = height
+        this.timelineElement.width = width
         this.context = this.timelineElement.getContext("2d")
         this.shapeTimeline = []
         this.gameInst = null
@@ -80,14 +81,18 @@ class Timeline {
 
         //TODO change this
         this.context.fillStyle = "black";
-        this.context.font = "18px arial";
-        this.context.fillText("TIMELINE", 750, 100);
+        this.context.font = "bold 18px arial";
+        this.context.fillText("TIMELINE", this.timelineElement.width - 100, this.timelineElement.height -5);
 
     }
 
     drawBoard(){
+        this.context.lineWidth = 2;
         this.context.fillStyle = this.timelineBoardColor
-        this.context.fillRect(0, 0, this.width, this.height);
+        this.context.strokeStyle = this.colorBorder
+        this.context.fillRect(0, 5, this.timelineElement.width, this.timelineElement.height);
+        this.context.strokeRect(1, 5,
+            this.timelineElement.width - 2, this.timelineElement.height-6)
     }
 
     draw() {
@@ -121,6 +126,7 @@ class Indexer {
 
     draw() {
         this.ctx.strokeStyle = this.color;
+        this.ctx.lineWidth = 1;
         this.ctx.strokeRect(this.x - this.w / 2, this.y - this.h / 2, this.w, this.h);
 
         let rect =new Path2D()

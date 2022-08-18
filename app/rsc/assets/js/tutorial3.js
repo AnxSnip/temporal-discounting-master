@@ -29,6 +29,12 @@ class LearningPanelTuto3 extends LearningPanel{
             this.displayUnlockButton = false
             this.unlockButtonClickable = false
             document.body.style.cursor = "auto";
+
+            let shape = this.gameInst.currShape
+            this.gameInst.addLearningStep(shape)
+            setTimeout(f => this.gameInst.timeline.refreshTimeline(),
+                1000)
+            this.gameInst.animate(this.gameInst.settings.shapeNames.indexOf(shape))
         }
     }
 
@@ -60,16 +66,13 @@ async function GameTuto3() {
     let tdGame = new tuto3Logic(settings)
     let timelineSize = 20
     // Initialize playfield (Grid of shapes)
-    let playfieldTop = 20 + 18 + 20 + timelineSize
+    let playfieldTop = 20 + 18 + 20 + 1.5*timelineSize
     let playfieldLeft = 20
 
 
     let playField = new PlayField(document.getElementById("formsBoardCanvas"),
         framerate, 510, 495, settings.gridWidth, settings.gridHeight,
         cellSize, playfieldTop, playfieldLeft, stroke)
-    // Initialize timeline
-    let timeline = new Timeline(document.getElementById("timelineCanvas"),
-        timelineSize, playfieldLeft, 64, shapeWeights )
 
     // Initialize target canvas (Target shape indicator)
     let targetCanvasLeft = playField.width + playfieldLeft + 6
@@ -82,6 +85,8 @@ async function GameTuto3() {
     let learningPanel = new LearningPanelTuto3(document.getElementById("learningCanvas"),
         cellSize, 3, settings.shapeNames, playfieldTop, learningPanelLeft, stroke)
 
+    let timeline = new Timeline(document.getElementById("timelineCanvas"),
+        timelineSize, playfieldLeft, 64, shapeWeights,learningPanelLeft + learningPanel.width, playfieldTop-5)
 
     // Initialize button that needs to be clicked by the user to proceed to next step
     let nextButton = document.getElementById("nextButton")

@@ -65,7 +65,7 @@ async function Game() {
 
             let timelineSize = 20
             // Initialize playfield (Grid of shapes)
-            let playfieldTop = 20 + 18 + 20 + timelineSize * json.nbBlock
+            let playfieldTop = 20 + 18 + 20 + (1.5*timelineSize) * json.nbBlock
             let playfieldLeft = 20
             let playfieldHeight = 510
             let playfieldWidth = 495
@@ -73,11 +73,6 @@ async function Game() {
             let playField = new PlayField(document.getElementById("formsBoardCanvas"),
                 framerate, playfieldHeight, playfieldWidth, settings.gridWidth, settings.gridHeight,
                 cellSize, playfieldTop, playfieldLeft, stroke)
-
-
-            // Initialize timeline
-            let timeline = new Timeline(document.getElementById("timelineCanvas"),
-                timelineSize, playfieldLeft, 64, shapeWeights )
 
             // Initialize target canvas (Target shape indicator)
             let targetCanvasLeft = playField.width + playfieldLeft + 6
@@ -90,6 +85,9 @@ async function Game() {
             let learningPanel = new LearningPanel(document.getElementById("learningCanvas"),
                 cellSize, settings.nbLocks, settings.shapeNames, playfieldTop, learningPanelLeft, stroke)
 
+            // Initialize timeline
+            let timeline = new Timeline(document.getElementById("timelineCanvas"),
+                timelineSize, playfieldLeft, 64, shapeWeights,learningPanelLeft + learningPanel.width, playfieldTop-5)
 
             // Initialize button that needs to be clicked by the user to proceed to next step
             let nextButton = document.getElementById("nextButton")

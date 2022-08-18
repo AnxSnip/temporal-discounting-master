@@ -224,26 +224,9 @@ class TDGame {
             console.log("Attempted to access unknown shape in shapeUnlockOne: " + shape)
             return false
         }
-
-        if(!this.isShapeUnlocked(shape)){
-            this.stepMode = "learning"
-            this.internMaxStep++
-            this.shapeBacklog.push(this.currShape)
-            this.gridBacklog.push(this.generateGrid(this.currShape))
-            let first = this.targetCanvas.targetShapeDisplay
-            let last = this.timeline.shapeTimeline[this.timeline.shapeTimeline.length -1]
-            setTimeout(f => this.timeline.refreshTimeline(),
-                1000)
-            setTimeout(f=>{this.lockStates[index]++;
-                    const audio = new Audio('rsc/audio/lock.mp3');
-                    console.log("audio")
-                    audio.play();},
-                1100)
-            this.unlockAnimation(this.targetCanvas.left + first.x,this.targetCanvas.top + first.y,
-                20 + last.x, last.y)
-
-
-        }
+        this.lockStates[index]++;
+        const audio = new Audio('rsc/audio/lock.mp3');
+        audio.play();
     }
 
     // Gets the current progress for a shape name
@@ -454,7 +437,7 @@ class TDGame {
         return this.settings.maxTimer
     }
 
-    unlockAnimation(xStart,yStart,xStop,yStop,sizeStart = 80,sizeStop = 20,frame = 30){
+    unlockAnimation(xStart,yStart,xStop,yStop,sizeStart = 80,sizeStop = 20,frame = 30,time = 1000){
         var animationCanvas = document.getElementById("animation");
         if (!animationCanvas){
             animationCanvas = document.createElement("canvas");
@@ -499,13 +482,25 @@ class TDGame {
             }
             animFrame(animationCanvas,shapeToMove,listx[i],listy[i],listsize[i],ctx)
             i++
-        },1000/30)
-
+        },time/frame)
 
     }
 
+    animate(){
+        let first = this.targetCanvas.targetShapeDisplay
+        let last = this.timeline.shapeTimeline[this.timeline.shapeTimeline.length -1]
+        this.unlockAnimation(this.targetCanvas.left + first.x,this.targetCanvas.top + first.y,
+            20 + last.x, last.y)
+    }
 
-
+    addLearningStep(shape){
+        if(!this.isShapeUnlocked(shape)){
+            this.stepMode = "learning"
+            this.internMaxStep++
+            this.shapeBacklog.push(this.currShape)
+            this.gridBacklog.push(this.generateGrid(this.currShape))
+        }
+    }
 
     static shuffle(a) {
         for (let i = a.length - 1; i > 0; i--) {

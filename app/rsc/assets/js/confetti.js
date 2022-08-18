@@ -225,6 +225,3 @@ window.requestAnimFrame = (function() {
         return window.setTimeout(callback, 1000 / 60);
     };
 })();
-
-//InitializeConfetti();
-export default BeginConfetti()
