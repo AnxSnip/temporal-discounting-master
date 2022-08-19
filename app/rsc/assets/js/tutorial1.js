@@ -1,6 +1,6 @@
-import Triangle from "./shapes/triangle.js"
+import Star from "./shapes/star.js"
 import Diamond from "./shapes/diamond.js";
-import Square from "./shapes/square.js";
+import X from "./shapes/x_shape.js";
 import Cross from "./shapes/cross.js";
 
 
@@ -10,12 +10,12 @@ import Cross from "./shapes/cross.js";
 //-----------------------------------------------------------------------------------
 var STEP = 3;
 var NB_LOCKS = 1;
-var formsList = ["Square", "Diamond", "Triangle"];
+var formsList = ["X", "Diamond", "Star"];
 var NB_TARGET_TO_SELECT = 6;
 var startTime = null
 var stopTime = null
 var displayTimeline = true;
-const learningState = { 'Square': 0, 'Diamond': 0, 'Triangle': 0, 'Cross': 0 };
+const learningState = { 'X': 0, 'Diamond': 0, 'Star': 0, 'Cross': 0 };
 
 
 function shuffle(array) {
@@ -62,7 +62,7 @@ function GameTuto1() {
     var canvTimeline = document.getElementById("timelineCanvasTuto1");
     canvTimeline.height = TL_HEIGHT;
     canvTimeline.width = TL_WIDTH;
-    document.getElementById("ExplainText").innerText = "Click on all orange triangles below as fast as possible."
+    document.getElementById("ExplainText").innerText = "Click on all XXX below as fast as possible."
     document.getElementById("infoTitle").innerText = "Practice: Novice Mode (1/3)"
     var currentStep = 0;
 
@@ -71,8 +71,8 @@ function GameTuto1() {
     //index
     var indexStep = new Indexer(getTimelineGridX(0), getTimelineGridY(), INDEX_SIZE, INDEX_SIZE);
 
-    var formTimeline = [new Triangle(getTimelineGridX(0), getTimelineGridY(), MIN_SIZE, false, ctxTimeline),
-        new Square(getTimelineGridX(1), getTimelineGridY(), MIN_SIZE, false, ctxTimeline),
+    var formTimeline = [new Star(getTimelineGridX(0), getTimelineGridY(), MIN_SIZE, false, ctxTimeline),
+        new X(getTimelineGridX(1), getTimelineGridY(), MIN_SIZE, false, ctxTimeline),
             new Diamond(getTimelineGridX(2), getTimelineGridY(), MIN_SIZE, false, ctxTimeline)];
 
 
@@ -213,9 +213,9 @@ function GameTuto1() {
             formsBoard[i] = [];
             for (var j = 0; j < GRID_SIZE; j++) {
                 switch (prepareFormsBoard[i * GRID_SIZE + j]) {
-                    case "Square":
-                        formsBoard[i][j] = new Square(getGridX(j), getGridY(i), CELL, selectableForm === "Square", ctxFormsBoard)
-                        nbFormToSelect += selectableForm === "Square" ? 1 : 0;
+                    case "X":
+                        formsBoard[i][j] = new X(getGridX(j), getGridY(i), CELL, selectableForm === "X", ctxFormsBoard)
+                        nbFormToSelect += selectableForm === "X" ? 1 : 0;
                         break;
                     case "Diamond":
                         formsBoard[i][j] = new Diamond(getGridX(j), getGridY(i), CELL, selectableForm === "Diamond", ctxFormsBoard)
@@ -225,9 +225,9 @@ function GameTuto1() {
                         formsBoard[i][j] = new Cross(getGridX(j), getGridY(i), CELL, selectableForm === "Cross", ctxFormsBoard)
                         nbFormToSelect += selectableForm === "Cross" ? 1 : 0;
                         break;
-                    case "Triangle":
-                        formsBoard[i][j] = new Triangle(getGridX(j), getGridY(i), CELL, selectableForm === "Triangle", ctxFormsBoard)
-                        nbFormToSelect += selectableForm === "Triangle" ? 1 : 0;
+                    case "Star":
+                        formsBoard[i][j] = new Star(getGridX(j), getGridY(i), CELL, selectableForm === "Star", ctxFormsBoard)
+                        nbFormToSelect += selectableForm === "Star" ? 1 : 0;
                         break;
                     default:
                         console.log("Error while selecting forms for the timeline");
@@ -390,14 +390,14 @@ function GameTuto1() {
     function createTarget(currentTargetName) {
         //creation of the target form
         switch (currentTargetName) {
-            case "Square":
-                currentTarget = new Square(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
+            case "X":
+                currentTarget = new X(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
                 break;
             case "Diamond":
                 currentTarget = new Diamond(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
                 break;
-            case "Triangle":
-                currentTarget = new Triangle(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
+            case "Star":
+                currentTarget = new Star(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
                 break;
             case "Cross":
                 currentTarget = new Cross(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);

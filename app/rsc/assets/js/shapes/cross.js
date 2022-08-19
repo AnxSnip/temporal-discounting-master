@@ -44,9 +44,10 @@ class Cross extends Shape {
         }
         this.ctx.fillRect(this.rect1x + this.vibrateX, this.rect1y, this.thickness, this.height);
         this.ctx.fillRect(this.rect2x + this.vibrateX, this.rect2y, this.width, this.thickness);
+        super.draw()
     }
 
-    contains(x, y, easyMode=false) {
+    contains(x, y, easyMode=true) {
         if (easyMode) {
             return this.left < x && x < this.right && this.top < y && y < this.bottom;
         }

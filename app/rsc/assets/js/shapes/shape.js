@@ -17,6 +17,7 @@ class Shape{
         this.colorLit = "gray"
         this.marginFactor = 0.3
         this.grey = false
+        this.learning = false
     }
 
     vibrate(){
@@ -32,6 +33,15 @@ class Shape{
             this.vibrateX -= 2
         }
         this.vibrateAnimationStep--;
+    }
+
+    draw(){
+        if(this.learning){
+            let img = new Image()
+            img.src = 'rsc/img/unlock.png'
+            this.ctx.drawImage(img, this.x-this.width/2, this.y-this.height/2 ,
+                this.width, this.height)
+        }
     }
 
     getShapeName(){

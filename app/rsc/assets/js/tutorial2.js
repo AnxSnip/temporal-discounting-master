@@ -1,6 +1,6 @@
-import Triangle from "./shapes/triangle.js"
-import Circle from "./shapes/circle.js";
-import Square from "./shapes/square.js";
+import Quatrefoil from "./shapes/quatrefoil.js"
+import Ring from "./shapes/ring.js";
+import Hexagon from "./shapes/hexagon.js";
 import Cross from "./shapes/cross.js";
 
 
@@ -10,12 +10,12 @@ import Cross from "./shapes/cross.js";
 //-----------------------------------------------------------------------------------
 var STEP = 3;
 var NB_LOCKS2 = 0;
-var formsList = ["Square", "Circle", "Triangle"];
+var formsList = ["Hexagon", "Ring", "Quatrefoil"];
 var NB_TARGET_TO_SELECT = 6;
 var startTime = null
 var stopTime = null
 var displayTimeline = true;
-const learningState = { 'Square': 0, 'Circle': 0, 'Triangle': 0, 'Cross': 0 };
+const learningState = { 'Hexagon': 0, 'Ring': 0, 'Quatrefoil': 0, 'Cross': 0 };
 
 
 function shuffle(array) {
@@ -64,7 +64,7 @@ function GameTuto2() {
     var canvTimeline = document.getElementById("timelineCanvasTuto2");
     canvTimeline.height = TL_HEIGHT;
     canvTimeline.width = TL_WIDTH;
-    document.getElementById("ExplainText").innerHTML = "Click on <b>only one</b> orange triangle  below as fast as possible."
+    document.getElementById("ExplainText").innerHTML = "Click on <b>only one</b> XXX  below as fast as possible."
     document.getElementById("infoTitle").innerText = "Practice expert mode 1/3"
     var currentStep = 0;
 
@@ -73,9 +73,9 @@ function GameTuto2() {
     //index
     var indexStep = new Indexer(getTimelineGridX(0), getTimelineGridY(), INDEX_SIZE, INDEX_SIZE);
 
-    var formTimeline = [new Triangle(getTimelineGridX(0), getTimelineGridY(), MIN_SIZE, false, ctxTimeline),
-        new Square(getTimelineGridX(1), getTimelineGridY(), MIN_SIZE, false, ctxTimeline),
-        new Circle(getTimelineGridX(2), getTimelineGridY(), MIN_SIZE, false, ctxTimeline)];
+    var formTimeline = [new Quatrefoil(getTimelineGridX(0), getTimelineGridY(), MIN_SIZE, false, ctxTimeline),
+        new Hexagon(getTimelineGridX(1), getTimelineGridY(), MIN_SIZE, false, ctxTimeline),
+        new Ring(getTimelineGridX(2), getTimelineGridY(), MIN_SIZE, false, ctxTimeline)];
 
     var nameCurrentForm = formTimeline[0].constructor.name;
 
@@ -214,21 +214,21 @@ function GameTuto2() {
             formsBoard[i] = [];
             for (var j = 0; j < GRID_SIZE; j++) {
                 switch (prepareFormsBoard[i * GRID_SIZE + j]) {
-                    case "Square":
-                        formsBoard[i][j] = new Square(getGridX(j), getGridY(i), CELL, selectableForm === "Square", ctxFormsBoard)
-                        nbFormToSelect += selectableForm === "Square" ? 1 : 0;
+                    case "Hexagon":
+                        formsBoard[i][j] = new Hexagon(getGridX(j), getGridY(i), CELL, selectableForm === "Hexagon", ctxFormsBoard)
+                        nbFormToSelect += selectableForm === "Hexagon" ? 1 : 0;
                         break;
-                    case "Circle":
-                        formsBoard[i][j] = new Circle(getGridX(j), getGridY(i), CELL, selectableForm === "Circle", ctxFormsBoard)
-                        nbFormToSelect += selectableForm === "Circle" ? 1 : 0;
+                    case "Ring":
+                        formsBoard[i][j] = new Ring(getGridX(j), getGridY(i), CELL, selectableForm === "Ring", ctxFormsBoard)
+                        nbFormToSelect += selectableForm === "Ring" ? 1 : 0;
                         break;
                     case "Cross":
                         formsBoard[i][j] = new Cross(getGridX(j), getGridY(i), CELL, selectableForm === "Cross", ctxFormsBoard)
                         nbFormToSelect += selectableForm === "Cross" ? 1 : 0;
                         break;
-                    case "Triangle":
-                        formsBoard[i][j] = new Triangle(getGridX(j), getGridY(i), CELL, selectableForm === "Triangle", ctxFormsBoard)
-                        nbFormToSelect += selectableForm === "Triangle" ? 1 : 0;
+                    case "Quatrefoil":
+                        formsBoard[i][j] = new Quatrefoil(getGridX(j), getGridY(i), CELL, selectableForm === "Quatrefoil", ctxFormsBoard)
+                        nbFormToSelect += selectableForm === "Quatrefoil" ? 1 : 0;
                         break;
                     default:
                         console.log("Error while selecting forms for the timeline");
@@ -336,7 +336,7 @@ function GameTuto2() {
             TextTitle.innerText = "Practice: Expert Mode (2/3)"
         }
         if(currentStep === 2 ){
-            TextElement.innerHTML = "Click on <b>only one</b> blue circles below as fast as possible."
+            TextElement.innerHTML = "Click on <b>only one</b> XXX below as fast as possible."
             TextTitle.innerText = "Practice: Expert Mode (3/3)"
         }
         //set current parameters
@@ -392,14 +392,14 @@ function GameTuto2() {
     function createTarget(currentTargetName) {
         //creation of the target form
         switch (currentTargetName) {
-            case "Square":
-                currentTarget = new Square(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
+            case "Hexagon":
+                currentTarget = new Hexagon(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
                 break;
-            case "Circle":
-                currentTarget = new Circle(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
+            case "Ring":
+                currentTarget = new Ring(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
                 break;
-            case "Triangle":
-                currentTarget = new Triangle(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
+            case "Quatrefoil":
+                currentTarget = new Quatrefoil(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
                 break;
             case "Cross":
                 currentTarget = new Cross(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);

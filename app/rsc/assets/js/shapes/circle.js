@@ -2,13 +2,12 @@ import Shape from "./shape.js"
 
 class Circle extends Shape {
     constructor(x, y, minSize, selectable, context) {
-        let radius = minSize / 4
-        super(x, y, 2 * radius, 2 * radius, selectable, context);
-        this.radius = radius
-        this.bottom = y + radius;
-        this.top = y - radius;
-        this.right = x + radius;
-        this.left = x - radius;
+        super(x, y, minSize, minSize, selectable, context);
+        this.radius = minSize/4
+        this.bottom = y + minSize/2;
+        this.top = y - minSize/2;
+        this.right = x + minSize/2;
+        this.left = x - minSize/2;
         this.colorUnlit = "#4169e1"
         this.colorLit = "lightsteelblue"
         this.marginFactor = minSize / 16
@@ -39,9 +38,11 @@ class Circle extends Shape {
         this.ctx.arc(this.x + this.vibrateX, this.y, this.radius,
             0, Math.PI * 2);
         this.ctx.fill();
+
+        super.draw()
     }
 
-    contains(x, y, easyMode=false) {
+    contains(x, y, easyMode=true) {
         if (easyMode){
             return this.left < x && x < this.right && this.top < y && y < this.bottom;
         }

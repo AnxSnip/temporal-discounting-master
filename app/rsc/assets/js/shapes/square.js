@@ -34,6 +34,7 @@ class Square extends Shape{
             this.ctx.fillStyle = this.colorUnlit;
         }
         this.ctx.fillRect(this.left + this.vibrateX, this.top, this.width, this.height);
+        super.draw()
     }
 
     // easyMode parameter for proper code coherence, since the shape

@@ -59,6 +59,7 @@ class Triangle extends Shape {
         this.ctx.lineTo(this.t2.x + this.vibrateX, this.t2.y);
         this.ctx.lineTo(this.t3.x + this.vibrateX, this.t3.y);
         this.ctx.fill();
+        super.draw()
     }
 
     contains(x, y, easyMode=false) {

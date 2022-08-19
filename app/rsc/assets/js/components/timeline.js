@@ -24,6 +24,7 @@ class Timeline {
         this.indexer = new Indexer(this.getDrawX(0), this.getDrawY(),
             this.index_size, this.index_size, this.context, this.indexColor,this.maxShapes,this.size);
         this.step = -1
+        this.learning_list = []
     }
 
     appendTimeline(shape){
@@ -72,6 +73,9 @@ class Timeline {
         for(let shape of this.shapeTimeline){
             if(i<this.step){
                 shape.grey = true
+            }
+            if(i in this.learning_list){
+                shape.learning = true
             }
             shape.draw()
             i++

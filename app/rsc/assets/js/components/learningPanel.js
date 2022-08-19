@@ -25,7 +25,6 @@ class LearningPanel{
 
         this.colorBoard = "gainsboro"
         this.colorBorder = "grey"
-        this.colorSelect = "white"
 
         this.targetColorFont = "red"
         this.targetColorFontUnlocked = "#4CAF50"
@@ -143,6 +142,8 @@ class LearningPanel{
             document.body.style.cursor = "auto";
 
             let shape = this.gameInst.currShape
+            this.gameInst.timeline.learning_list.push(this.gameInst.timeline.step)
+            console.log(this.gameInst.timeline.learning_list)
             this.gameInst.addLearningStep(shape)
             setTimeout(f => this.gameInst.timeline.refreshTimeline(),
                 1000)

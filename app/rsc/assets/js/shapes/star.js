@@ -1,6 +1,6 @@
 import Shape from "./shape.js"
 
-class Diamond extends Shape {
+class Star extends Shape {
     constructor(x, y, minSize, selectable, context) {
         super(x, y, minSize, minSize, selectable, context);
         this.bottom = y + minSize/2;
@@ -21,16 +21,25 @@ class Diamond extends Shape {
             this.colorUnlit = this.colorGrey
         }
         let x = this.x;
-        let y = this.y -this.height/4;
+        let y = this.y;
+        let ro = this.height/4;
+        let a =  Math.PI / 2 * 3;
+        let ri = this.height/8
+
         if (this.selected || this.unlocked) {
-            this.ctx.fillStyle = this.colorUnlit;
+            this.ctx.strokeStyle = this.colorUnlit;
             this.ctx.beginPath();
-            this.ctx.moveTo(x,y-this.marginFactor);
-            this.ctx.lineTo(x - this.width/4 - this.marginFactor, y + this.height/4 );
-            this.ctx.lineTo(x , y +this.height/2 + this.marginFactor);
-            this.ctx.lineTo(x + this.width/4 + this.marginFactor, y + this.height/4 );
+            this.ctx.moveTo(x,y-ro)
+            for (let i = 0; i < 5; i++) {
+                this.ctx.lineTo(x+ Math.cos(a) * ro, y + Math.sin(a) * ro)
+                a += Math.PI / 5;
+                this.ctx.lineTo(x+ Math.cos(a) * ri, y + Math.sin(a) * ri)
+                a += Math.PI / 5;
+            }
+            this.ctx.lineTo(x,y-ro)
             this.ctx.closePath();
-            this.ctx.fill();
+            this.ctx.lineWidth = 8;
+            this.ctx.stroke();
             this.ctx.fillStyle = this.colorLit; //COLOR_SELECT;
         } else if (this.highlight) {
             this.ctx.fillStyle = this.colorLit;
@@ -38,26 +47,30 @@ class Diamond extends Shape {
             this.ctx.fillStyle = this.colorUnlit;
         }
         this.ctx.beginPath();
-        this.ctx.moveTo(x,y);
-        this.ctx.lineTo(x - this.width/4, y + this.height/4);
-        this.ctx.lineTo(x, y +this.height/2);
-        this.ctx.lineTo(x + this.width/4, y + this.height/4);
+        this.ctx.moveTo(x,y,ro)
+        for (let i = 0; i < 5; i++) {
+            this.ctx.lineTo(x+ Math.cos(a) * ro, y + Math.sin(a) * ro)
+            a += Math.PI / 5;
+            this.ctx.lineTo(x+ Math.cos(a) * ri, y + Math.sin(a) * ri)
+            a += Math.PI / 5;
+        }
+        this.ctx.lineTo(x,y-ro)
         this.ctx.closePath();
         this.ctx.fill();
-        super.draw()
+        super.draw();
     }
 
     contains(x, y, easyMode=true) {
         if (easyMode){
             return this.left < x && x < this.right && this.top < y && y < this.bottom;
         }else{
-            return x + y - this.x -this.y < this.width && this.left < x && x < this.right && this.top < y && y < this.bottom;
+            //not implemented
         }
     }
 
     getShapeName(){
-        return "Diamond"
+        return "Star"
     }
 }
 
-export default Diamond
+export default Star
