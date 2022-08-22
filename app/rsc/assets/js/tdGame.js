@@ -96,9 +96,10 @@ class TDGame {
 
     // Called every frame
     tick() {
+        //BREAK UNCOMMENT IF ACTIVATE
         // When the time runs out, set to end game on next step
-        if(Date.now() - this.lastBreakEndedTime > this.settings.breakTimer && !this.setToBreak)
-            this.setToBreak = true
+        //if(Date.now() - this.lastBreakEndedTime > this.settings.breakTimer && !this.setToBreak)
+        //    this.setToBreak = true
     }
 
     // Handles the transition between steps
@@ -450,8 +451,9 @@ class TDGame {
             var body = document.getElementById("board");
             body.appendChild(animationCanvas);
         }
-        animationCanvas.height = 700;
-        animationCanvas.width = 1200;
+        let rect = document.getElementById("targetCanvas").getBoundingClientRect()
+        animationCanvas.height = rect.bottom;
+        animationCanvas.width = rect.right;
 
         var ctx = animationCanvas.getContext("2d");
         var shapeToMove = this.targetCanvas.targetShapeDisplay

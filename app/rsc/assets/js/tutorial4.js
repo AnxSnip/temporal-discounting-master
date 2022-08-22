@@ -16,7 +16,6 @@ class LearningPanelTuto4 extends LearningPanel{
         this.gameInst.stime = Date.now()
         if(!this.unlockButtonClickable)
             return
-        if(this.gameInst.step === 1) this.gameInst.step++;
         this.gameInst.SLmode = "l"
         let x = event.offsetX
         let y = event.offsetY
@@ -37,10 +36,6 @@ class LearningPanelTuto4 extends LearningPanel{
         }
     }
 
-    processUnlock() {
-        if (this.gameInst.step === 2) this.gameInst.step ++;
-        super.processUnlock();
-    }
     getShapeIndex(){
         switch (this.gameInst.currShape){
             case "Quatrefoil":
@@ -90,7 +85,7 @@ async function GameTuto4() {
                 0, json.nbTargets,
                 json.timeLearning, json.nbSliders,
                 json.nbLocks, json.gridWidth, json.gridHeight,
-                ["Quatrefoil","Ring","Star"], 3,1, -1, json.noviceTime, json.breakTimer, lockDecider,
+                ["Quatrefoil","Ring","Star"], 5,1, -1, json.noviceTime, json.breakTimer, lockDecider,
                 json.showTimeline, json.easyMode, json.debug)
             // Initialize game logic component
             let tdGame = new tuto4Logic(settings)
@@ -134,39 +129,27 @@ async function GameTuto4() {
 
             // Process logic and draw visual elements every frame
             function tick() {
-                console.log(tdGame.step)
                 let title = document.querySelector(".infoTitle")
                 let text2 = document.getElementById("textPart2")
-                if(tdGame.step===0){
-                    tdGame.SLmode = "p"
-                    tdGame.learningPanel.unlockButtonClickable = false
-                    title.textContent = "PRACTICE THE NOVICE MODE";
-                }
-                if(tdGame.step===1){
+                if(tdGame.step===1 || tdGame.step===2){
                     tdGame.SLmode= "l"
                     title.textContent = "PRACTICE THE LOCKER PANEL"
                     text2.style.display="none"
                     document.getElementById("step2").style.display = "";
                 }
-                if(tdGame.step===2){
-                    document.getElementById("tuto4step1").style.color="#00000050"
-                }
-                if(tdGame.step===3){
-                    document.getElementById("tuto4step2").style.color="#00000050"
-                }
-                if(tdGame.step===4){
+                if(tdGame.step===3|| tdGame.step===4){
                     document.getElementById("step2").style.display = "none";
                     text2.style.display="";
-                    title.innerHTML="PRACTICE THE EXPERT  MODE"
-                    text2.innerHTML = "Click on <b>only one</b>  target symbol below as fast as possible."
+                    title.innerHTML="PRACTICE THE EXPERT MODE"
+                    text2.innerHTML = "Click on <b>only one</b> target symbol below as fast as possible."
                 }
-                if(tdGame.step===5){
+                if(tdGame.step===0|| tdGame.step===5||tdGame.step ===6){
                     tdGame.SLmode = "p"
                     tdGame.learningPanel.unlockButtonClickable = false
                     title.textContent = "PRACTICE THE NOVICE MODE";
                     text2.innerText='Click on all target symbols below as fast as possible.'
                 }
-                if(tdGame.step===6){
+                if(tdGame.step===7){
                     window.location = "tutorial5.html"
                 }
                 tdGame.tick()

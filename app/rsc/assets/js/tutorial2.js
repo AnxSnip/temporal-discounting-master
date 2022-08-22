@@ -327,6 +327,7 @@ function GameTuto2() {
                 "Unfortunately, the <b>EXPERT</b> mode is not available by default. To make it available, you need to unlock it using the locker panel mode first. \n" +
                 "\n" +
                 "Click on “Next” to practice the <b>locker panel</b> mode.\n"
+            document.getElementById("imga").style.display=""
             TextTitle.style.fontSize = '14px'
             TextTitle.innerText = "CONGRATULATIONS!"
             return;

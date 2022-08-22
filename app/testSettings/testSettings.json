@@ -26,6 +26,6 @@
   "nbBlock" : 4,
   "maxTimer": -1,
   "noviceTime": 4200,
-  "breakTimer": 180000,
+  "breakTimer": 180000000,
   "debug": true
 }

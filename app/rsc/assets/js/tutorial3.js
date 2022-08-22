@@ -110,26 +110,29 @@ async function GameTuto3() {
             window.location.reload()
             tdGame.SLmode = null
         }
+        if(tdGame.step %3 === 0){
+            document.getElementById("tuto3step2").style.color = "#000000";
+            document.getElementById("tuto3step3").style.color = "#00000050";
+            document.getElementById("tuto3step4").style.color = "#00000050";
+        }
         if (tdGame.step === 1 || tdGame.step === 4 || tdGame.step === 7){
             document.getElementById("tuto3step2").style.color = "#00000050";
+            document.getElementById("tuto3step3").style.color = "#000000";
+            document.getElementById("tuto3step4").style.color = "#00000050";
         }
         if (tdGame.step === 2 || tdGame.step === 5 || tdGame.step === 8){
+            document.getElementById("tuto3step2").style.color = "#00000050";
             document.getElementById("tuto3step3").style.color = "#00000050";
+            document.getElementById("tuto3step4").style.color = "#000000";
         }
         if (tdGame.step === 3 ) {
-            document.getElementById("tuto3step2").style.color = "#000000";
-            document.getElementById("tuto3step3").style.color = "#000000";
-            document.getElementById("tuto3step4").style.color = "#000000";
             document.getElementById("tuto3step5").style.display = "";
             document.getElementById("title").textContent = "PRACTICE LOCKER PANEL (2/3)";
         }
         if(tdGame.step === 6){
-            document.getElementById("tuto3step2").style.color = "#000000";
-            document.getElementById("tuto3step3").style.color = "#000000";
-            document.getElementById("tuto3step4").style.color = "#000000";
             document.getElementById("title").textContent = "PRACTICE LOCKER PANEL (3/3)";
             document.getElementById("tuto3step3").innerHTML = "<b>STEP 2.</b>Drag the slider back and forth until <b>you unlock one locker</b>. This is your last locker.";
-            document.getElementById("tuto3step4").innerHTML = "<b>STEP 3.</b> Click on “Next” to use the EXPERT mode for your next target";
+            document.getElementById("tuto3step4").innerHTML = "<b>STEP 3.</b> <a style='color: red'>Congratulation you have unlocked <b>expert</b> mode<a>\nClick on “Next” to use the EXPERT mode for your next target";
             document.getElementById("tuto3step5").style.display = "none";
         }
         if(tdGame.step === 9){
