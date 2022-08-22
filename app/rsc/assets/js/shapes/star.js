@@ -22,9 +22,9 @@ class Star extends Shape {
         }
         let x = this.x;
         let y = this.y;
-        let ro = this.height/4;
+        let ro = this.height/3;
         let a =  Math.PI / 2 * 3;
-        let ri = this.height/8
+        let ri = this.height/6
 
         if (this.selected || this.unlocked) {
             this.ctx.strokeStyle = this.colorUnlit;

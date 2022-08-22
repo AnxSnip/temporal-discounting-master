@@ -1,7 +1,4 @@
-import Triangle from "./shapes/triangle.js"
-import Circle from "./shapes/circle.js";
-import Square from "./shapes/square.js";
-import Cross from "./shapes/cross.js";
+import shapeFactory from "./shapes/shapeFactory.js";
 import GameLog from "./gameLog.js";
 import Timeline from "./components/timeline.js";
 
@@ -75,6 +72,8 @@ class TDGame {
             console.log(str)
             event.preventDefault();
 
+            //fetch('/prolificParam')
+
             let options = {
                 method: 'POST',
                 headers: {
@@ -83,6 +82,9 @@ class TDGame {
                 body: JSON.stringify({value: str})
             }
             console.log(options)
+
+
+
             fetch('/userInfo', options).then(r => function (r) {
                 console.log('Log status: ' + r)
             })
@@ -511,18 +513,7 @@ class TDGame {
     }
 
     static shapeFromName(shapeName, x, y, minSize, selectable, context){
-        switch(shapeName){
-            case "Triangle":
-                return new Triangle(x, y, minSize, selectable, context)
-            case "Circle":
-                return new Circle(x, y, minSize, selectable, context)
-            case "Square":
-                return new Square(x, y, minSize, selectable, context)
-            case "Cross":
-                return new Cross(x, y, minSize, selectable, context)
-            default:
-                console.log('Unknown shape specified: ' + shapeName)
-        }
+        return shapeFactory.shapeFromName(shapeName, x, y, minSize, selectable, context)
     }
 
 

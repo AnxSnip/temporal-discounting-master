@@ -35,7 +35,7 @@ async function Game() {
 
     let path = "testSettings/testSettings.json"
 
-    // Get game settingggs
+    // Get game settings
     fetch(path).then(response => response.json()).then(json => {
         let framerate = 30
 
@@ -87,7 +87,7 @@ async function Game() {
 
             // Initialize timeline
             let timeline = new Timeline(document.getElementById("timelineCanvas"),
-                timelineSize, playfieldLeft, 64, shapeWeights,learningPanelLeft + learningPanel.width, playfieldTop-5)
+                timelineSize, playfieldLeft, 64, shapeWeights,learningPanelLeft + learningPanel.width -20, playfieldTop-5)
 
             // Initialize button that needs to be clicked by the user to proceed to next step
             let nextButton = document.getElementById("nextButton")

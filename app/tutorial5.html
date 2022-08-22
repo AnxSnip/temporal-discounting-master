@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User study in Human-Computer Interaction - Tutorial</title>
+    <link rel="stylesheet" href="rsc/assets/css/main.css">
+</head>
+
+<body>
+
+<div class="blackBG"></div>
+<div id="explainGameBox" class="infoBox" style="width: 600px">
+    <div id="Step1">
+        <div class="infoTitle" style="width: 210px;"><b>Almost ready to play !</b></div>
+        <pre>Congratulations! You learned how to play this game choosing any of the two modes:
+1) <b>NOVICE</b> mode by clicking on all targets
+2) <b>EXPERT</b> mode by clicking on only 1 target, but only after <b>unlocking</b> the corresponding lockers..
+</pre>
+        <img src="rsc/img/tuto4.png" width="600" alt=""/>
+        <div class="infoDivButton">
+            <button class="infoButton" onclick="location.href='tutorial4.html'" >Back</button>
+            <button class="infoButton" onclick="nextPage()">Continue</button>
+        </div>
+    </div>
+
+    <div id="Step2" style="display: none">
+        <div class="infoTitle"><b>TIPS</b></div>
+        <pre><b>Should I always UNLOCK the expert mode?</b>
+Not necessarily! You have to choose which strategy <b>NOVICE</b> or <b>Unlocking the EXPERT</b> mode is better for you.</pre>
+
+        <div style="border: solid red;">
+            <pre style="margin: 10px"><b>How will I make this choice?</b>
+            CHAMPIONS TIP: You will have to look at the <b>timeline</b>b> on top of your screen. The timeline shows your next targets. You will notice that <u>some targets are more frequent than others</u>.
+            </pre>
+        </div>
+        <div style="text-align: center;margin-top: 10px;"><img src="rsc/img/tuto4_part2.png" width="260" alt=""/></div>
+
+        <div class="infoDivButton">
+            <button class="infoButton" onclick="backTo1()" >Back</button>
+            <button class="infoButton" onclick="nextPage2()">Continue</button>
+        </div>
+    </div>
+
+    <div id="Step3" style="display: none;width: 800px;">
+        <div class="infoTitle">Bonus</div>
+        <pre>
+The 3 fastest participants of this game will receive bonus payment!
+
+1st PRIZE: X $
+
+2nd  PRIZE: X $
+
+3rd PRIZE: X $</pre>
+        <div>
+            <pre>Did not understand ? You can retry the tutorial !</pre>
+            <button onclick="window.location = 'tutorial1.html'"> Retry the tutorials</button>
+            <button class="infoButton" onclick="backTo2()" >Back</button>
+            <button onclick="window.location = 'index.html'"> Start the Experiment</button>
+        </div>
+    </div>
+</div>
+<script>
+    let nextPage = function (){
+        let a =document.getElementById("Step1")
+        a.style.display = "none"
+        let b = document.getElementById("Step2")
+        b.style.display = 'block'
+    }
+    let nextPage2 = function (){
+        let a =document.getElementById("Step2")
+        a.style.display = "none"
+        let b = document.getElementById("Step3")
+        b.style.display = 'block'
+    }
+    let backTo1 = function (){
+        let a =document.getElementById("Step1")
+        a.style.display = "block"
+        let b = document.getElementById("Step2")
+        b.style.display = 'none'
+    }
+    let backTo2 = function (){
+        let a =document.getElementById("Step2")
+        a.style.display = "block"
+        let b = document.getElementById("Step3")
+        b.style.display = 'none'
+    }
+
+
+</script>
+</body>

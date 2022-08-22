@@ -10,7 +10,7 @@
 <body>
     <div class="blackBG"></div>
     <div id="explainGameBox" class="infoBoxTuto3" >
-        <div class="infoTitle" >PRACTICE LOCKER PANEL (1/3)</div>
+        <div class="infoTitle" id="title">PRACTICE LOCKER PANEL (1/3)</div>
             <div id="part1" >
                 <pre id="tuto3step0">Using the <b>Locker panel</b> will cost you time. You need to:</pre>
                 <pre id="tuto3step2" class="condition"><b>STEP 1.</b> <u>Do not click on any target</u> in the grid. Click on the <b>unlock</b> button. A slider will appear and your target will be postponed to the end.</pre>
@@ -19,8 +19,11 @@
                 <pre id="tuto3step5" class="condition" style="display:none;color: red"><b>Repeat the instruction above</b></pre>
 
             </div>
+        <div id="backButton" class="infoDivButton" style="margin-top: 10px;">
+            <button class="infoButton" onclick="location.href='tutorial2.html'" style="padding: 10px">Back to previous tutorial</button>
         </div>
     </div>
+
     <div id="board" class="boardTuto3">
         <canvas id="timelineCanvas" class="timelineCanvas"></canvas>
         <canvas id="formsBoardCanvas" class="formsBoardCanvas"></canvas>

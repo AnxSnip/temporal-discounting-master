@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns="http://www.w3.org/1999/html">
+<html lang="fr" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">
@@ -8,68 +8,57 @@
 </head>
 
 <body>
-
 <div class="blackBG"></div>
-<div id="explainGameBox" class="infoBox" style="width: 600px">
-    <div id="Step1">
-        <div class="infoTitle" style="width: 210px;"><b>Almost ready to play !</b></div>
-        <pre>Congratulations! You learned how to play this game choosing any of the two modes:
-1) <b>NOVICE</b> mode by clicking on all targets
-2) <b>EXPERT</b> mode by clicking on only 1 target, but only after <b>unlocking</b> the corresponding lockers..
-</pre>
-        <img src="rsc/img/tuto4.png" width="600" alt=""/>
-        <div class="infoDivButton">
-            <button class="infoButton" onclick="nextPage()">Continue</button>
+<div id="explainGameBox" class="infoBox" >
+    <div class="infoTitle" >TIME TO PRATICE ALL MODES</div>
+    <div id="part1" >
+        <pre >In the game,  you will be able to choose if you will use NOVICE or UNLOCK the-EXPERT mode. Now, the number of lockers [R] and the duration of the sliders [ x ] are identical to the game you will play.</pre>
+        <pre>Click on “Next” to practice all modes in the same conditions of the game</pre>
+    </div>
+    <div id="part2" style="display: none">
+        <pre id="textPart2">Click on all target symbols below as fast as possible.</pre>
+        <div id="step2" style="display: none">
+            <pre id="tuto4step1" class="condition"><b>STEP 1.</b> <u>Do not click on any target</u> in the grid. Click on the <b>unlock</b> button. A slider will appear and your target will be postponed to the end.</pre>
+            <pre id="tuto4step2" class="condition"><b>STEP 2.</b> Drag the slider back and forth until <b>you unlock one locker</b>. This is your last locker.</pre>
+            <pre id="tuto4step3" class="condition"><b>STEP 3.</b> Click on “Next” to use the EXPERT mode for your next target.</pre>
         </div>
     </div>
-
-    <div id="Step2" style="display: none">
-        <div class="infoTitle"><b>TIPS</b></div>
-        <pre><b>Should I always UNLOCK the expert mode?</b>
-Not necessarily! You have to choose which strategy <b>NOVICE</b> or <b>Unlocking the EXPERT</b> mode is better for you.</pre>
-
-        <div style="border: solid red;">
-            <pre style="margin: 10px"><b>How will I make this choice?</b>
-            CHAMPIONS TIP: You will have to look at the <b>timeline</b>b> on top of your screen. The timeline shows your next targets. You will notice that <u>some targets are more frequent than others</u>.
-            </pre>
-        </div>
-        <div style="text-align: center;margin-top: 10px;"><img src="rsc/img/tuto4_part2.png" width="260" alt=""/></div>
-
-        <div class="infoDivButton">
-            <button class="infoButton" onclick="nextPage2()">Continue</button>
-        </div>
+    <div class="infoDivButton">
+        <button id="nextPagebutton" class="infoButton">Next</button>
+    </div>
+    <div style="text-align: right;margin-top: 10px">
+        <button class="infoButton" onclick="location.href='tutorial3.html'" style="padding: 10px">Back to previous tutorial</button>
     </div>
 
-    <div id="Step3" style="display: none">
-        <div class="infoTitle">Bonus</div>
+</div>
+
+
+<div id="board" class="boardTuto3" style="display: none;">
+    <canvas id="timelineCanvas" class="timelineCanvas"></canvas>
+    <canvas id="formsBoardCanvas" class="formsBoardCanvas"></canvas>
+    <canvas id="targetCanvas" class="targetCanvas"></canvas>
+    <canvas id="learningCanvas" class="learningCanvas"></canvas>
+    <button id="nextButton" style="display: none;">Next</button>
+</div>
+
+<div id="breakTime" class="blackBG" style="display: none;">
+    <div id="breakTimeBox" class="infoBox">
+        <div class="infoTitle">Break Time</div>
         <pre>
-The 3 fastest participants of this game will receive bonus payment!
-
-1st PRIZE: X $
-
-2nd  PRIZE: X $
-
-3rd PRIZE: X $</pre>
-        <div>
-            <pre>Did not understand ? You can retry the tutorial !</pre>
-            <button onclick="window.location = 'tutorial1.html'"> Retry the tutorials</button>
-            <button onclick="window.location = 'index.html'"> Start the Experiment</button>
+                Take a short break.
+                When ready, click on the button.<br />
+                Time left: <span id="timeLeft"></span> <br />
+            </pre>
+        <div class="infoDivNextButton">
+            <button class="closeBreak">Close</button>
         </div>
     </div>
 </div>
-<script>
-    let nextPage = function (){
-        let a =document.getElementById("Step1")
-        a.style.display = "none"
-        let b = document.getElementById("Step2")
-        b.style.display = 'block'
-    }
-    let nextPage2 = function (){
-        let a =document.getElementById("Step2")
-        a.style.display = "none"
-        let b = document.getElementById("Step3")
-        b.style.display = 'block'
-    }
+<div><form></form><div>
 
-</script>
+    <script type="module" src="rsc/assets/js/tutorial4.js"></script>
+
+
 </body>
+
+</html>

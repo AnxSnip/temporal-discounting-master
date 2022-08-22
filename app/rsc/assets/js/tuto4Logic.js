@@ -1,11 +1,12 @@
 import tdGame from "./tdGame.js";
 
-class tuto3Logic extends tdGame{
+class tuto4Logic extends tdGame{
     constructor(settings) {
         super(settings,null);
         this.step = 0;
         this.notUnlocked = true;
         this.stime=-1;
+        this.lockStates=[this.settings.nbLocks-1,0,0]
     }
 
     tick() {}
@@ -16,6 +17,7 @@ class tuto3Logic extends tdGame{
     nextStep() {
         //TODO change to fit the requirement
         // If the timer ran out
+        this.step ++
         this.stime=-1
         if(this.getCurrTime() > this.settings.maxTimer && this.settings.maxTimer !== -1 && !this.gameEnded && !this.inBreak) {
             let timeTakenStep = Date.now() - this.startStepTime
@@ -58,9 +60,12 @@ class tuto3Logic extends tdGame{
         this.initNewStep()
     }
 
+    selectShape(row, col) {
+        if (this.stime === -1) this.stime =Date.now();
+        super.selectShape(row, col);
+    }
 
     initNewStep(){
-        if(this.step === 2 || this.step === 5 || this.step === 8) this.step ++;
 
         if(this.playfield === null){
             console.log("Playfield must be bound before initialising game step")
@@ -88,7 +93,7 @@ class tuto3Logic extends tdGame{
     }
 
     generateBlock() {
-        let newBlockShapes = ["Triangle","Triangle","Triangle","Triangle","Square"]
+        let newBlockShapes = ["Star","Quatrefoil","Quatrefoil","Ring"]
         this.shapeBacklog = this.shapeBacklog.concat(newBlockShapes)
 
         for(let shapeName in newBlockShapes){
@@ -111,8 +116,7 @@ class tuto3Logic extends tdGame{
         // Save data to log file
         //TODO something to end the tuto
         document.getElementById("board").style.display = "none";
-        this.step++
     }
 }
 
-export default tuto3Logic
+export default tuto4Logic
