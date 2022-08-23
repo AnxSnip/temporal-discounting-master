@@ -13,7 +13,8 @@
     <div class="infoTitle" >TIME TO PRATICE ALL MODES</div>
     <div id="part1" >
         <pre >In the game,  you will be able to choose if you will use NOVICE mode or unlock the EXPERT mode.
-<b>Now, the number of lockers and the duration of the sliders are identical to the game you will play.</b></pre>
+<b>Now, the number of lockers (<a id="locker"></a>) and the duration of the sliders (<a id="slider"></a>) are identical to the game you will play.</b>
+</pre>
         <pre>Click on “Next” to practice all modes in the same conditions of the game</pre>
     </div>
     <div id="part2" style="display: none">
@@ -26,13 +27,13 @@
         <button id="nextPagebutton" class="infoButton">Next</button>
     </div>
     <div style="text-align: right;margin-top: 10px">
-        <button class="infoButton" onclick="location.href='tutorial3.html'" style="padding: 10px">Back to previous tutorial</button>
+        <button class="infoButton" onclick="location.href='tutorial3.html'+window.location.search" style="padding: 10px">Back to previous tutorial</button>
     </div>
 
 </div>
 
 
-<div id="board" class="boardTuto3" style="display: none;">
+<div id="board" class="boardTuto3" style="display: none;height: 445px">
     <canvas id="timelineCanvas" class="timelineCanvas"></canvas>
     <canvas id="formsBoardCanvas" class="formsBoardCanvas"></canvas>
     <canvas id="targetCanvas" class="targetCanvas"></canvas>
@@ -53,8 +54,25 @@
         </div>
     </div>
 </div>
-<div><form></form><div>
+<div><form></form></div>
+    <script>
+        let p = "testSettings/testSettings.json";
+        fetch(p).then(response => response.json()).then(json => {
+            let options = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            fetch('/lockDeciderTuto', options).then(r => r.json()).then(lDecJson => {
+                let lockDecider = lDecJson.value
+                let nblock = json.nbLocks[lockDecider % json.nbLocks.length]
+                document.getElementById("locker").innerHTML = nblock;
+                document.getElementById("slider").innerHTML = String(Math.round(json.timeLearning/nblock/1000).toFixed(2)) + "s"
+            });
+        });
 
+    </script>
     <script type="module" src="rsc/assets/js/tutorial4.js"></script>
 
 

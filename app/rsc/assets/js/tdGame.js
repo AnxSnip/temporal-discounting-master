@@ -63,16 +63,24 @@ class TDGame {
             var data = new FormData(form)
             var str = String(ipAddress)+",";
             var line = '';
+
+            let params = new URLSearchParams(window.location.search);
+            let p_id = params.get("PROLIFIC_PID");
+            let stud_id = params.get("STUDY_ID");
+            let session_id = params.get("SESSION_ID");
+            if (!p_id) p_id = "none";
+            if (!stud_id) stud_id = -1;
+            if (!session_id) session_id = -1;
+
+            str += p_id +","+ stud_id + "," + session_id + ","
             for (const entry of data) {
                 var value = entry[1] + "";
-                line += '"' + value.replace(/"/g, '""') + '",';
+                line += value.replace(/"/g, '""')+ ',';
             }
             line = line.slice(0, -1);
             str += line + '\r\n';
             console.log(str)
             event.preventDefault();
-
-            //fetch('/prolificParam')
 
             let options = {
                 method: 'POST',
@@ -81,9 +89,6 @@ class TDGame {
                 },
                 body: JSON.stringify({value: str})
             }
-            console.log(options)
-
-
 
             fetch('/userInfo', options).then(r => function (r) {
                 console.log('Log status: ' + r)

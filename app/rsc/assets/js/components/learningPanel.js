@@ -3,13 +3,13 @@ import Button from "../shapes/button.js";
 import Slider from "./Slider.js";
 
 class LearningPanel{
-    constructor(canvasElement, cellSize, maxLockCount, shapeNames, top, left, stroke)  {
+    constructor(canvasElement, cellSize, maxLockCount, shapeNames, top, left, stroke,height = 510)  {
         this.cellSize = cellSize
         this.imgWidth = 4 * cellSize / 12
         this.imgHeight = 5 * cellSize / 12
         this.imgMargin = cellSize / 2
         this.canvMargin = cellSize*1.5
-        this.height = 510
+        this.height = height
         this.width = 6 / 5 * cellSize + (maxLockCount + 1) * (this.imgWidth + this.imgMargin / 3)
         this.canvasElement = canvasElement
         this.canvasElement.height = this.height

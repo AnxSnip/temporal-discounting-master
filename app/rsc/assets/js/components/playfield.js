@@ -9,7 +9,7 @@ class PlayField {
         this.nbCol = nbCol
         this.cellSize = cellSize
         this.stroke = stroke
-        this.margin = 3 / 2 * cellSize
+        this.margin = 0.75 * cellSize
         this.selectMargin = cellSize / 8
 
         this.colorBoard = "gainsboro"
@@ -32,7 +32,7 @@ class PlayField {
     }
 
     gridX(col) {
-        return this.cellSize * (col +1) + this.cellSize / 3
+        return this.cellSize * (col) + this.margin
     }
 
     gridY(row) {

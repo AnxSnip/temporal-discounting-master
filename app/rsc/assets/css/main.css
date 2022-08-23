@@ -459,9 +459,9 @@ input[type=range]::-ms-thumb {
 .boardTuto3{
     position: absolute;
     top:50px;
-    left: 500px;
-    height: 605px;
-    width: 970px;
+    left: 400px;
+    height: 505px;
+    width: 850px;
     background-color: white;
 }
 
@@ -473,5 +473,5 @@ input[type=range]::-ms-thumb {
     top: 50px;
     display: block;
     margin-bottom: 50px;
-    width: 350px;
+    width: 275px;
 }

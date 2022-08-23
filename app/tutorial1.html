@@ -26,7 +26,10 @@
 
 
         <div id="buttonToTuto2" class="infoDivButton" style="display: none;">
-            <button class="infoButton" onclick="location.href='tutorial2.html'" style="padding: 10px">Next</button>
+            <button class="infoButton" onclick="location.href='tutorial2.html'+window.location.search" style="padding: 10px">Next</button>
+        </div>
+        <div id="backButton" class="infoDivButton" style="margin-top: 10px">
+            <button class="infoButton" onclick="location.href='tutorial.html'+window.location.search" style="padding: 10px">Back to previous tutorial</button>
         </div>
     </div>
     <script type="module" src="rsc/assets/js/tutorial1.js"></script>

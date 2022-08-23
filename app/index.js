@@ -8,6 +8,7 @@ let init = require('./myexpress-init/server.js');
 app = init();
 //END EXPRESS SERVER INITIALIZATION
 
+
 let fs = require('fs')
 let lockDecider = Math.floor(Math.random() * 100)
 
@@ -18,6 +19,7 @@ app.get('/', function(req, res) {
 const express = require('./myexpress-init/node_modules/express')
 app.use(express.static(__dirname + '/'));
 app.use(express.json( /*{limit:'1mb'} */ ));
+app.use(express.urlencoded({extended:true}  ));
 
 app.get('/lockDecider', (request, response) => {
     console.log('Served lock decider ' + lockDecider)
@@ -94,57 +96,14 @@ app.post('/userInfo', (request, response) => {
     })
 })
 
-function getAllUrlParams(url) {
-    // get query string from url (optional) or window
-    var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
-
-    // we'll store the parameters here
-    var obj = {};
-
-    // if query string exists
-    if (queryString) {
-
-        // stuff after # is not part of query string, so get rid of it
-        queryString = queryString.split('#')[0];
-
-        // split our query string into its component parts
-        var arr = queryString.split('&');
-
-        for (var i = 0; i < arr.length; i++) {
-            // separate the keys and the values
-            var a = arr[i].split('=');
-
-            // set parameter name and value (use 'true' if empty)
-            var paramName = a[0];
-            var paramValue = typeof (a[1]) === 'undefined' ? true : a[1];
-
-            // we're dealing with a string
-            if (!obj[paramName]) {
-                // if it doesn't exist, create property
-                obj[paramName] = paramValue;
-            } else if (obj[paramName] && typeof obj[paramName] === 'string'){
-                // if property does exist and it's a string, convert it to an array
-                obj[paramName] = [obj[paramName]];
-                obj[paramName].push(paramValue);
-            } else {
-                // otherwise add the property
-                obj[paramName].push(paramValue);
-
-            }
-        }
-    }
-
-    return obj;
-}
-
-//TODO window not loaded error
-app.get('/prolificParam',(request,response) => {
-    const params = getAllUrlParams();
-    let p_id = params.PROLIFIC_PID;
-    let stud_id = params.STUDY_ID;
-    let session_id = params.SESSION_ID;
+app.get('/p',(request,response) => {
+    let p_id = request.query.PROLIFIC_PID;
+    let stud_id = request.query.STUDY_ID;
+    let session_id = request.query.SESSION_ID;
     if (!p_id) p_id = "none";
     if (!stud_id) stud_id = -1;
     if (!session_id) session_id = -1;
-    response.body = JSON.stringify({"PROLIFIC_PID" : p_id,"STUDY_ID" : stud_id,"SESSION_ID":session_id})
+    let r = JSON.stringify({"PROLIFIC_PID" : p_id,"STUDY_ID" : stud_id,"SESSION_ID":session_id})
+    console.log(r)
+    response.send(r)
 })

@@ -8,8 +8,8 @@ import tuto4Logic from "./tuto4Logic.js";
 import Slider from "./components/Slider.js";
 
 class LearningPanelTuto4 extends LearningPanel{
-    constructor(canvasElement, cellSize, maxLockCount, shapeNames, top, left, stroke) {
-        super(canvasElement, cellSize, maxLockCount, shapeNames, top, left, stroke);
+    constructor(canvasElement, cellSize, maxLockCount, shapeNames, top, left, stroke,height) {
+        super(canvasElement, cellSize, maxLockCount, shapeNames, top, left, stroke,height);
     }
 
     unlockClick(event) {
@@ -93,10 +93,10 @@ async function GameTuto4() {
             // Initialize playfield (Grid of shapes)
             let playfieldTop = 20 + 18 + 20 + 1.5 * timelineSize
             let playfieldLeft = 20
-            let cellSize = 495 / (json.gridWidth + 2)
+            let cellSize = 430 / (json.gridWidth + 2)
 
             let playField = new PlayField(document.getElementById("formsBoardCanvas"),
-                framerate, 510, 495, json.gridWidth, json.gridWidth,
+                framerate, 330, 330, json.gridWidth, json.gridWidth,
                 cellSize, playfieldTop, playfieldLeft, stroke)
 
             // Initialize target canvas (Target shape indicator)
@@ -108,7 +108,7 @@ async function GameTuto4() {
             // Initialize target canvas (Lock status panel)
             let learningPanelLeft = targetCanvas.width + targetCanvasLeft + 10
             let learningPanel = new LearningPanelTuto4(document.getElementById("learningCanvas"),
-                cellSize, settings.nbLocks, settings.shapeNames, playfieldTop, learningPanelLeft, stroke)
+                cellSize, settings.nbLocks, settings.shapeNames, playfieldTop, learningPanelLeft, stroke,330)
             let board = document.getElementById("board")
             if (board.getBoundingClientRect().width < learningPanelLeft + learningPanel.width + 10) board.style.width = String(learningPanelLeft + learningPanel.width + 10) + "px";
             let timeline = new Timeline(document.getElementById("timelineCanvas"),
@@ -150,7 +150,7 @@ async function GameTuto4() {
                     text2.innerText='Click on all target symbols below as fast as possible.'
                 }
                 if(tdGame.step===7){
-                    window.location = "tutorial5.html"
+                    window.location = "tutorial5.html"+window.location.search
                 }
                 tdGame.tick()
                 tdGame.playfield.draw()

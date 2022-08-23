@@ -8,8 +8,8 @@ import tuto3Logic from "./tuto3Logic.js";
 import Slider from "./components/Slider.js";
 
 class LearningPanelTuto3 extends LearningPanel{
-    constructor(canvasElement, cellSize, maxLockCount, shapeNames, top, left, stroke) {
-        super(canvasElement, cellSize, maxLockCount, shapeNames, top, left, stroke);
+    constructor(canvasElement, cellSize, maxLockCount, shapeNames, top, left, stroke,height) {
+        super(canvasElement, cellSize, maxLockCount, shapeNames, top, left, stroke,height);
     }
 
     unlockClick(event) {
@@ -72,7 +72,7 @@ async function GameTuto3() {
 
 
     let playField = new PlayField(document.getElementById("formsBoardCanvas"),
-        framerate, 510, 495, settings.gridWidth, settings.gridHeight,
+        framerate, 400, 400, settings.gridWidth, settings.gridHeight,
         cellSize, playfieldTop, playfieldLeft, stroke)
 
     // Initialize target canvas (Target shape indicator)
@@ -84,7 +84,7 @@ async function GameTuto3() {
     // Initialize target canvas (Lock status panel)
     let learningPanelLeft = targetCanvas.width + targetCanvasLeft + 10
     let learningPanel = new LearningPanelTuto3(document.getElementById("learningCanvas"),
-        cellSize, 3, settings.shapeNames, playfieldTop, learningPanelLeft, stroke)
+        cellSize, 3, settings.shapeNames, playfieldTop, learningPanelLeft, stroke,400)
 
     let timeline = new Timeline(document.getElementById("timelineCanvas"),
         timelineSize, playfieldLeft, 64, shapeWeights,learningPanelLeft + learningPanel.width, playfieldTop-5)
@@ -148,7 +148,7 @@ async function GameTuto3() {
             tdGame.notUnlocked = false;
         }
         if (tdGame.step === 10){
-            window.location = "tutorial4.html"
+            window.location = "tutorial4.html"+window.location.search
         }
         tdGame.tick()
         tdGame.playfield.draw()
