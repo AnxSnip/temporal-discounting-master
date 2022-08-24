@@ -1,2 +1,3 @@
 date,user_ip,trial_id,block_id,n_trials,n_block,block_size,target_shape,target_id,target_freq,target_n,timeLearning,setting_used,n_locks,lock_duration,unlock_action,lock_state,occurrence,time,time_selected,time_next,slider_display_span,n_opened_locker,first_unlock_occurrence,first_unlock_trial,nb_total_click,exp_total_time,mode_used
 Tue Aug 23 2022 15:06:28 GMT+0200 (heure d’été d’Europe centrale),78.197.241.68,1,1,1,0,8,Cross,3,2,5,10000,4*2.5s,4,2500.00,0,0,1,3092,2606,486,-1,0,-1,-1,6,3092,novice
+Wed Aug 24 2022 15:57:29 GMT+0200 (heure d’été d’Europe centrale),78.197.241.68,1,1,1,0,8,Square,0,2,5,10000,3*3.3333333333333335s,3,3333.33,0,0,1,3751,3068,683,-1,0,-1,-1,6,3751,novice

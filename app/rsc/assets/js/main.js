@@ -26,10 +26,24 @@ $.getJSON("https://api.ipify.org?format=json", function(data) {
     ipAddress = data.ip;
 });
 
+window.onbeforeunload = function() {
+    return "Are you sure to refresh the page ? We will not be able to guarantee your remuneration";
+}
+window.addEventListener("beforeunload", function(event) {
+    fetch('/r'+window.location.search)
+});
+
 let infoButton = document.querySelector(".infoButton")
 infoButton.addEventListener('click', Game)
 
+
+
 async function Game() {
+    if (window.mobileAndTabletCheck()){
+        document.getElementById("mobileRestriction").style.display = '';
+        document.getElementById("explainGame").style.display = 'none';
+        return;
+    }
     // Hide experiment prompt
     document.getElementById('explainGame').style.display='none'
 

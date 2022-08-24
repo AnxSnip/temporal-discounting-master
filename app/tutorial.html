@@ -9,52 +9,77 @@
 </head>
 
 <body>
+    <div id="explainGame">
+        <div class="blackBG"></div>
+        <div id="explainGameBox" class="infoBox">
+            <div id="Step1">
 
-    <div class="blackBG"></div>
-    <div id="explainGameBox" class="infoBox">
-        <div id="Step1">
-
-        <div class="infoTitle" style="width: 200px;">Welcome to our study</div>
-        <pre style="word-wrap: break-word;white-space: pre-wrap;word-break: break-word;">
-    This study is being conducted by Sorbonne University.
-    The goal of the study is to help us understand user behavior with interactive systems. It will take approximately [X] minutes.
-You will be asked to click on a number of colored symbols as fast as possible. There is no risk to participating in the study. You may stop the study at any time.
-    By clicking "I do consent", you agree to participate in this study, that you should refrain from providing identifiable data in open-ended questions and that you are at least 18 years of age. If you have questions or concerns, you can contact Gilles Bailly  at <a href="mailto:gilles.bailly@sorbonne-universite.fr"><b>gilles.bailly@sorbonne-universite.fr</b></a>. We cannot ensure the confidentiality of information sent by email.
-    This study was approved by The INSEAD Internal Review Board (reference 201915).
-        </pre>
-        <input type="checkbox" id="consent" >
-        <label for="consent">I do consent</label>
-        <pre>
-Press "Start Tutorial" to continue...
-        </pre>
-
-        <div class="infoDivButton">
-            <button class="infoButton" onclick="checked()">START TUTORIAL</button>
-        </div>
-
-        </div>
-
-        <div id="Step2" style="display: none">
-            <div class="infoTitle">TASK</div>
-                <pre>
-In this game you need to click on target symbols as fast as possible.
-For example, your target below is an orange triangle.
-So you will have to click on all three orange triangles on the grid.
-Click on the button “Next” to practice.
-<img src="rsc/img/tuto0.png" width="520" alt="Task example"/>
-                </pre>
+            <div class="infoTitle" style="width: 200px;">Welcome to our study</div>
+            <pre style="word-wrap: break-word;white-space: pre-wrap;word-break: break-word;">
+        This study is being conducted by Sorbonne University.
+        The goal of the study is to help us understand user behavior with interactive systems. It will take approximately [X] minutes.
+    You will be asked to click on a number of colored symbols as fast as possible. There is no risk to participating in the study. You may stop the study at any time.
+        By clicking "I do consent", you agree to participate in this study, that you should refrain from providing identifiable data in open-ended questions and that you are at least 18 years of age. If you have questions or concerns, you can contact Gilles Bailly  at <a href="mailto:gilles.bailly@sorbonne-universite.fr"><b>gilles.bailly@sorbonne-universite.fr</b></a>. We cannot ensure the confidentiality of information sent by email.
+        This study was approved by The INSEAD Internal Review Board (reference 201915).
+            </pre>
+            <input type="checkbox" id="consent" >
+            <label for="consent">I do consent</label>
+            <pre>
+    Press "Start Tutorial" to continue...
+            </pre>
 
             <div class="infoDivButton">
-                <button class="infoButton" onclick="window.location = 'tutorial1.html'+window.location.search;">Next</button>
+                <button class="infoButton" onclick="checked()">START TUTORIAL</button>
             </div>
+
+            </div>
+
+            <div id="Step2" style="display: none">
+                <div class="infoTitle">TASK</div>
+                    <pre>
+    In this game you need to click on target symbols as fast as possible.
+    For example, your target below is an orange triangle.
+    So you will have to click on all three orange triangles on the grid.
+    Click on the button “Next” to practice.
+    <img src="rsc/img/tuto0.png" width="520" alt="Task example"/>
+                    </pre>
+
+                <div class="infoDivButton">
+                    <button class="infoButton" onclick="window.location = 'tutorial1.html'+window.location.search;">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="mobileRestriction" style="display: none;">
+        <div class="blackBG" style="background-color: red;"></div>
+        <div class="infoBox">
+            <div class="infoTitle">IHM Expert</div>
+            <pre>
+Thank you for your interest however this
+
+website isn't suited for mobile or tablet.
+            </pre>
         </div>
     </div>
 
 </body>
 
-
+<script src="rsc/assets/js/verification.js"></script>
 <script>
+    window.onload = (event)=>{
+        if (window.mobileAndTabletCheck()){
+            document.getElementById("mobileRestriction").style.display = '';
+            document.getElementById("explainGame").style.display = 'none';
+        }
+    }
 
+    window.onbeforeunload = function() {
+        return "Are you sure to refresh the page ? We will not be able to guarantee your remuneration";
+    }
+    window.addEventListener("beforeunload", function(event) {
+        fetch('/r'+window.location.search)
+    });
 
     let checked = function (){
         let x = document.getElementById("consent")

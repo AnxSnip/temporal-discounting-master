@@ -107,3 +107,14 @@ app.get('/p',(request,response) => {
     console.log(r)
     response.send(r)
 })
+
+app.get('/r',(request,response) => {
+    let p_id = request.query.PROLIFIC_PID;
+    let stud_id = request.query.STUDY_ID;
+    let session_id = request.query.SESSION_ID;
+    if (!p_id) p_id = "none";
+    if (!stud_id) stud_id = -1;
+    if (!session_id) session_id = -1;
+    let r = JSON.stringify({"PROLIFIC_PID" : p_id,"STUDY_ID" : stud_id,"SESSION_ID":session_id})
+    console.log("Page refresh log " + r +" "+ request.get("Referer") + " user refreshed page")
+})
