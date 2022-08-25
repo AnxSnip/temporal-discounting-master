@@ -3,11 +3,12 @@ import Shape from "./shape.js"
 class Circle extends Shape {
     constructor(x, y, minSize, selectable, context) {
         super(x, y, minSize, minSize, selectable, context);
+        let size = minSize/2
         this.radius = minSize/4
-        this.bottom = y + minSize/2;
-        this.top = y - minSize/2;
-        this.right = x + minSize/2;
-        this.left = x - minSize/2;
+        this.bottom = y + size/2;
+        this.top = y - size/2;
+        this.right = x + size/2;
+        this.left = x - size/2;
         this.colorUnlit = "#4169e1"
         this.colorLit = "lightsteelblue"
         this.marginFactor = minSize / 16

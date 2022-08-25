@@ -1,7 +1,8 @@
 class GameLog {
     constructor(initDate, sliderDuration,
-                nbShapesByBlock, shapeNames, nbLocks, nbTargets,
-                triWeight, cirWeight, squWeight, croWeight, learningTime, ipAddress) {
+                nbShapesByBlock, shapeNames, nbLocks, nbTargets,weights,
+                learningTime, ipAddress) {
+        const order = ["Triangle","Circle","Square","Cross","Diamond","X","Star","Hexagon","Ring","Quatrefoil"]
         this.initDate = initDate
         this.ipAddress = ipAddress
 
@@ -9,7 +10,7 @@ class GameLog {
         this.blockId = []
         this.nbTrials = 0
         this.blocksDone = 0
-        this.blockSize = triWeight + cirWeight + squWeight + croWeight
+        this.blockSize = nbShapesByBlock
         this.targetShapes = []
         this.targetShapesId = []
         this.nbTargets = nbTargets
@@ -29,30 +30,67 @@ class GameLog {
         this.settingsUsed = String(nbLocks) + "*" + sliderDuration / 1000 + "s"
 
         this.weights = {}
-        this.weights["Triangle"] = triWeight
-        this.weights["Circle"] = cirWeight
-        this.weights["Square"] = squWeight
-        this.weights["Cross"] = croWeight
-
         this.seenShape = {}
-        this.seenShape["Triangle"] = 0
-        this.seenShape["Circle"] = 0
-        this.seenShape["Square"] = 0
-        this.seenShape["Cross"] = 0
-
-
         this.firstUnlockOcc = {}
-        this.firstUnlockOcc["Triangle"] = -1
-        this.firstUnlockOcc["Circle"] = -1
-        this.firstUnlockOcc["Square"] = -1
-        this.firstUnlockOcc["Cross"] = -1
-
-
         this.firstUnlockTrialId = {}
-        this.firstUnlockTrialId["Triangle"] = -1
-        this.firstUnlockTrialId["Circle"] = -1
-        this.firstUnlockTrialId["Square"] = -1
-        this.firstUnlockTrialId["Cross"] = -1
+        let w = weights.length
+        if (w >4){
+            this.weights["Triangle"] = weights[0]
+            this.weights["Circle"] = weights[1]
+            this.weights["Square"] = weights[2]
+            this.weights["Cross"] = weights[3]
+
+            this.seenShape["Triangle"] = -1
+            this.seenShape["Circle"] = -1
+            this.seenShape["Square"] = -1
+            this.seenShape["Cross"] = -1
+
+            this.firstUnlockOcc["Triangle"] = -1
+            this.firstUnlockOcc["Circle"] = -1
+            this.firstUnlockOcc["Square"] = -1
+            this.firstUnlockOcc["Cross"] = -1
+
+            this.firstUnlockTrialId["Triangle"] = -1
+            this.firstUnlockTrialId["Circle"] = -1
+            this.firstUnlockTrialId["Square"] = -1
+            this.firstUnlockTrialId["Cross"] = -1
+        }
+        if(w > 5){
+            this.weights["Diamond"] = weights[4]
+            this.seenShape["Diamond"] = -1
+            this.firstUnlockOcc["Diamond"] = -1
+            this.firstUnlockTrialId["Diamond"] = -1
+        }
+        if(w > 6){
+            this.weights["X"] = weights[5]
+            this.seenShape["X"] = -1
+            this.firstUnlockOcc["X"] = -1
+            this.firstUnlockTrialId["X"] = -1
+        }
+        if(w > 7){
+            this.weights["Star"] = weights[6]
+            this.seenShape["Star"] = -1
+            this.firstUnlockOcc["Star"] = -1
+            this.firstUnlockTrialId["Star"] = -1
+        }
+        if(w > 8){
+            this.weights["Hexagon"] = weights[7]
+            this.seenShape["Hexagon"] = -1
+            this.firstUnlockOcc["Hexagon"] = -1
+            this.firstUnlockTrialId["Hexagon"] = -1
+        }
+        if(w > 9){
+            this.weights["Ring"] = weights[8]
+            this.seenShape["Ring"] = -1
+            this.firstUnlockOcc["Ring"] = -1
+            this.firstUnlockTrialId["Ring"] = -1
+        }
+        if(w > 10){
+            this.weights["Quatrefoil"] = weights[9]
+            this.seenShape["Quatrefoil"] = -1
+            this.firstUnlockOcc["Quatrefoil"] = -1
+            this.firstUnlockTrialId["Quatrefoil"] = -1
+        }
 
         this.occurrences = []
 
@@ -79,7 +117,6 @@ class GameLog {
                 this.firstUnlockOcc[targetShape] = this.seenShape[targetShape]
                 this.firstUnlockTrialId[targetShape] = trialId
             }
-
             this.didUnlock.push(1)
             this.locksOpened++
         }
@@ -105,7 +142,7 @@ class GameLog {
         this.blocksDone = Math.floor(nbTrials / this.blockSize)
     }
 
-    exportAsString() {
+    exportAsString(reload = 0) {
         let lines = []
         for(let i = 0; i < this.trialId.length; i++) {
             let data = [new Date(this.initDate), this.ipAddress, this.trialId[i],
@@ -116,7 +153,7 @@ class GameLog {
             this.didUnlock[i], this.targetLockState[i], this.occurrences[i],
             this.timeTakenStep[i], this.timeTakenAllSelection[i], this.timeTakenNextClick[i],
             this.sliderDisplayTime[i], this.locksOpenedAtStep[i], this.firstUnlockOcc[this.targetShapes[i]],
-            this.firstUnlockTrialId[this.targetShapes[i]], this.nbCLicks[i], this.totalTime, this.modeUsed[i]]
+            this.firstUnlockTrialId[this.targetShapes[i]], this.nbCLicks[i], this.totalTime, this.modeUsed[i],reload]
             lines.push(data.join(','))
         }
         return lines.join('\n')
@@ -124,14 +161,26 @@ class GameLog {
 
     static getIdFromShapeName(shapeName) {
         switch(shapeName) {
-            case "Square":
+            case "Triangle":
                 return 0
             case "Circle":
                 return 1
-            case "Triangle":
+            case "Square":
                 return 2
             case "Cross":
                 return 3
+            case "Diamond":
+                return 4
+            case "X":
+                return 5
+            case "Star":
+                return 6
+            case "Hexagon":
+                return 7
+            case "Ring":
+                return 8
+            case "Quatrefoil":
+                return 9
             default:
                 return -1
         }

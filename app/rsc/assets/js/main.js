@@ -15,7 +15,9 @@ function updateIntroMsg(nTask, formsList) {
     document.getElementById("nTask").innerHTML = nTask + " tasks";
     document.getElementById("shapeList").innerHTML = "(" + formsList + ")";
 }
-
+function add(acc,a){
+    return acc + a
+}
 
 //--------------------------------------------------------------------------------
 //                  GAME variables to post in the database
@@ -26,12 +28,7 @@ $.getJSON("https://api.ipify.org?format=json", function(data) {
     ipAddress = data.ip;
 });
 
-window.onbeforeunload = function() {
-    return "Are you sure to refresh the page ? We will not be able to guarantee your remuneration";
-}
-window.addEventListener("beforeunload", function(event) {
-    fetch('/r'+window.location.search)
-});
+
 
 let infoButton = document.querySelector(".infoButton")
 infoButton.addEventListener('click', Game)
@@ -44,6 +41,11 @@ async function Game() {
         document.getElementById("explainGame").style.display = 'none';
         return;
     }
+
+    let reload = sessionStorage.getItem("Reloaded")
+    if (!reload) {reload = 0} else {reload = parseInt(reload)}
+
+
     // Hide experiment prompt
     document.getElementById('explainGame').style.display='none'
 
@@ -67,23 +69,23 @@ async function Game() {
             let lockDecider = lDecJson.value
             // Initialize setting object
             let settings = new gameSettings(
-                [], json.triWeight, json.cirWeight, json.squWeight,
-                json.croWeight, json.nbTargets,
+                json.weights, json.nbTargets,
                 json.timeLearning, json.nbSliders,
                 json.nbLocks, json.gridWidth, json.gridHeight,
                 json.shapeNames, json.maxStep,json.nbBlock, json.maxTimer, json.noviceTime, json.breakTimer, lockDecider,
                 json.showTimeline, json.easyMode, json.debug)
-            let shapeWeights = json.triWeight + json.cirWeight + json.squWeight + json.croWeight
+
+            let shapeWeights = json.weights.reduce(add,0);
             // Initialize game logic component
             let tdGame = new TDGame(settings, ipAddress)
 
-            let timelineSize = 20
+            let timelineSize = 30
             // Initialize playfield (Grid of shapes)
             let playfieldTop = 20 + 18 + 20 + (1.5*timelineSize) * json.nbBlock
             let playfieldLeft = 20
-            let playfieldHeight = 510
-            let playfieldWidth = 495
-            let cellSize = playfieldWidth /(settings.gridWidth + 2)
+            let playfieldHeight = 400
+            let playfieldWidth = 400
+            let cellSize = 500 /(4 + 2)
             let playField = new PlayField(document.getElementById("formsBoardCanvas"),
                 framerate, playfieldHeight, playfieldWidth, settings.gridWidth, settings.gridHeight,
                 cellSize, playfieldTop, playfieldLeft, stroke)
@@ -97,7 +99,7 @@ async function Game() {
             // Initialize target canvas (Lock status panel)
             let learningPanelLeft = targetCanvas.width + targetCanvasLeft + 10
             let learningPanel = new LearningPanel(document.getElementById("learningCanvas"),
-                cellSize, settings.nbLocks, settings.shapeNames, playfieldTop, learningPanelLeft, stroke)
+                50, settings.nbLocks, settings.shapeNames, playfieldTop, learningPanelLeft, stroke,435)
 
             // Initialize timeline
             let timeline = new Timeline(document.getElementById("timelineCanvas"),
@@ -113,6 +115,13 @@ async function Game() {
 
             // Bind visual elements to game logic
             tdGame.bindComponents(playField, timeline, learningPanel, targetCanvas, nextButton)
+
+            window.addEventListener("beforeunload", function(event) {
+                fetch('/r'+window.location.search)
+                sessionStorage.setItem("Reloaded",String(reload + 1))
+                tdGame.endGame(reload + 1)
+            });
+
 
             // Initialize first step
             tdGame.initNewStep()

@@ -47,9 +47,6 @@
     </div>
     <div><form></form></div>
     <script>
-        window.onbeforeunload = function() {
-            return "Are you sure to refresh the page ? We will not be able to guarantee your remuneration";
-        }
         window.addEventListener("beforeunload", function(event) {
             fetch('/r'+window.location.search)
         });

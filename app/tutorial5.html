@@ -55,9 +55,6 @@ The 3 fastest participants of this game will receive bonus payment!
     </div>
 </div>
 <script>
-    window.onbeforeunload = function() {
-        return "Are you sure to refresh the page ? We will not be able to guarantee your remuneration";
-    }
     window.addEventListener("beforeunload", function(event) {
         fetch('/r'+window.location.search)
     });

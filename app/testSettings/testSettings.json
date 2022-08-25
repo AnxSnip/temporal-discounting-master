@@ -1,16 +1,11 @@
 {
-  "triWeight": 2,
-  "cirWeight": 2,
-  "squWeight": 2,
-  "croWeight": 2,
+  "weights": [9,8,6,5,4,2,1],
   "nbTargets": 5,
-  "timeLearning": 10000,
+  "timeLearning": 22000,
   "nbSliders": 1,
   "nbLocks": [
     2,
-    3,
-    4,
-    5
+    8
   ],
   "gridWidth": 4,
   "gridHeight": 4,
@@ -18,12 +13,15 @@
     "Triangle",
     "Circle",
     "Square",
-    "Cross"
+    "Cross",
+    "Diamond",
+    "X",
+    "Hexagon"
   ],
   "showTimeline": true,
   "easyMode": true,
-  "maxStep": 1,
-  "nbBlock" : 1,
+  "maxStep": 70,
+  "nbBlock" : 2,
   "maxTimer": -1,
   "noviceTime": 4200,
   "breakTimer": 180000000,

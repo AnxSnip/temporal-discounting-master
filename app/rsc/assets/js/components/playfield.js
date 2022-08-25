@@ -1,5 +1,3 @@
-import tdGame from "../tdGame.js";
-
 class PlayField {
     constructor(canvasElement, framerate, height, width, nbRow, nbCol, cellSize, top, left, stroke) {
         this.framerate = framerate

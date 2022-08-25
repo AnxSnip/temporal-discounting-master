@@ -81,8 +81,7 @@ async function GameTuto4() {
         fetch('/lockDeciderTuto', options).then(r => r.json()).then(lDecJson => {
             let lockDecider = lDecJson.value
             let settings = new gameSettings(
-                [], 0, 0, 0,
-                0, json.nbTargets,
+                [],  json.nbTargets,
                 json.timeLearning, json.nbSliders,
                 json.nbLocks, json.gridWidth, json.gridHeight,
                 ["Quatrefoil","Ring","Star"], 5,1, -1, json.noviceTime, json.breakTimer, lockDecider,

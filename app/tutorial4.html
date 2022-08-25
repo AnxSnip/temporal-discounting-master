@@ -13,7 +13,7 @@
     <div class="infoTitle" >TIME TO PRATICE ALL MODES</div>
     <div id="part1" >
         <pre >In the game,  you will be able to choose if you will use NOVICE mode or unlock the EXPERT mode.
-<b>Now, the number of lockers (<a id="locker"></a>) and the duration of the sliders (<a id="slider"></a>) are identical to the game you will play.</b>
+<b>Now, the number of lockers (<a id="locker"></a>) and the duration of the sliders (<a id="sli"></a>) are identical to the game you will play.</b>
 </pre>
         <pre>Click on “Next” to practice all modes in the same conditions of the game</pre>
     </div>
@@ -55,14 +55,7 @@
     </div>
 </div>
 <div><form></form></div>
-<script>
-    window.onbeforeunload = function() {
-        return "Are you sure to refresh the page ? We will not be able to guarantee your remuneration";
-    }
-    window.addEventListener("beforeunload", function(event) {
-        fetch('/r'+window.location.search)
-    });
-</script>
+
     <script>
         let p = "testSettings/testSettings.json";
         fetch(p).then(response => response.json()).then(json => {
@@ -76,7 +69,7 @@
                 let lockDecider = lDecJson.value
                 let nblock = json.nbLocks[lockDecider % json.nbLocks.length]
                 document.getElementById("locker").innerHTML = nblock;
-                document.getElementById("slider").innerHTML = String(Math.round(json.timeLearning/nblock/1000).toFixed(2)) + "s"
+                document.getElementById("sli").innerHTML = String(Math.round(json.timeLearning/nblock/1000).toFixed(2)) + "s"
             });
         });
 

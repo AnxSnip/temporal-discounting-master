@@ -1,5 +1,5 @@
 class gameSettings{
-    constructor(weights, triWeight, cirWeight, squWeight, croWeight, nbTargets,
+    constructor(weights, nbTargets,
                 timeLearning, nbSliders, nbLocks, gridWidth, gridHeight,
                 shapeNames = ["Triangle", "Circle", "Square", "Cross"],
                 maxStep,nbBlock, maxTimer, noviceTime, breakTimer, lockDecider = 0,
@@ -7,11 +7,7 @@ class gameSettings{
 
         // Shape generation
         // TODO: Generify weights
-        this.weights = [triWeight, cirWeight, squWeight, croWeight]
-        this.triWeight = triWeight
-        this.cirWeight = cirWeight
-        this.squWeight = squWeight
-        this.croWeight = croWeight
+        this.weights = weights
         // Overloading this argument is not recommended
         this.shapeNames = shapeNames
 
@@ -34,6 +30,11 @@ class gameSettings{
         this.noviceTime = noviceTime
         this.breakTimer = breakTimer
         this.debug = debug
+
+        function add(acc,a){
+            return acc + a
+        }
+        this.sumWeight = weights.reduce(add,0);
     }
 }
 

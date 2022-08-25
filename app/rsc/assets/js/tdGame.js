@@ -47,9 +47,8 @@ class TDGame {
         this.learningDone = 0
 
         this.gameLog = new GameLog(this.startTime, this.sliderDuration, this.sumWeight(),
-            this.settings.shapeNames, this.settings.nbLocks, this.settings.nbTargets,
-            this.settings.triWeight, this.settings.cirWeight, this.settings.squWeight,
-            this.settings.croWeight, this.settings.timeLearning, this.userIp)
+            this.settings.shapeNames, this.settings.nbLocks, this.settings.nbTargets,this.settings.weights,
+            this.settings.timeLearning, this.userIp)
 
         this.nbBlock = this.settings.nbBlock
 
@@ -152,7 +151,7 @@ class TDGame {
     }
 
     // Called when the game has ended
-    endGame() {
+    endGame(reload = 0) {
         this.gameEnded = true
         // Log endgame state
         this.gameLog.registerEnd(this.currStep, Date.now() - this.startTime)
@@ -161,7 +160,7 @@ class TDGame {
         this.learningPanel.gameEndHandle()
 
         // Save data to log file
-        let data = this.gameLog.exportAsString()
+        let data = this.gameLog.exportAsString(reload)
         let options = {
             method: 'POST',
             headers: {
@@ -213,17 +212,16 @@ class TDGame {
     }
 
     // Rollbacks progress for a given shape
-    removeLock(shape){
-        let index = this.settings.shapeNames.indexOf(shape)
-        if(index === -1){
-            console.log("Attempted to access unknown shape in shapeUnlocked: " + shape)
-            return false
-        }
-
-        if(!this.isShapeUnlocked(shape)){
-            this.lockStates[index]--
-        }
-    }
+    //removeLock(shape){
+    //    let index = this.settings.shapeNames.indexOf(shape)
+    //    if(index === -1){
+    //        console.log("Attempted to access unknown shape in shapeUnlocked: " + shape)
+    //        return false
+    //    }
+    //    if(!this.isShapeUnlocked(shape)){
+    //        this.lockStates[index]--
+    //    }
+    //}
 
     // Adds progress for a given shape
     shapeUnlockOne(shape = this.currShape){
@@ -381,7 +379,7 @@ class TDGame {
     }
 
     sumWeight(){
-        return this.settings.triWeight + this.settings.cirWeight + this.settings.squWeight + this.settings.croWeight
+        return this.settings.sumWeight
     }
 
     pickNewShape(){
