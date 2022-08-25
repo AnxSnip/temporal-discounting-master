@@ -2,7 +2,7 @@ import Shape from "./shape.js"
 
 class Circle extends Shape {
     constructor(x, y, minSize, selectable, context) {
-        super(x, y, minSize, minSize, selectable, context);
+        super(x, y, minSize/2, minSize/2, selectable, context);
         let size = minSize/2
         this.radius = minSize/4
         this.bottom = y + size/2;

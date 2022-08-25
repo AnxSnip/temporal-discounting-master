@@ -1,7 +1,6 @@
 import Star from "./shapes/star.js"
-import Diamond from "./shapes/diamond.js";
-import X from "./shapes/x_shape.js";
-import Cross from "./shapes/cross.js";
+import Ring from "./shapes/ring.js";
+import Quatrefoil from "./shapes/quatrefoil.js";
 
 
 
@@ -10,12 +9,12 @@ import Cross from "./shapes/cross.js";
 //-----------------------------------------------------------------------------------
 var STEP = 3;
 var NB_LOCKS = 1;
-var formsList = ["X", "Diamond", "Star"];
+var formsList = ["Quatrefoil", "Ring", "Star"];
 var NB_TARGET_TO_SELECT = 6;
 var startTime = null
 var stopTime = null
 var displayTimeline = true;
-const learningState = { 'X': 0, 'Diamond': 0, 'Star': 0, 'Cross': 0 };
+const learningState = { 'Quatrefoil': 0, 'Ring': 0, 'Star': 0};
 
 
 function shuffle(array) {
@@ -62,7 +61,7 @@ function GameTuto1() {
     var canvTimeline = document.getElementById("timelineCanvasTuto1");
     canvTimeline.height = TL_HEIGHT;
     canvTimeline.width = TL_WIDTH;
-    document.getElementById("ExplainText").innerText = "Click on all XXX below as fast as possible."
+    document.getElementById("ExplainText").innerText = "Click on all Stars below as fast as possible."
     document.getElementById("infoTitle").innerText = "Practice: Novice Mode (1/3)"
     var currentStep = 0;
 
@@ -72,8 +71,8 @@ function GameTuto1() {
     var indexStep = new Indexer(getTimelineGridX(0), getTimelineGridY(), INDEX_SIZE, INDEX_SIZE);
 
     var formTimeline = [new Star(getTimelineGridX(0), getTimelineGridY(), MIN_SIZE, false, ctxTimeline),
-        new X(getTimelineGridX(1), getTimelineGridY(), MIN_SIZE, false, ctxTimeline),
-            new Diamond(getTimelineGridX(2), getTimelineGridY(), MIN_SIZE, false, ctxTimeline)];
+        new Quatrefoil(getTimelineGridX(1), getTimelineGridY(), MIN_SIZE, false, ctxTimeline),
+            new Ring(getTimelineGridX(2), getTimelineGridY(), MIN_SIZE, false, ctxTimeline)];
 
 
     var nameCurrentForm = formTimeline[0].constructor.name;
@@ -213,17 +212,13 @@ function GameTuto1() {
             formsBoard[i] = [];
             for (var j = 0; j < GRID_SIZE; j++) {
                 switch (prepareFormsBoard[i * GRID_SIZE + j]) {
-                    case "X":
-                        formsBoard[i][j] = new X(getGridX(j), getGridY(i), CELL, selectableForm === "X", ctxFormsBoard)
-                        nbFormToSelect += selectableForm === "X" ? 1 : 0;
+                    case "Quatrefoil":
+                        formsBoard[i][j] = new Quatrefoil(getGridX(j), getGridY(i), CELL, selectableForm === "Quatrefoil", ctxFormsBoard)
+                        nbFormToSelect += selectableForm === "Quatrefoil" ? 1 : 0;
                         break;
-                    case "Diamond":
-                        formsBoard[i][j] = new Diamond(getGridX(j), getGridY(i), CELL, selectableForm === "Diamond", ctxFormsBoard)
-                        nbFormToSelect += selectableForm === "Diamond" ? 1 : 0;
-                        break;
-                    case "Cross":
-                        formsBoard[i][j] = new Cross(getGridX(j), getGridY(i), CELL, selectableForm === "Cross", ctxFormsBoard)
-                        nbFormToSelect += selectableForm === "Cross" ? 1 : 0;
+                    case "Ring":
+                        formsBoard[i][j] = new Ring(getGridX(j), getGridY(i), CELL, selectableForm === "Ring", ctxFormsBoard)
+                        nbFormToSelect += selectableForm === "Ring" ? 1 : 0;
                         break;
                     case "Star":
                         formsBoard[i][j] = new Star(getGridX(j), getGridY(i), CELL, selectableForm === "Star", ctxFormsBoard)
@@ -329,11 +324,11 @@ function GameTuto1() {
             return;
         }
         if(currentStep === 1 ){
-            TextElement.innerText = "Click on all red rectangles below as fast as possible."
+            TextElement.innerText = "Click on all Clovers below as fast as possible."
             TextTitle.innerText = "Practice: Novice Mode (2/3)"
         }
         if(currentStep === 2 ){
-            TextElement.innerText = "Click on all blue diamond below as fast as possible."
+            TextElement.innerText = "Click on all Rings below as fast as possible."
             TextTitle.innerText = "Practice: Novice Mode (3/3)"
         }
         //set current parameters
@@ -390,17 +385,14 @@ function GameTuto1() {
     function createTarget(currentTargetName) {
         //creation of the target form
         switch (currentTargetName) {
-            case "X":
-                currentTarget = new X(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
+            case "Quatrefoil":
+                currentTarget = new Quatrefoil(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
                 break;
-            case "Diamond":
-                currentTarget = new Diamond(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
+            case "Ring":
+                currentTarget = new Ring(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
                 break;
             case "Star":
                 currentTarget = new Star(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
-                break;
-            case "Cross":
-                currentTarget = new Cross(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
                 break;
             default:
                 console.log("Error while selecting forms for the target");

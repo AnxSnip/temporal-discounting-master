@@ -2,7 +2,7 @@ import Shape from "./shape.js"
 
 class Ring extends Shape {
     constructor(x, y, minSize, selectable, context) {
-        super(x, y, minSize, minSize, selectable, context);
+        super(x, y, minSize/2, minSize/2, selectable, context);
         let size = minSize/2
         this.radius = minSize/4
         this.bottom = y + size/2;
@@ -22,9 +22,6 @@ class Ring extends Shape {
         if(this.grey){
             this.colorUnlit = this.colorGrey
         }
-        let x = this.x;
-        let y = this.y;
-        let r = this.height/8;
         if (this.selected || this.unlocked) {
             this.ctx.fillStyle = this.colorUnlit;
             this.ctx.beginPath();

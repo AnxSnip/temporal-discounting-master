@@ -2,7 +2,7 @@ import Shape from "./shape.js"
 
 class Hexagon extends Shape {
     constructor(x, y, minSize, selectable, context) {
-        super(x, y, minSize, minSize, selectable, context);
+        super(x, y, minSize/2, minSize/2, selectable, context);
         let size = minSize/2
         this.bottom = y + size/2;
         this.top = y - size/2;
@@ -23,7 +23,7 @@ class Hexagon extends Shape {
         }
         let x = this.x;
         let y = this.y;
-        let r = this.height/4;
+        let r = this.height/2;
         const a = 2* Math.PI /6
 
         if (this.selected || this.unlocked) {

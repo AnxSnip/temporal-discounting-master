@@ -2,7 +2,7 @@ import Shape from "./shape.js"
 
 class Star extends Shape {
     constructor(x, y, minSize, selectable, context) {
-        super(x, y, minSize, minSize, selectable, context);
+        super(x, y, minSize/2, minSize/2, selectable, context);
         let size = minSize/2
         this.bottom = y + size/2;
         this.top = y - size/2;
@@ -23,9 +23,9 @@ class Star extends Shape {
         }
         let x = this.x;
         let y = this.y;
-        let ro = this.height/3;
+        let ro = this.height/1.75;
         let a =  Math.PI / 2 * 3;
-        let ri = this.height/6
+        let ri = this.height/3
 
         if (this.selected || this.unlocked) {
             this.ctx.strokeStyle = this.colorUnlit;

@@ -58,7 +58,7 @@ async function GameTuto3() {
         [], 6,
         5000, 1,
         [3], 5, 5,
-        ["Triangle", "Circle", "Square", "Cross"],
+        ["Quatrefoil","Ring","Star"],
         1,1, -1, 4200, 60000000, 0,
         true, true, true)
     let shapeWeights = 5

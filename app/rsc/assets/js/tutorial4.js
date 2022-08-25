@@ -111,7 +111,7 @@ async function GameTuto4() {
             let board = document.getElementById("board")
             if (board.getBoundingClientRect().width < learningPanelLeft + learningPanel.width + 10) board.style.width = String(learningPanelLeft + learningPanel.width + 10) + "px";
             let timeline = new Timeline(document.getElementById("timelineCanvas"),
-                timelineSize, playfieldLeft, 64, 64, learningPanelLeft + learningPanel.width -20, playfieldTop - 5)
+                25, playfieldLeft, 64, 64, learningPanelLeft + learningPanel.width -20, playfieldTop - 5)
 
             // Initialize button that needs to be clicked by the user to proceed to next step
             let nextButton = document.getElementById("nextButton")
@@ -120,6 +120,7 @@ async function GameTuto4() {
             nextButton.style.marginTop = String(playfieldTop + 280) + "px"
             nextButton.disabled = true
 
+            document.getElementById("board").style.width = String(learningPanelLeft + learningPanel.width + 20) +"px"
 
             // Bind visual elements to game logic
             tdGame.bindComponents(playField, timeline, learningPanel, targetCanvas, nextButton)

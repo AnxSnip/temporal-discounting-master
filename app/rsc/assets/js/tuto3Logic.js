@@ -88,7 +88,7 @@ class tuto3Logic extends tdGame{
     }
 
     generateBlock() {
-        let newBlockShapes = ["Triangle","Triangle","Triangle","Triangle","Square"]
+        let newBlockShapes = ["Quatrefoil","Quatrefoil","Quatrefoil","Quatrefoil","Star"]
         this.shapeBacklog = this.shapeBacklog.concat(newBlockShapes)
 
         for(let shapeName in newBlockShapes){

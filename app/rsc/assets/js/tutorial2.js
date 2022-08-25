@@ -1,7 +1,6 @@
 import Quatrefoil from "./shapes/quatrefoil.js"
 import Ring from "./shapes/ring.js";
-import Hexagon from "./shapes/hexagon.js";
-import Cross from "./shapes/cross.js";
+import Star from "./shapes/star.js";
 
 
 
@@ -10,12 +9,12 @@ import Cross from "./shapes/cross.js";
 //-----------------------------------------------------------------------------------
 var STEP = 3;
 var NB_LOCKS2 = 0;
-var formsList = ["Hexagon", "Ring", "Quatrefoil"];
+var formsList = ["Star", "Ring", "Quatrefoil"];
 var NB_TARGET_TO_SELECT = 6;
 var startTime = null
 var stopTime = null
 var displayTimeline = true;
-const learningState = { 'Hexagon': 0, 'Ring': 0, 'Quatrefoil': 0, 'Cross': 0 };
+const learningState = { 'Star': 0, 'Ring': 0, 'Quatrefoil': 0};
 
 
 function shuffle(array) {
@@ -64,7 +63,7 @@ function GameTuto2() {
     var canvTimeline = document.getElementById("timelineCanvasTuto2");
     canvTimeline.height = TL_HEIGHT;
     canvTimeline.width = TL_WIDTH;
-    document.getElementById("ExplainText").innerHTML = "Click on <b>only one</b> XXX  below as fast as possible."
+    document.getElementById("ExplainText").innerHTML = "Click on <b>only one</b> Clover below as fast as possible."
     document.getElementById("infoTitle").innerText = "Practice expert mode 1/3"
     var currentStep = 0;
 
@@ -74,7 +73,7 @@ function GameTuto2() {
     var indexStep = new Indexer(getTimelineGridX(0), getTimelineGridY(), INDEX_SIZE, INDEX_SIZE);
 
     var formTimeline = [new Quatrefoil(getTimelineGridX(0), getTimelineGridY(), MIN_SIZE, false, ctxTimeline),
-        new Hexagon(getTimelineGridX(1), getTimelineGridY(), MIN_SIZE, false, ctxTimeline),
+        new Star(getTimelineGridX(1), getTimelineGridY(), MIN_SIZE, false, ctxTimeline),
         new Ring(getTimelineGridX(2), getTimelineGridY(), MIN_SIZE, false, ctxTimeline)];
 
     var nameCurrentForm = formTimeline[0].constructor.name;
@@ -214,17 +213,13 @@ function GameTuto2() {
             formsBoard[i] = [];
             for (var j = 0; j < GRID_SIZE; j++) {
                 switch (prepareFormsBoard[i * GRID_SIZE + j]) {
-                    case "Hexagon":
-                        formsBoard[i][j] = new Hexagon(getGridX(j), getGridY(i), CELL, selectableForm === "Hexagon", ctxFormsBoard)
-                        nbFormToSelect += selectableForm === "Hexagon" ? 1 : 0;
+                    case "Star":
+                        formsBoard[i][j] = new Star(getGridX(j), getGridY(i), CELL, selectableForm === "Star", ctxFormsBoard)
+                        nbFormToSelect += selectableForm === "Star" ? 1 : 0;
                         break;
                     case "Ring":
                         formsBoard[i][j] = new Ring(getGridX(j), getGridY(i), CELL, selectableForm === "Ring", ctxFormsBoard)
                         nbFormToSelect += selectableForm === "Ring" ? 1 : 0;
-                        break;
-                    case "Cross":
-                        formsBoard[i][j] = new Cross(getGridX(j), getGridY(i), CELL, selectableForm === "Cross", ctxFormsBoard)
-                        nbFormToSelect += selectableForm === "Cross" ? 1 : 0;
                         break;
                     case "Quatrefoil":
                         formsBoard[i][j] = new Quatrefoil(getGridX(j), getGridY(i), CELL, selectableForm === "Quatrefoil", ctxFormsBoard)
@@ -333,11 +328,11 @@ function GameTuto2() {
             return;
         }
         if(currentStep === 1 ){
-            TextElement.innerHTML = "Click on <b>only one</b> red rectangles below as fast as possible."
+            TextElement.innerHTML = "Click on <b>only one</b> Star below as fast as possible."
             TextTitle.innerText = "Practice: Expert Mode (2/3)"
         }
         if(currentStep === 2 ){
-            TextElement.innerHTML = "Click on <b>only one</b> XXX below as fast as possible."
+            TextElement.innerHTML = "Click on <b>only one</b> Ring below as fast as possible."
             TextTitle.innerText = "Practice: Expert Mode (3/3)"
         }
         //set current parameters
@@ -393,17 +388,14 @@ function GameTuto2() {
     function createTarget(currentTargetName) {
         //creation of the target form
         switch (currentTargetName) {
-            case "Hexagon":
-                currentTarget = new Hexagon(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
+            case "Star":
+                currentTarget = new Star(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
                 break;
             case "Ring":
                 currentTarget = new Ring(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
                 break;
             case "Quatrefoil":
                 currentTarget = new Quatrefoil(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
-                break;
-            case "Cross":
-                currentTarget = new Cross(TC_WIDTH / 2, TC_HEIGHT / 2, TC_CELL, false, ctxTarget);
                 break;
             default:
                 console.log("Error while selecting forms for the target");

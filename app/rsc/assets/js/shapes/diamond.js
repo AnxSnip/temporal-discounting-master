@@ -2,7 +2,7 @@ import Shape from "./shape.js"
 
 class Diamond extends Shape {
     constructor(x, y, minSize, selectable, context) {
-        super(x, y, minSize, minSize, selectable, context);
+        super(x, y, minSize/2, minSize/2, selectable, context);
         let size = minSize/2
         this.bottom = y + size/2;
         this.top = y - size/2;
@@ -22,14 +22,14 @@ class Diamond extends Shape {
             this.colorUnlit = this.colorGrey
         }
         let x = this.x;
-        let y = this.y -this.height/4;
+        let y = this.y -this.height/2;
         if (this.selected || this.unlocked) {
             this.ctx.fillStyle = this.colorUnlit;
             this.ctx.beginPath();
             this.ctx.moveTo(x,y-this.marginFactor);
-            this.ctx.lineTo(x - this.width/4 - this.marginFactor, y + this.height/4 );
-            this.ctx.lineTo(x , y +this.height/2 + this.marginFactor);
-            this.ctx.lineTo(x + this.width/4 + this.marginFactor, y + this.height/4 );
+            this.ctx.lineTo(x - this.width/2 - this.marginFactor, y + this.height/2 );
+            this.ctx.lineTo(x , y +this.height + this.marginFactor);
+            this.ctx.lineTo(x + this.width/2 + this.marginFactor, y + this.height/2 );
             this.ctx.closePath();
             this.ctx.fill();
             this.ctx.fillStyle = this.colorLit; //COLOR_SELECT;
@@ -40,9 +40,9 @@ class Diamond extends Shape {
         }
         this.ctx.beginPath();
         this.ctx.moveTo(x,y);
-        this.ctx.lineTo(x - this.width/4, y + this.height/4);
-        this.ctx.lineTo(x, y +this.height/2);
-        this.ctx.lineTo(x + this.width/4, y + this.height/4);
+        this.ctx.lineTo(x - this.width/2, y + this.height/2);
+        this.ctx.lineTo(x, y +this.height);
+        this.ctx.lineTo(x + this.width/2, y + this.height/2);
         this.ctx.closePath();
         this.ctx.fill();
         super.draw()
