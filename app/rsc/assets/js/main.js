@@ -79,7 +79,7 @@ async function Game() {
             // Initialize game logic component
             let tdGame = new TDGame(settings, ipAddress)
 
-            let timelineSize = 30
+            let timelineSize = 20
             // Initialize playfield (Grid of shapes)
             let playfieldTop = 20 + 18 + 20 + (1.5*timelineSize) * json.nbBlock
             let playfieldLeft = 20

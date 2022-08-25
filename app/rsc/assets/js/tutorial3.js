@@ -58,7 +58,7 @@ async function GameTuto3() {
         [], 6,
         5000, 1,
         [3], 5, 5,
-        [],
+        ["Triangle", "Circle", "Square", "Cross"],
         1,1, -1, 4200, 60000000, 0,
         true, true, true)
     let shapeWeights = 5
@@ -86,7 +86,7 @@ async function GameTuto3() {
         cellSize, 3, settings.shapeNames, playfieldTop, learningPanelLeft, stroke,400)
 
     let timeline = new Timeline(document.getElementById("timelineCanvas"),
-        timelineSize, playfieldLeft, 64, shapeWeights,learningPanelLeft + learningPanel.width, playfieldTop-5)
+        timelineSize, playfieldLeft, 64, 20,learningPanelLeft + learningPanel.width, playfieldTop-5)
 
     // Initialize button that needs to be clicked by the user to proceed to next step
     let nextButton = document.getElementById("nextButton")

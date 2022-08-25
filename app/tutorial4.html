@@ -69,7 +69,7 @@
                 let lockDecider = lDecJson.value
                 let nblock = json.nbLocks[lockDecider % json.nbLocks.length]
                 document.getElementById("locker").innerHTML = nblock;
-                document.getElementById("sli").innerHTML = String(Math.round(json.timeLearning/nblock/1000).toFixed(2)) + "s"
+                document.getElementById("sli").innerHTML = String(Math.round(json.timeLearning/nblock * 100)/100000) + "s"
             });
         });
 
