@@ -105,6 +105,7 @@ class GameLog {
 
     registerStep(targetShape, lockState, timeTakenTotal, timeTakenShapeSelection
                  , clicksTotal, mode, sliderDisplayTime) {
+        console.log(targetShape)
         this.seenShape[targetShape]++
 
         let currBlock = Math.ceil(this.trialIdN / this.blockSize)
@@ -150,7 +151,7 @@ class GameLog {
             this.blockId[i], this.nbTrials, this.blocksDone, this.blockSize,
             this.targetShapes[i], this.targetShapesId[i],
             this.weights[this.targetShapes[i]], this.nbTargets,
-            this.learningTime, this.settingsUsed, this.nbLocks, this.sliderDuration.toFixed(2),
+            this.learningTime, this.settingsUsed, this.nbLocks, Math.round(this.sliderDuration*100)/100000,
             this.didUnlock[i], this.targetLockState[i], this.occurrences[i],
             this.timeTakenStep[i], this.timeTakenAllSelection[i], this.timeTakenNextClick[i],
             this.sliderDisplayTime[i], this.locksOpenedAtStep[i], this.firstUnlockOcc[this.targetShapes[i]],

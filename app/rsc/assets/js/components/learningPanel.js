@@ -243,18 +243,30 @@ class LearningPanel{
     getShapeIndex(){
         switch (this.gameInst.currShape){
             case "Triangle":
-                return 0;
-
+                return 0
             case "Circle":
-                return 1;
+                return 1
             case "Square":
-                return 2;
+                return 2
             case "Cross":
-                return 3;
+                return 3
+            case "Diamond":
+                return 4
+            case "X":
+                return 5
+            case "Star":
+                return 6
+            case "Hexagon":
+                return 7
+            case "Ring":
+                return 8
+            case "Quatrefoil":
+                return 9
             default:
-                console.log('error at getting learning shape')
-        }
+                return -1
+            }
     }
+
 }
 
 

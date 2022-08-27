@@ -206,7 +206,7 @@ class TDGame {
     logData(timeTakenStep) {
         let sliderApparition = this.learningPanel.getSliderLifetime()
 
-        this.gameLog.registerStep(this.getCurrStep(), this.currShape,
+        this.gameLog.registerStep(this.currShape,
             this.getLockState(this.currShape), timeTakenStep, this.allShapesSelectedTime
             , this.stepClicks, this.stepMode, sliderApparition)
     }
