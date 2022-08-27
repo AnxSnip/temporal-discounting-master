@@ -9,9 +9,9 @@ class Ring extends Shape {
         this.top = y - size/2;
         this.right = x + size/2;
         this.left = x - size/2;
-        this.colorUnlit = "#a6cee3" //TODO
-        this.colorLit = "#8397a1"
-        this.colorGrey = "#a6cee380" // TODO
+        this.colorUnlit = "#169de1" //TODO
+        this.colorLit = "#4eafd9"
+        this.colorGrey = "#169de180" // TODO
         this.marginFactor = minSize / 16 *1.5
     }
 

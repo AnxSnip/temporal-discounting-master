@@ -19,6 +19,14 @@ function add(acc,a){
     return acc + a
 }
 
+function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
 //--------------------------------------------------------------------------------
 //                  GAME variables to post in the database
 //--------------------------------------------------------------------------------
@@ -68,8 +76,9 @@ async function Game() {
         fetch('/lockDecider', options).then(r => r.json()).then(lDecJson => {
             let lockDecider = lDecJson.value
             // Initialize setting object
+            let weights = shuffle(json.weights)
             let settings = new gameSettings(
-                json.weights, json.nbTargets,
+                weights, json.nbTargets,
                 json.timeLearning, json.nbSliders,
                 json.nbLocks, json.gridWidth, json.gridHeight,
                 json.shapeNames, json.maxStep,json.nbBlock, json.maxTimer, json.noviceTime, json.breakTimer, lockDecider,
@@ -119,7 +128,28 @@ async function Game() {
             window.addEventListener("beforeunload", function(event) {
                 fetch('/r'+window.location.search)
                 sessionStorage.setItem("Reloaded",String(reload + 1))
-                tdGame.endGame(reload + 1)
+                if(!tdGame.gameEnded){
+                    tdGame.endGame(reload + 1)
+                    let params = new URLSearchParams(window.location.search);
+                    let p_id = params.get("PROLIFIC_PID");
+                    let stud_id = params.get("STUDY_ID");
+                    let session_id = params.get("SESSION_ID");
+                    if (!p_id) p_id = "none";
+                    if (!stud_id) stud_id = -1;
+                    if (!session_id) session_id = -1;
+
+                    let str = "\n" + String(ipAddress)+","+ p_id +","+ stud_id + "," + session_id + ","+"reloaded" + String(reload)
+                    let options = {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({value: str})
+                    }
+                    fetch('/userInfo', options).then(r => function (r) {
+                        console.log('Log status: ' + r)
+                    })
+                }
             });
 
 

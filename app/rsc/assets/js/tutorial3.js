@@ -143,7 +143,7 @@ async function GameTuto3() {
             document.getElementById("tuto3step4").style.display = "none";
             document.getElementById("title").innerText = "EXPERT MODE UNLOCKED";
             step1.innerText = "Congratulation you have unlocked EXPERT MODE!"
-            step2.innerText = "You can now click on one Triangle to select them all !"
+            step2.innerText = "You can now click on one clover to select them all !"
             tdGame.notUnlocked = false;
         }
         if (tdGame.step === 10){

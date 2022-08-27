@@ -8,9 +8,9 @@ class X extends Shape {
         this.top = y - size/2;
         this.right = x + size/2;
         this.left = x - size/2;
-        this.colorUnlit = "#d6604d" //TODO
-        this.colorLit = "#c07064"
-        this.colorGrey = "#d6604d80" // TODO
+        this.colorUnlit = "#da37c8" //TODO
+        this.colorLit = "#c94eb9"
+        this.colorGrey = "#da37c880" // TODO
         this.marginFactor = minSize / 16 *1.5
     }
 

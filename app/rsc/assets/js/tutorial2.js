@@ -247,11 +247,10 @@ function GameTuto2() {
                 form.highlight = false; //create this attribute
             }
         }
-
         //look for forms to highlight
         OUTER: for (let row of formsBoard) {
             for (let form of row) {
-                if (form.contains(x, y) && !form.selected) {
+                if (form.contains(x, y,true) && !form.selected) {
                     form.highlight = true; //create this attribute !
                     document.body.style.cursor = "pointer";
                     break OUTER; //if one form is to highlight no need to look further
@@ -272,7 +271,7 @@ function GameTuto2() {
         var selectAllUnlockForm = 'none';
         OUTER: for (let row of formsBoard) {
             for (let form of row) {
-                if (form.contains(x, y) && !form.selected) {
+                if (form.contains(x, y,true) && !form.selected) {
                     if (!form.selectable) {
                         form.vibrate = true;
                     } else {

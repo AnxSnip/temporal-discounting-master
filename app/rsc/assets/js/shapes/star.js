@@ -8,9 +8,9 @@ class Star extends Shape {
         this.top = y - size/2;
         this.right = x + size/2;
         this.left = x - size/2;
-        this.colorUnlit = "#eeee41" //TODO
+        this.colorUnlit = "#eaea11" //TODO
         this.colorLit = "#ffffb3"
-        this.colorGrey = "#eeee4180" // TODO
+        this.colorGrey = "#eaea1180" // TODO
         this.marginFactor = minSize / 16 *1.5
     }
 

@@ -68,16 +68,16 @@ class GameLog {
             this.firstUnlockTrialId["X"] = -1
         }
         if(w > 7){
-            this.weights["Star"] = weights[6]
-            this.seenShape["Star"] = -1
-            this.firstUnlockOcc["Star"] = -1
-            this.firstUnlockTrialId["Star"] = -1
-        }
-        if(w > 8){
-            this.weights["Hexagon"] = weights[7]
+            this.weights["Hexagon"] = weights[6]
             this.seenShape["Hexagon"] = -1
             this.firstUnlockOcc["Hexagon"] = -1
             this.firstUnlockTrialId["Hexagon"] = -1
+        }
+        if(w > 8){
+            this.weights["Star"] = weights[7]
+            this.seenShape["Star"] = -1
+            this.firstUnlockOcc["Star"] = -1
+            this.firstUnlockTrialId["Star"] = -1
         }
         if(w > 9){
             this.weights["Ring"] = weights[8]
@@ -100,22 +100,22 @@ class GameLog {
         this.learningTime = learningTime
 
         this.totalTime = null
-
+        this.trialIdN = 0
     }
 
-    registerStep(trialId, targetShape, lockState, timeTakenTotal, timeTakenShapeSelection
+    registerStep(targetShape, lockState, timeTakenTotal, timeTakenShapeSelection
                  , clicksTotal, mode, sliderDisplayTime) {
         this.seenShape[targetShape]++
 
-        let currBlock = Math.ceil(trialId / this.blockSize)
-        this.trialId.push(trialId)
+        let currBlock = Math.ceil(this.trialIdN / this.blockSize)
+        this.trialId.push(this.trialIdN)
         this.blockId.push(currBlock)
         this.targetShapes.push(targetShape)
         this.targetShapesId.push(GameLog.getIdFromShapeName(targetShape))
         if(mode === "learning"){
             if(this.firstUnlockOcc[targetShape] === -1) {
                 this.firstUnlockOcc[targetShape] = this.seenShape[targetShape]
-                this.firstUnlockTrialId[targetShape] = trialId
+                this.firstUnlockTrialId[targetShape] = this.trialIdN
             }
             this.didUnlock.push(1)
             this.locksOpened++
@@ -133,6 +133,7 @@ class GameLog {
         this.locksOpenedAtStep.push(this.locksOpened)
         this.nbCLicks.push(clicksTotal)
         this.modeUsed.push(mode)
+        this.trialIdN++
     }
 
 

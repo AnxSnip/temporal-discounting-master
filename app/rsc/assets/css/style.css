@@ -50,6 +50,10 @@ button:disabled {
     opacity: 0.7;
 }
 
+button:enabled{
+    background-color: #4CAF50;
+}
+
 button:enabled:hover {
     box-shadow: 5px 12px 16px 0 rgba(0, 0, 0, 0.25), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
     background-color: #4CAF50;
