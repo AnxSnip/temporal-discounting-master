@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User study in Human-Computer Interaction - Tutorial</title>
+    <link rel="stylesheet" href="rsc/assets/css/main.css">
+</head>
+
+<body>
+<div class="blackBG" ></div>
+<div id="explainGameBox" class="infoBox" style="top: 10px">
+    <div id="infoTitle" class="infoTitle" style="font-size: 14px">CONGRATULATIONS!</div>
+
+    <pre id="ExplainText">
+You just learned how to use <b>EXPERT</b> mode of the game.
+Unfortunately, the <b>EXPERT</b> mode is not available by default. To make it available, you need to unlock it using the locker panel mode first.
+Click on “Next” to practice the <b>locker panel</b> mode.
+    </pre>
+    <img id="imga" src="rsc/img/lockerPanel.png" width="150" alt="">
+    <div id="buttonToTuto3" class="infoDivButton" >
+        <button class="infoButton" onclick="location.href='tutorial3.html'+window.location.search">Next</button>
+    </div>
+
+    <div id="backButton" class="infoDivButton" style="margin-top: 10px;">
+        <button class="infoButton" onclick="location.href='tuto1_2.html'+window.location.search" style="padding: 10px">Back to previous tutorial</button>
+    </div>
+
+</div>
+<script>
+    window.addEventListener("beforeunload", function(event) {
+        fetch('/r'+window.location.search)
+    });
+</script>
+
+</body>
+<script src="rsc/assets/js/timePage.js"></script>
+</html>

@@ -61,7 +61,7 @@ function GameTuto1() {
     var canvTimeline = document.getElementById("timelineCanvasTuto1");
     canvTimeline.height = TL_HEIGHT;
     canvTimeline.width = TL_WIDTH;
-    document.getElementById("ExplainText").innerText = "Click on all Stars below as fast as possible."
+    document.getElementById("ExplainText").innerHTML = "Click on all <a style='color: #eaea11'>Stars</a> below as fast as possible."
     document.getElementById("infoTitle").innerText = "Practice: Novice Mode (1/3)"
     var currentStep = 0;
 
@@ -312,23 +312,15 @@ function GameTuto1() {
         let TextTitle = document.getElementById("infoTitle")
         if (currentStep >= STEP) {
             console.log("END OF THE GAME");
-            document.getElementById("boardTuto1").style.display = 'none';
-            document.getElementById("buttonToTuto2").style.display = '';
-            TextElement.innerText = "You just learned how to use NOVICE mode of the game. \n" +
-                "\n" +
-                "The game also has an EXPERT mode where you need only one click per target. \n" +
-                "\n" +
-                "Click on the button “Next” to practice the EXPERT mode.\n"
-            TextTitle.style.fontSize = '14px'
-            TextTitle.innerText = "CONGRATULATIONS!"
+            window.location = "tuto1_2.html"+window.location.search
             return;
         }
         if(currentStep === 1 ){
-            TextElement.innerText = "Click on all Clovers below as fast as possible."
+            TextElement.innerHTML = "Click on all <a style='color: #2ed22a'>Clovers</a> below as fast as possible."
             TextTitle.innerText = "Practice: Novice Mode (2/3)"
         }
         if(currentStep === 2 ){
-            TextElement.innerText = "Click on all Rings below as fast as possible."
+            TextElement.innerHTML = "Click on all <a style='color: #169de1'>Rings</a> below as fast as possible."
             TextTitle.innerText = "Practice: Novice Mode (3/3)"
         }
         //set current parameters
@@ -376,7 +368,7 @@ function GameTuto1() {
         ctxTarget.strokeRect(STROKE / 2, STROKE / 2, TC_WIDTH - STROKE, TC_HEIGHT - STROKE);
         //draw the target
         currentTarget.draw();
-        ctxTarget.fillStyle = TARGET_COLOR_FONT;
+        ctxTarget.fillStyle = currentTarget.getColor();
         ctxTarget.font = "bold 18px arial";
         ctxTarget.textAlign = "center";
         ctxTarget.fillText("TARGET", TC_WIDTH / 2, TC_HEIGHT -25);

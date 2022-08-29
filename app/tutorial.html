@@ -34,23 +34,6 @@
 
             </div>
 
-            <div id="Step2" style="display: none">
-                <div class="infoTitle">TASK</div>
-                    <pre>
-Now you will go through the tutorial, which is constituted of <b>4 steps</b> where you will learn about the mechanics of the game.
-Please read carefully, and if necessary you can go back anytime if you did not comprehend.
-
-In this game you need to click on target symbols as fast as possible.
-For example, your target below is an orange triangle.
-So you will have to click on all three orange triangles on the grid.
-Click on the button “Next” to practice.
-    <img src="rsc/img/tuto0.png" width="520" alt="Task example"/>
-                    </pre>
-
-                <div class="infoDivButton">
-                    <button class="infoButton" onclick="window.location = 'tutorial1.html'+window.location.search;">Next</button>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -84,14 +67,12 @@ website isn't suited for mobile or tablet.
     let checked = function (){
         let x = document.getElementById("consent")
         if (x.checked) {
-            let a =document.getElementById("Step1")
-            a.style.display = "none"
-            let b = document.getElementById("Step2")
-            b.style.display = 'block'
+            window.location= 'tuto0_2.html'+window.location.search;
         }else{
             alert("please check I do consent before starting the tutorial")
         }
     }
 
 </script>
+<script src="rsc/assets/js/timePage.js"></script>
 </html>

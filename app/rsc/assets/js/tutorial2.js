@@ -63,7 +63,7 @@ function GameTuto2() {
     var canvTimeline = document.getElementById("timelineCanvasTuto2");
     canvTimeline.height = TL_HEIGHT;
     canvTimeline.width = TL_WIDTH;
-    document.getElementById("ExplainText").innerHTML = "Click on <b>only one</b> Clover below as fast as possible."
+    document.getElementById("ExplainText").innerHTML = "Click on <b>only one</b> <a style='color: #2ed22a'>Clover</a> below as fast as possible."
     document.getElementById("infoTitle").innerText = "Practice expert mode 1/3"
     var currentStep = 0;
 
@@ -314,24 +314,15 @@ function GameTuto2() {
 
         if (currentStep >= STEP) {
             console.log("END OF THE GAME");
-            document.getElementById("boardTuto2").style.display = 'none';
-            document.getElementById("buttonToTuto3").style.display = '';
-            TextElement.innerHTML = "You just learned how to use <b>EXPERT</b> mode of the game. \n" +
-                "\n" +
-                "Unfortunately, the <b>EXPERT</b> mode is not available by default. To make it available, you need to unlock it using the locker panel mode first. \n" +
-                "\n" +
-                "Click on “Next” to practice the <b>locker panel</b> mode.\n"
-            document.getElementById("imga").style.display=""
-            TextTitle.style.fontSize = '14px'
-            TextTitle.innerText = "CONGRATULATIONS!"
+            window.location = "tuto2_1.html"+window.location.search
             return;
         }
         if(currentStep === 1 ){
-            TextElement.innerHTML = "Click on <b>only one</b> Star below as fast as possible."
+            TextElement.innerHTML = "Click on <b>only one</b> <a style='color: #eaea11'>Star</a> below as fast as possible."
             TextTitle.innerText = "Practice: Expert Mode (2/3)"
         }
         if(currentStep === 2 ){
-            TextElement.innerHTML = "Click on <b>only one</b> Ring below as fast as possible."
+            TextElement.innerHTML = "Click on <b>only one</b> <a style='color: #169de1'>Ring</a> below as fast as possible."
             TextTitle.innerText = "Practice: Expert Mode (3/3)"
         }
         //set current parameters
@@ -378,7 +369,7 @@ function GameTuto2() {
         ctxTarget.strokeRect(STROKE / 2, STROKE / 2, TC_WIDTH - STROKE, TC_HEIGHT - STROKE);
         //draw the target
         currentTarget.draw();
-        ctxTarget.fillStyle = TARGET_COLOR_FONT;
+        ctxTarget.fillStyle = currentTarget.getColor();
         ctxTarget.font = "bold 18px arial";
         ctxTarget.textAlign = "center";
         ctxTarget.fillText("TARGET", TC_WIDTH / 2, TC_HEIGHT -25);

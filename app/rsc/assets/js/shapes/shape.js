@@ -47,6 +47,10 @@ class Shape{
     getShapeName(){
         return "Shape"
     }
+
+    getColor(){
+        return "red"
+    }
 }
 
 export default Shape

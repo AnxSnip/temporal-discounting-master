@@ -50,7 +50,7 @@ class TargetCanvas {
             this.width - this.stroke, this.height - this.stroke)
         this.targetShapeDisplay.draw()
 
-
+        this.targetColorFont = this.getTargetShape().getColor()
         this.context.fillStyle = this.targetColorFont
         this.context.font = "bold 18px arial"
         this.context.textAlign = "center"

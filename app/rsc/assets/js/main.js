@@ -138,7 +138,7 @@ async function Game() {
                     if (!stud_id) stud_id = -1;
                     if (!session_id) session_id = -1;
 
-                    let str = "\n" + String(ipAddress)+","+ p_id +","+ stud_id + "," + session_id + ","+"reloaded" + String(reload)
+                    let str = String(ipAddress)+","+ p_id +","+ stud_id + "," + session_id + ","+"reloaded" + String(reload)+"\n"
                     let options = {
                         method: 'POST',
                         headers: {

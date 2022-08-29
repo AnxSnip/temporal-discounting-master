@@ -145,6 +145,8 @@ class GameLog {
     }
 
     exportAsString(reload = 0) {
+        let timeTuto = parseInt(localStorage.getItem('timeSpentOnSite'));
+        timeTuto = isNaN(timeTuto) ? 0 : timeTuto;
         let lines = []
         for(let i = 0; i < this.trialId.length; i++) {
             let data = [new Date(this.initDate), this.ipAddress, this.trialId[i],
@@ -155,10 +157,10 @@ class GameLog {
             this.didUnlock[i], this.targetLockState[i], this.occurrences[i],
             this.timeTakenStep[i], this.timeTakenAllSelection[i], this.timeTakenNextClick[i],
             this.sliderDisplayTime[i], this.locksOpenedAtStep[i], this.firstUnlockOcc[this.targetShapes[i]],
-            this.firstUnlockTrialId[this.targetShapes[i]], this.nbCLicks[i], this.totalTime, this.modeUsed[i],reload]
+            this.firstUnlockTrialId[this.targetShapes[i]], this.nbCLicks[i], timeTuto,this.totalTime, this.modeUsed[i],reload]
             lines.push(data.join(','))
         }
-        return lines.join('\n')
+        return lines.join('\n')+'\n'
     }
 
     static getIdFromShapeName(shapeName) {

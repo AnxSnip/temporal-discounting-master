@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User study in Human-Computer Interaction - Tutorial</title>
+    <link rel="stylesheet" href="rsc/assets/css/main.css">
+</head>
+
+<body>
+<div class="blackBG" ></div>
+<div id="explainGameBox" class="infoBox" >
+    <div id="infoTitle" class="infoTitle" style="font-size: 14px">CONGRATULATIONS!</div>
+
+    <pre id="ExplainText">
+You just learned how to use NOVICE mode of the game.
+
+The game also has an EXPERT mode where you need only one click per target.
+
+Click on the button “Next” to practice the EXPERT mode.
+    </pre>
+
+    <div id="buttonToTuto2" class="infoDivButton">
+        <button class="infoButton" onclick="location.href='tutorial2.html'+window.location.search" style="padding: 10px">Next</button>
+    </div>
+    <div id="backButton" class="infoDivButton" style="margin-top: 10px;">
+        <button class="infoButton" onclick="location.href='tuto0_2.html'+window.location.search" style="padding: 10px">Back to previous tutorial</button>
+    </div>
+</div>
+<script>
+    window.addEventListener("beforeunload", function(event) {
+        fetch('/r'+window.location.search)
+    });
+</script>
+<script type="module" src="rsc/assets/js/tutorial1.js"></script>
+
+</body>
+<script src="rsc/assets/js/timePage.js"></script>
+</html>
