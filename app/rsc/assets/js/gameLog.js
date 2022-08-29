@@ -40,10 +40,10 @@ class GameLog {
             this.weights["Square"] = weights[2]
             this.weights["Cross"] = weights[3]
 
-            this.seenShape["Triangle"] = -1
-            this.seenShape["Circle"] = -1
-            this.seenShape["Square"] = -1
-            this.seenShape["Cross"] = -1
+            this.seenShape["Triangle"] = 0
+            this.seenShape["Circle"] = 0
+            this.seenShape["Square"] = 0
+            this.seenShape["Cross"] = 0
 
             this.firstUnlockOcc["Triangle"] = -1
             this.firstUnlockOcc["Circle"] = -1
@@ -57,37 +57,37 @@ class GameLog {
         }
         if(w > 5){
             this.weights["Diamond"] = weights[4]
-            this.seenShape["Diamond"] = -1
+            this.seenShape["Diamond"] = 0
             this.firstUnlockOcc["Diamond"] = -1
             this.firstUnlockTrialId["Diamond"] = -1
         }
         if(w > 6){
             this.weights["X"] = weights[5]
-            this.seenShape["X"] = -1
+            this.seenShape["X"] = 0
             this.firstUnlockOcc["X"] = -1
             this.firstUnlockTrialId["X"] = -1
         }
         if(w > 7){
             this.weights["Hexagon"] = weights[6]
-            this.seenShape["Hexagon"] = -1
+            this.seenShape["Hexagon"] = 0
             this.firstUnlockOcc["Hexagon"] = -1
             this.firstUnlockTrialId["Hexagon"] = -1
         }
         if(w > 8){
             this.weights["Star"] = weights[7]
-            this.seenShape["Star"] = -1
+            this.seenShape["Star"] = 0
             this.firstUnlockOcc["Star"] = -1
             this.firstUnlockTrialId["Star"] = -1
         }
         if(w > 9){
             this.weights["Ring"] = weights[8]
-            this.seenShape["Ring"] = -1
+            this.seenShape["Ring"] = 0
             this.firstUnlockOcc["Ring"] = -1
             this.firstUnlockTrialId["Ring"] = -1
         }
         if(w > 10){
             this.weights["Quatrefoil"] = weights[9]
-            this.seenShape["Quatrefoil"] = -1
+            this.seenShape["Quatrefoil"] = 0
             this.firstUnlockOcc["Quatrefoil"] = -1
             this.firstUnlockTrialId["Quatrefoil"] = -1
         }

@@ -105,7 +105,7 @@ async function GameTuto3() {
     // Process logic and draw visual elements every frame
     function tick() {
         if (tdGame.SLmode === "p" && tdGame.notUnlocked){
-            alert("You cannot click on targets during the learning mode!")
+            alert("You cannot click on grid during this tutorial")
             window.location.reload()
             tdGame.SLmode = null
         }

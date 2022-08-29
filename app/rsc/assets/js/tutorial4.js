@@ -57,6 +57,7 @@ document.getElementById("nextPagebutton").addEventListener('click',function (){
     b.style.display = 'block'
     let c = document.getElementById("explainGameBox")
     c.className = "infoBoxTuto3"
+    document.getElementById("info_but").style.display= "none"
     document.getElementById("nextPagebutton").style.display="none";
     document.getElementById("board").style.display="";
     GameTuto4();

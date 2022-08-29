@@ -13,10 +13,10 @@ class Cross extends Shape {
         this.rect1y = y - size / 2;
         this.rect2x = x - size / 2;
         this.rect2y = y - this.thickness / 2;
-        this.colorUnlit = "#32cd32";
+        this.colorUnlit = "#31a354";
         this.colorLit = "lightgreen";
         this.marginFactor = minSize / 16
-        this.colorGrey = "#32cd3280"
+        this.colorGrey = "#31a35480"
     }
 
     draw() {

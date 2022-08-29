@@ -443,7 +443,7 @@ class TDGame {
         return this.settings.maxTimer
     }
 
-    unlockAnimation(xStart,yStart,xStop,yStop,sizeStart = 80,sizeStop = 20,frame = 30,time = 1000){
+    unlockAnimation(xStart,yStart,xStop,yStop,sizeStart = 20,sizeStop = 20,frame = 30,time = 1000){
         var animationCanvas = document.getElementById("animation");
         if (!animationCanvas){
             animationCanvas = document.createElement("canvas");
@@ -494,10 +494,10 @@ class TDGame {
     }
 
     animate(){
-        let first = this.targetCanvas.targetShapeDisplay
+        let first = this.timeline.shapeTimeline[this.currStep]
         let last = this.timeline.shapeTimeline[this.timeline.shapeTimeline.length -1]
-        this.unlockAnimation(this.targetCanvas.left + first.x,this.targetCanvas.top + first.y,
-            20 + last.x, last.y)
+        this.unlockAnimation( 10+first.x,first.y-10,
+            10 + last.x, last.y-10)
     }
 
     addLearningStep(shape){

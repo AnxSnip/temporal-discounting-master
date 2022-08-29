@@ -9,10 +9,10 @@ class Circle extends Shape {
         this.top = y - size/2;
         this.right = x + size/2;
         this.left = x - size/2;
-        this.colorUnlit = "#4169e1"
+        this.colorUnlit = "#2b8cbe"
         this.colorLit = "lightsteelblue"
         this.marginFactor = minSize / 16
-        this.colorGrey = "#4169e180"
+        this.colorGrey = "#2b8cbe80"
     }
 
     draw() {
