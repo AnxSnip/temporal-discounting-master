@@ -101,6 +101,9 @@ function GameTuto1() {
             }
             indexStep.draw();
         }
+        ctxTimeline.fillStyle = "white";
+        ctxTimeline.font = "bold 18px arial";
+        ctxTimeline.fillText("TIMELINE OF FUTURE TARGETS", TL_WIDTH - 300, 20);
     }
 
     function drawTimelineBoard() {

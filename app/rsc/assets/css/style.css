@@ -34,7 +34,7 @@ button {
     border-radius: 4px;
     transition: all 0.2s ease-in-out;
     padding: 25px 50px;
-    font: 1em Ubuntu, sans-serif;
+    font: 18px Arial, sans-serif;
     background-color: white;
     color: black;
     font-weight: bold;

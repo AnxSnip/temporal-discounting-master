@@ -244,7 +244,7 @@ button {
     border-radius: 4px;
     padding: 25px 50px;
     transition: all 0.2s;
-    font: 1em Ubuntu, sans-serif;
+    font: 18px Arial, sans-serif;
     color: black;
     background-color: white;
     border: 2px solid #ab9e9e;
