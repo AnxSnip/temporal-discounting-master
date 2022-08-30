@@ -61,9 +61,8 @@ class Timeline {
         let textY = 30
         this.context.fillStyle = this.fontColor
         this.context.font = this.font
-        let stepString = "Completed tasks " + String(this.gameInst.getCurrStep() -1)
-        if(this.gameInst.settings.maxStep !== -1)
-            stepString += " / " + this.gameInst.settings.maxStep
+
+        let stepString = this.gameInst.getOccText()
         this.context.fillText(stepString , textX, textY)
 
         let i = 0

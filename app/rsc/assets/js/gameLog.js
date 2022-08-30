@@ -34,7 +34,7 @@ class GameLog {
         this.firstUnlockOcc = {}
         this.firstUnlockTrialId = {}
         let w = weights.length
-        if (w >4){
+        if (w >3){
             this.weights["Triangle"] = weights[0]
             this.weights["Circle"] = weights[1]
             this.weights["Square"] = weights[2]
@@ -55,37 +55,37 @@ class GameLog {
             this.firstUnlockTrialId["Square"] = -1
             this.firstUnlockTrialId["Cross"] = -1
         }
-        if(w > 5){
+        if(w > 4){
             this.weights["Diamond"] = weights[4]
             this.seenShape["Diamond"] = 0
             this.firstUnlockOcc["Diamond"] = -1
             this.firstUnlockTrialId["Diamond"] = -1
         }
-        if(w > 6){
+        if(w > 5){
             this.weights["X"] = weights[5]
             this.seenShape["X"] = 0
             this.firstUnlockOcc["X"] = -1
             this.firstUnlockTrialId["X"] = -1
         }
-        if(w > 7){
+        if(w > 6){
             this.weights["Hexagon"] = weights[6]
             this.seenShape["Hexagon"] = 0
             this.firstUnlockOcc["Hexagon"] = -1
             this.firstUnlockTrialId["Hexagon"] = -1
         }
-        if(w > 8){
+        if(w > 7){
             this.weights["Star"] = weights[7]
             this.seenShape["Star"] = 0
             this.firstUnlockOcc["Star"] = -1
             this.firstUnlockTrialId["Star"] = -1
         }
-        if(w > 9){
+        if(w > 8){
             this.weights["Ring"] = weights[8]
             this.seenShape["Ring"] = 0
             this.firstUnlockOcc["Ring"] = -1
             this.firstUnlockTrialId["Ring"] = -1
         }
-        if(w > 10){
+        if(w > 9){
             this.weights["Quatrefoil"] = weights[9]
             this.seenShape["Quatrefoil"] = 0
             this.firstUnlockOcc["Quatrefoil"] = -1

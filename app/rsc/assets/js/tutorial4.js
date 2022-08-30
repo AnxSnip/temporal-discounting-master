@@ -1,11 +1,11 @@
 import gameSettings from "./gameSettings.js";
 
 import PlayField from "./components/playfield.js";
-import Timeline from "./components/timeline.js";
 import TargetCanvas from "./components/targetCanvas.js";
 import LearningPanel from "./components/learningPanel.js";
 import tuto4Logic from "./tuto4Logic.js";
 import Slider from "./components/Slider.js";
+import timeline from "./components/timeline.js";
 
 class LearningPanelTuto4 extends LearningPanel{
     constructor(canvasElement, cellSize, maxLockCount, shapeNames, top, left, stroke,height) {
@@ -49,6 +49,36 @@ class LearningPanelTuto4 extends LearningPanel{
         }
     }
 }
+class TimelineTuto4 extends timeline{
+    drawStep(){
+        // Magic numbers
+        let textX = 10
+        let textY = 30
+        this.context.fillStyle = this.fontColor
+        this.context.font = this.font
+
+        let stepString = "Completed tasks " + String(this.gameInst.getCurrStep() -1)
+        this.context.fillText(stepString , textX, textY)
+
+        let i = 0
+        for(let shape of this.shapeTimeline){
+            if(i<this.step){
+                shape.grey = true
+            }
+            if(i in this.learning_list){
+                shape.learning = true
+            }
+            shape.draw()
+            i++
+        }
+        this.updateIndexer(this.step)
+        this.indexer.draw()
+
+        //TODO change this
+        this.context.fillStyle = "white";
+        this.context.font = "bold 18px arial";
+        this.context.fillText("TIMELINE OF FUTURE TARGETS", this.timelineElement.width - 300, 30);
+    }}
 
 document.getElementById("nextPagebutton").addEventListener('click',function (){
     let a =document.getElementById("part1")
@@ -111,7 +141,7 @@ async function GameTuto4() {
                 50, settings.nbLocks, settings.shapeNames, playfieldTop, learningPanelLeft, stroke,330)
             let board = document.getElementById("board")
             if (board.getBoundingClientRect().width < learningPanelLeft + learningPanel.width + 10) board.style.width = String(learningPanelLeft + learningPanel.width + 10) + "px";
-            let timeline = new Timeline(document.getElementById("timelineCanvas"),
+            let timeline = new TimelineTuto4(document.getElementById("timelineCanvas"),
                 25, playfieldLeft, 64, 64, learningPanelLeft + learningPanel.width -20, playfieldTop - 5)
 
             // Initialize button that needs to be clicked by the user to proceed to next step
