@@ -8,9 +8,9 @@ class Hexagon extends Shape {
         this.top = y - size/2;
         this.right = x + size/2;
         this.left = x - size/2;
-        this.colorUnlit = "#e34a33" //TODO
-        this.colorLit = "#fdbb84"
-        this.colorGrey = "#e34a3380" // TODO
+        this.colorUnlit = "#b2df8a" //TODO
+        this.colorLit = "#a1bd8c"
+        this.colorGrey = "#b2df8a80" // TODO
         this.marginFactor = minSize / 16 *1.5
     }
 

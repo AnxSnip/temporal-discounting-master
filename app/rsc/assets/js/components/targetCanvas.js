@@ -14,13 +14,8 @@ class TargetCanvas {
         this.left = left
         this.stroke = stroke
 
-        this.colorBoard = "gainsboro"
+        this.colorBoard = "black"
         this.colorBorder = "grey"
-        this.targetColorFont = "red"
-        this.targetColorFontUnlocked = "#4CAF50"
-        this.unlockButtonColorUnlit = "white";
-        this.unlockButtonColorLit = "gray";
-        this.unlockButtonColorStroke = "darkgrey";
 
         this.canvasElement = canvasElement
         this.canvasElement.height = this.height
@@ -50,11 +45,15 @@ class TargetCanvas {
             this.width - this.stroke, this.height - this.stroke)
         this.targetShapeDisplay.draw()
 
-        this.targetColorFont = this.getTargetShape().getColor()
-        this.context.fillStyle = this.targetColorFont
+        this.context.fillStyle = "white"
         this.context.font = "bold 18px arial"
         this.context.textAlign = "center"
         this.context.fillText("TARGET", this.width / 2, this.height -25);
+
+        let timerString = ""
+        if(this.gameInst.settings.debug)
+            timerString = TargetCanvas.msToSeconds(this.gameInst.getCurrTime())
+        this.context.fillText(timerString,this.width/2,this.top-25)
     }
 
     getTargetShape(){
@@ -65,7 +64,15 @@ class TargetCanvas {
         //TODO placeholder
         return -1
     }
+    static msToSeconds(time) {
+        let ts = Math.floor(time / 1000 )
+        let min = Math.floor(ts/60)
+        let s = ts%60
 
+        min = min.toString().padStart(2,'0')
+        s = s.toString().padStart(2,'0')
+        return String(min)+":"+String(s)
+    }
 }
 
 export default TargetCanvas

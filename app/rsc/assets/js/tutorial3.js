@@ -51,13 +51,13 @@ GameTuto3();
 
 async function GameTuto3() {
     let framerate = 30
-    let cellSize = 495 / (5 + 2)
+
     let stroke = 2
 
     let settings = new gameSettings(
-        [], 6,
+        [], 5,
         5000, 1,
-        [3], 5, 5,
+        [3], 4, 4,
         ["Quatrefoil","Ring","Star"],
         1,1, -1, 4200, 60000000, 0,
         true, true, true)
@@ -68,31 +68,31 @@ async function GameTuto3() {
     // Initialize playfield (Grid of shapes)
     let playfieldTop = 20 + 18 + 20 + 1.5*timelineSize
     let playfieldLeft = 20
-
+    let cellSize = 430 / (4 + 2)
 
     let playField = new PlayField(document.getElementById("formsBoardCanvas"),
-        framerate, 400, 400, settings.gridWidth, settings.gridHeight,
+        framerate, 330, 330, settings.gridWidth, settings.gridHeight,
         cellSize, playfieldTop, playfieldLeft, stroke)
 
     // Initialize target canvas (Target shape indicator)
     let targetCanvasLeft = playField.width + playfieldLeft + 6
     let targetCanvas = new TargetCanvas(document.getElementById("targetCanvas"),
-        160, 160, playfieldTop+50, cellSize,
+        160, 160, playfieldTop+20, cellSize,
         60, targetCanvasLeft, stroke)
 
     // Initialize target canvas (Lock status panel)
     let learningPanelLeft = targetCanvas.width + targetCanvasLeft + 10
     let learningPanel = new LearningPanelTuto3(document.getElementById("learningCanvas"),
-        cellSize, 3, settings.shapeNames, playfieldTop, learningPanelLeft, stroke,400)
+        cellSize, 3, settings.shapeNames, playfieldTop, learningPanelLeft, stroke,330)
 
     let timeline = new Timeline(document.getElementById("timelineCanvas"),
-        timelineSize, playfieldLeft, 64, 20,learningPanelLeft + learningPanel.width, playfieldTop-5)
+        25, playfieldLeft, 64, 20,learningPanelLeft + learningPanel.width -20, playfieldTop-5)
 
     // Initialize button that needs to be clicked by the user to proceed to next step
     let nextButton = document.getElementById("nextButton")
     nextButton.style.display = ''
     nextButton.style.marginLeft = String(targetCanvasLeft + 14) + "px"
-    nextButton.style.marginTop = String(playfieldTop +280) + "px"
+    nextButton.style.marginTop = String(playfieldTop +250) + "px"
     nextButton.disabled = true
 
 

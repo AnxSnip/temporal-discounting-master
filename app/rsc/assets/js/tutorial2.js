@@ -10,7 +10,7 @@ import Star from "./shapes/star.js";
 var STEP = 3;
 var NB_LOCKS2 = 0;
 var formsList = ["Star", "Ring", "Quatrefoil"];
-var NB_TARGET_TO_SELECT = 6;
+var NB_TARGET_TO_SELECT = 5;
 var startTime = null
 var stopTime = null
 var displayTimeline = true;
@@ -58,12 +58,12 @@ function GameTuto2() {
 
     const COLOR_FONT = "darkgrey";
     const COLOR_INDEX = "darkgrey";
-    const COLOR_TIMELINEBOARD = "whitesmoke";
+    const COLOR_TIMELINEBOARD = "black";
 
     var canvTimeline = document.getElementById("timelineCanvasTuto2");
     canvTimeline.height = TL_HEIGHT;
     canvTimeline.width = TL_WIDTH;
-    document.getElementById("ExplainText").innerHTML = "Click on <b>only one</b> <a style='color: #2ed22a'>Clover</a> below as fast as possible."
+    document.getElementById("ExplainText").innerHTML = "Click on <b>only one</b> Clover below as fast as possible."
     document.getElementById("infoTitle").innerText = "Practice expert mode 1/3"
     var currentStep = 0;
 
@@ -92,18 +92,10 @@ function GameTuto2() {
     }
 
     function drawStep() {
-        let timerString =""
-        if(startTime!==null){
-            if (stopTime === null){
-                timerString = " Time passed: " + Math.max(0,(msToSeconds(Date.now() - startTime))) + "s"
-            }else{
-                timerString = " Time passed: " + Math.max(0,(msToSeconds(stopTime - startTime))) + "s"
-            }
-        }
         ctxTimeline.fillStyle = COLOR_FONT;
         ctxTimeline.font = "bold 18px arial";
         let stepString = "Step " + (currentStep + 1) + "/" + STEP
-        ctxTimeline.fillText(stepString+timerString, 2, 23);
+        ctxTimeline.fillText(stepString, 2, 23);
         if (displayTimeline) {
             for (let form of formTimeline) {
                 form.draw();
@@ -123,14 +115,14 @@ function GameTuto2() {
     const FPS = 30; //frames per second
     const HEIGHT = 382;
     const WIDTH = 371;
-    const GRID_SIZE = 5; //number of rows(and columns)
+    const GRID_SIZE = 4; //number of rows(and columns)
 
     const CELL = WIDTH / (GRID_SIZE + 2); //size of cells
     const STROKE = CELL / 12; //stroke width
     const MARGIN = 3 / 2 * CELL; //HEIGHT - (GRID_SIZE + 1) * CELL; //top margin for scores
 
     //colours
-    const COLOR_BOARD = "gainsboro";
+    const COLOR_BOARD = "black";
     const COLOR_BOARDER = "grey";
 
 
@@ -170,7 +162,7 @@ function GameTuto2() {
         ctxFormsBoard.fillRect(0, 0, WIDTH, HEIGHT);
         ctxFormsBoard.strokeRect(STROKE / 2, STROKE / 2, WIDTH - STROKE, HEIGHT - STROKE);
 
-        ctxFormsBoard.fillStyle = "black";
+        ctxFormsBoard.fillStyle = "white";
         ctxFormsBoard.font = "bold 18px arial";
         ctxFormsBoard.textAlign = "center";
         ctxFormsBoard.fillText("GRID", WIDTH / 2, HEIGHT -25);
@@ -318,11 +310,11 @@ function GameTuto2() {
             return;
         }
         if(currentStep === 1 ){
-            TextElement.innerHTML = "Click on <b>only one</b> <a style='color: #eaea11'>Star</a> below as fast as possible."
+            TextElement.innerHTML = "Click on <b>only one</b> Star below as fast as possible."
             TextTitle.innerText = "Practice: Expert Mode (2/3)"
         }
         if(currentStep === 2 ){
-            TextElement.innerHTML = "Click on <b>only one</b> <a style='color: #169de1'>Ring</a> below as fast as possible."
+            TextElement.innerHTML = "Click on <b>only one</b> Ring below as fast as possible."
             TextTitle.innerText = "Practice: Expert Mode (3/3)"
         }
         //set current parameters
@@ -369,10 +361,20 @@ function GameTuto2() {
         ctxTarget.strokeRect(STROKE / 2, STROKE / 2, TC_WIDTH - STROKE, TC_HEIGHT - STROKE);
         //draw the target
         currentTarget.draw();
-        ctxTarget.fillStyle = currentTarget.getColor();
+        ctxTarget.fillStyle = "white";
         ctxTarget.font = "bold 18px arial";
         ctxTarget.textAlign = "center";
         ctxTarget.fillText("TARGET", TC_WIDTH / 2, TC_HEIGHT -25);
+
+        let timerString = ""
+        if(startTime!==null) {
+            if (stopTime === null) {
+                timerString = msToSeconds(Date.now() - startTime)
+            }else {
+                timerString = msToSeconds(stopTime - startTime)
+            }
+        }
+        ctxTarget.fillText(timerString,TC_WIDTH/2,TC_TOP_MARGIN-25)
     }
 
     function createTarget(currentTargetName) {
@@ -395,8 +397,13 @@ function GameTuto2() {
     }
 
     function msToSeconds(time) {
-        let s = time / 1000
-        return (Math.round(s * 100) / 100).toFixed(2)
+        let ts = Math.floor(time / 1000 )
+        let min = Math.floor(ts/60)
+        let s = ts%60
+
+        min = min.toString().padStart(2,'0')
+        s = s.toString().padStart(2,'0')
+        return String(min)+":"+String(s)
     }
 
     //------------------------------------------------------------------------------

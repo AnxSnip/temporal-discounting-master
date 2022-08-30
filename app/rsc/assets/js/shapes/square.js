@@ -8,10 +8,10 @@ class Square extends Shape{
         this.top = y - size / 2;
         this.right = x + size / 2;
         this.left = x - size / 2;
-        this.colorUnlit = "#f03b20";
+        this.colorUnlit = "#e31a1c";
         this.colorLit = "lightpink";
         this.marginFactor = minSize / 16
-        this.colorGrey="#f03b2080"
+        this.colorGrey="#e31a1c80"
     }
 
     draw() {

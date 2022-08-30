@@ -10,8 +10,7 @@ class LearningPanel{
         this.imgMargin = cellSize / 2
         this.canvMargin = cellSize*1.5
         this.height = height
-        this.width = 6 / 5 * cellSize + (maxLockCount + 1) * (this.imgWidth + this.imgMargin / 3)
-        if(this.width<150) this.width = 170
+        this.width = 400
         this.canvasElement = canvasElement
         this.canvasElement.height = this.height
         this.canvasElement.width = this.width
@@ -23,11 +22,11 @@ class LearningPanel{
         this.stroke = stroke
 
 
-        this.colorBoard = "gainsboro"
+        this.colorBoard = "black"
         this.colorBorder = "grey"
 
-        this.targetColorFont = "red"
-        this.targetColorFontUnlocked = "#4CAF50"
+        this.targetColorFont = "black"
+        this.targetColorFontUnlocked = "white"
         this.unlockButtonColorUnlit = "white";
         this.unlockButtonColorLit = "gray";
         this.unlockButtonColorStroke = "darkgrey";
@@ -212,8 +211,11 @@ class LearningPanel{
                     this.imgWidth, this.imgHeight)
             }
         }
-        this.context.fillStyle = "black"
+        this.context.font = "bold 18px arial"
+        this.context.fillStyle = "white"
         this.context.fillText("LOCKER PANEL", this.width/2 +3, this.height-30)
+        this.context.font = "14px arial"
+        this.context.fillText("Click on 'UNLOCK' to unlock one locker of this target", this.width/2 +3, this.height-10)
         if(this.slider)
             return
         this.context.fillStyle = this.targetColorFont

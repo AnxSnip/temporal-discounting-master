@@ -8,9 +8,9 @@ class Diamond extends Shape {
         this.top = y - size/2;
         this.right = x + size/2;
         this.left = x - size/2;
-        this.colorUnlit = "#8856a7" //TODO
-        this.colorLit = "#7e5ea1"
-        this.colorGrey = "#8856a780" // TODO
+        this.colorUnlit = "#a6cee3" //TODO
+        this.colorLit = "#8da2a9"
+        this.colorGrey = "#a6cee380" // TODO
         this.marginFactor = minSize / 16 *1.5
     }
 

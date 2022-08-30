@@ -9,8 +9,8 @@ class Timeline {
         this.width = Math.max(size * maxShapes,500)
         this.font = "bold 24px arial"
         this.fontColor = "darkgrey"
-        this.indexColor = "black"
-        this.timelineBoardColor = "gainsboro"
+        this.indexColor = "white"
+        this.timelineBoardColor = "black"
         this.colorBorder = "grey"
 
         this.timelineElement = timelineElement
@@ -64,10 +64,7 @@ class Timeline {
         let stepString = "Completed tasks " + String(this.gameInst.getCurrStep() -1)
         if(this.gameInst.settings.maxStep !== -1)
             stepString += " / " + this.gameInst.settings.maxStep
-        let timerString = ""
-        if(this.gameInst.settings.debug)
-            timerString = " Time passed: " + Math.max(0,(Timeline.msToSeconds(this.gameInst.getCurrTime()))) + "s"
-        this.context.fillText(stepString + timerString , textX, textY)
+        this.context.fillText(stepString , textX, textY)
 
         let i = 0
         for(let shape of this.shapeTimeline){
@@ -84,9 +81,9 @@ class Timeline {
         this.indexer.draw()
 
         //TODO change this
-        this.context.fillStyle = "black";
+        this.context.fillStyle = "white";
         this.context.font = "bold 18px arial";
-        this.context.fillText("TIMELINE", this.timelineElement.width - 100, this.timelineElement.height -5);
+        this.context.fillText("TIMELINE OF FUTURE TARGETS", this.timelineElement.width - 300, 30);
 
     }
 
@@ -107,10 +104,7 @@ class Timeline {
         this.indexer.draw()
     }
 
-    static msToSeconds(time) {
-        let s = time / 1000
-        return (Math.round(s * 100) / 100).toFixed(0)
-    }
+
 }
 
 class Indexer {

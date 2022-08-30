@@ -10,7 +10,7 @@ class PlayField {
         this.margin = 0.75 * cellSize
         this.selectMargin = cellSize / 8
 
-        this.colorBoard = "gainsboro"
+        this.colorBoard = "black"
         this.colorBorder = "grey"
         this.colorSelect = "white"
 
@@ -94,10 +94,12 @@ class PlayField {
         this.context.strokeRect(this.stroke / 2, this.stroke / 2,
             this.width - this.stroke, this.height - this.stroke)
 
-        this.context.fillStyle = "black";
+        this.context.fillStyle = "white";
         this.context.font = "bold 18px arial";
         this.context.textAlign = "center";
         this.context.fillText("GRID", this.width / 2, this.height -25);
+        this.context.font = "14px arial";
+        this.context.fillText("Click on all target symbols above as fast as possible",this.width / 2, this.height -10)
     }
 
     drawShapes(){

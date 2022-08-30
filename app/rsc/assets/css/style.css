@@ -38,7 +38,7 @@ button {
     background-color: white;
     color: black;
     font-weight: bold;
-    border: 2px solid #4CAF50;
+    border: 2px solid #ab9e9e;
 }
 
 
@@ -51,12 +51,12 @@ button:disabled {
 }
 
 button:enabled{
-    background-color: #4CAF50;
+    background-color: white;
 }
 
 button:enabled:hover {
     box-shadow: 5px 12px 16px 0 rgba(0, 0, 0, 0.25), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-    background-color: #4CAF50;
+    background-color: white;
 }
 
 button:disabled:hover {
@@ -72,12 +72,12 @@ button:disabled:hover {
     /*padding: 300px;*/
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.35);
+    background-color: #000000;
 }
 
 .infoBox {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    background-color: whitesmoke;
+    background-color: #817d7d;
     padding: 50px;
     /*padding-top: 70px;*/
     /*text-align: center;*/
@@ -99,7 +99,7 @@ button:disabled:hover {
     left: 50%;
     display: block;
     transform: translate(-50%, -50%);
-    background-color: #4CAF50;
+    background-color: #ab9e9e;
     color: white;
 }
 
@@ -219,7 +219,7 @@ input[type=range]::-ms-thumb {
 }
 
 .endGame{
-    border: 2px solid #4CAF50;
+    border: 2px solid #ab9e9e;
     border-radius: 4px;
 }
 

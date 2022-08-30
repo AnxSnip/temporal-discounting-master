@@ -9,9 +9,9 @@ class Triangle extends Shape {
         this.top = y - this.height / 2;
         this.right = x + this.height / 2;
         this.left = x - this.height / 2;
-        this.colorUnlit = "#feb24c";
+        this.colorUnlit = "#fdbf6f";
         this.colorLit = "#ffcc66";
-        this.colorGrey = "#feb24c80"
+        this.colorGrey = "#fdbf6f80"
         // Top corner
         this.t1 = { x: this.x - this.height / 2, y: this.y + this.height / 2 };
         // Left corner

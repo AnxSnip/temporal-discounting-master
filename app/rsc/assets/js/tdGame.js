@@ -1,6 +1,6 @@
 import shapeFactory from "./shapes/shapeFactory.js";
 import GameLog from "./gameLog.js";
-import Timeline from "./components/timeline.js";
+import TargetCanvas from "./components/targetCanvas.js";
 
 
 class TDGame {
@@ -181,7 +181,7 @@ class TDGame {
         let stepString = this.getCurrStep()
         if(this.settings.maxStep === -1)
             stepString = "Uncapped"
-        let timerString = ((Timeline.msToSeconds(this.getMaxTime() - this.getCurrTime())) / 60).toFixed(2) + " minutes"
+        let timerString = ((TargetCanvas.msToSeconds(this.getMaxTime() - this.getCurrTime())) / 60).toFixed(2) + " minutes"
         if(this.settings.maxTimer === -1)
             timerString = "Uncapped"
 
@@ -463,10 +463,11 @@ class TDGame {
         var listx = [xStart]
         var listy = [yStart]
         var listsize = [sizeStart]
+        const temp = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0]
         for (let i = 1; i<frame;i++){
-            listx.push(xStart + (xStop-xStart)/frame *i)
-            listy.push(yStart + (yStop-yStart)/frame *i)
-            listsize.push(sizeStart + (sizeStop-sizeStart)/frame *i)
+            listx.push(xStart + (xStop-xStart)/frame *i +temp[i])
+            listy.push(yStart + (yStop-yStart)/frame *i +temp[i])
+            listsize.push(sizeStart + (sizeStop-sizeStart)/frame *i +temp[i])
         }
 
 

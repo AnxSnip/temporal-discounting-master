@@ -102,7 +102,7 @@ async function GameTuto4() {
             // Initialize target canvas (Target shape indicator)
             let targetCanvasLeft = playField.width + playfieldLeft + 6
             let targetCanvas = new TargetCanvas(document.getElementById("targetCanvas"),
-                160, 160, playfieldTop + 50, cellSize,
+                160, 160, playfieldTop + 20, cellSize,
                 60, targetCanvasLeft, stroke)
 
             // Initialize target canvas (Lock status panel)
@@ -118,7 +118,7 @@ async function GameTuto4() {
             let nextButton = document.getElementById("nextButton")
             nextButton.style.display = ''
             nextButton.style.marginLeft = String(targetCanvasLeft + 14) + "px"
-            nextButton.style.marginTop = String(playfieldTop + 280) + "px"
+            nextButton.style.marginTop = String(playfieldTop + 250) + "px"
             nextButton.disabled = true
 
             document.getElementById("board").style.width = String(learningPanelLeft + learningPanel.width + 20) +"px"

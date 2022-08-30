@@ -6,7 +6,7 @@ class tuto4Logic extends tdGame{
         this.step = 0;
         this.notUnlocked = true;
         this.stime=-1;
-        this.lockStates=[this.settings.nbLocks-2,0,0]
+        this.lockStates=[this.settings.nbLocks-1,0,this.settings.nbLocks-1]
     }
 
     tick() {}
@@ -93,7 +93,7 @@ class tuto4Logic extends tdGame{
     }
 
     generateBlock() {
-        let newBlockShapes = ["Star","Quatrefoil","Quatrefoil","Quatrefoil","Quatrefoil","Ring","Star"]
+        let newBlockShapes = ["Ring","Star","Quatrefoil","Star","Quatrefoil","Ring","Ring"]
         this.shapeBacklog = this.shapeBacklog.concat(newBlockShapes)
 
         for(let shapeName in newBlockShapes){
