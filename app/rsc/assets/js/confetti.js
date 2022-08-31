@@ -1,3 +1,5 @@
+/*not used*/
+
 /* To use this in another script :
 -------------------------------------------
 $.getScript('confetti.js', function() {

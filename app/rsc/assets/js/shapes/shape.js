@@ -1,3 +1,5 @@
+/*Abstract class that represent shapes
+* */
 class Shape{
     constructor(x, y, width, height, selectable, context){
         this.x = x
@@ -20,6 +22,7 @@ class Shape{
         this.learning = false
     }
 
+    //make the shape vibrate
     vibrate(){
         if (this.vibrateAnimationStep <= 0) {
             this.vibrateAnimationStep = this.vibrateMagnitude + 1;
@@ -35,6 +38,7 @@ class Shape{
         this.vibrateAnimationStep--;
     }
 
+    //draw the shape
     draw(){
         if(this.learning){
             let img = new Image()

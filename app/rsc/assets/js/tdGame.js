@@ -463,10 +463,10 @@ class TDGame {
         var listx = [xStart]
         var listy = [yStart]
         var listsize = [sizeStart]
-        const temp = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0]
+        const temp = [2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,28,26,24,22,20,18,16,14,12,10,8,6,4,2,1]
         for (let i = 1; i<frame;i++){
             listx.push(xStart + (xStop-xStart)/frame *i +temp[i])
-            listy.push(yStart + (yStop-yStart)/frame *i +temp[i])
+            listy.push(yStart + (yStop-yStart)/frame *i)
             listsize.push(sizeStart + (sizeStop-sizeStart)/frame *i +temp[i])
         }
 
@@ -529,7 +529,7 @@ class TDGame {
         console.log(occ)
         let total = this.gameLog.weights[currShape] * this.settings.nbBlock
         console.log(total)
-        return currShape + ": " + String(occ) + " done out of " + total
+        return currShape + ": " + String(occ) + "/" + total
     }
 }
 

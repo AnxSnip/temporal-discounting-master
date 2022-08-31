@@ -1,3 +1,5 @@
+/*not used*/
+
 //login stuff
 const inputPassword = document.getElementById("input-password");
 inputPassword.addEventListener('keypress', function(e) {

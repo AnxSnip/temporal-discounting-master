@@ -1,3 +1,5 @@
+/*script used to check the ip and the device used*/
+
 var newIpTrial = 1;
 
 //test mobile or tablet

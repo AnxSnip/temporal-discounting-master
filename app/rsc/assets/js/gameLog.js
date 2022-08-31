@@ -1,8 +1,10 @@
+
+//Class that stores and registers the logs
 class GameLog {
     constructor(initDate, sliderDuration,
                 nbShapesByBlock, shapeNames, nbLocks, nbTargets,weights,
                 learningTime, ipAddress) {
-        const order = ["Triangle","Circle","Square","Cross","Diamond","X","Star","Hexagon","Ring","Quatrefoil"]
+
         this.initDate = initDate
         this.ipAddress = ipAddress
 

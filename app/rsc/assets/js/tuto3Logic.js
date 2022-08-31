@@ -1,5 +1,6 @@
 import tdGame from "./tdGame.js";
 
+/*Overload of td game to match the logic in the learning tutorial*/
 class tuto3Logic extends tdGame{
     constructor(settings) {
         super(settings,null);

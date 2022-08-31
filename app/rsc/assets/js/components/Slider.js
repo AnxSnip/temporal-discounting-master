@@ -1,5 +1,5 @@
 
-
+/*Class that implements the slider */
 class Slider {
     constructor(parent, top, left, width, color = "darkorange", sliderDuration = 1000, slideThreshold = 4) {
         this.parent = parent
@@ -8,7 +8,6 @@ class Slider {
         this.startTime = null
         this.sliderDuration = sliderDuration
 
-        this.done = false
         this.canvasElement = document.createElement('input')
         this.canvasElement.id = 'slider'
         this.canvasElement.type = 'range'
@@ -16,7 +15,6 @@ class Slider {
         this.canvasElement.style.left = String(left) + "px"
         this.canvasElement.style.position = 'absolute'
         this.canvasElement.style.width = String(width) + "px"
-
 
         this.canvasElement.addEventListener("mousemove", (event) => this.setCursorStyleGrab(event))
         this.canvasElement.addEventListener("mouseup", (event) => this.setCursorStyleGrab(event))

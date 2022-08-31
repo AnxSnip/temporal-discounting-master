@@ -80,6 +80,9 @@ class TimelineTuto4 extends timeline{
         this.context.fillText("TIMELINE OF FUTURE TARGETS", this.timelineElement.width - 300, 30);
     }}
 
+/*Main file for the all mode tuto
+* overrode some element to math with the logic*/
+
 document.getElementById("nextPagebutton").addEventListener('click',function (){
     let a =document.getElementById("part1")
     a.style.display = "none"

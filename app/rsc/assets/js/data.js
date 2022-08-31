@@ -1,3 +1,5 @@
+/*not used*/
+
 function dateToString(timestamp) {
     var date = new Date(timestamp);
     var sec = date.getSeconds();

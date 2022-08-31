@@ -1,15 +1,20 @@
 import tdGame from "../tdGame.js";
 
+/*Class that implements the timeline canvas
+* */
 class Timeline {
     constructor(timelineElement, size, left, step = 8, maxShapes = 8,width,height) {
+        //size of the shapes
         this.size = size
+
         this.margin = 20
-        this.index_size = (size / 2) + 3
         this.height = maxShapes*(size+2) + 2 * this.margin
         this.width = Math.max(size * maxShapes,500)
+
         this.font = "bold 18px arial"
         this.fontColor = "darkgrey"
         this.indexColor = "white"
+
         this.timelineBoardColor = "black"
         this.colorBorder = "grey"
 
@@ -18,19 +23,25 @@ class Timeline {
         this.timelineElement.height = height
         this.timelineElement.width = width
         this.context = this.timelineElement.getContext("2d")
-        this.shapeTimeline = []
+
         this.gameInst = null
         this.maxShapes = maxShapes
+
+        //indexer
+        this.index_size = (size / 2) + 3
         this.indexer = new Indexer(this.getDrawX(0), this.getDrawY(),
             this.index_size, this.index_size, this.context, this.indexColor,this.maxShapes,this.size);
+
         this.step = -1
         this.learning_list = []
+        this.shapeTimeline = []
     }
 
     appendTimeline(shape){
         this.shapeTimeline.push(shape)
     }
 
+    //refresh the timeline after unlock or after animation
     refreshTimeline(){
         this.shapeTimeline = []
         for(let i = 0; i < this.gameInst.shapeBacklog.length; i++){
@@ -49,6 +60,7 @@ class Timeline {
         return this.margin + this.size / 2 + 18; // 18 is the size of the font
     }
 
+    //move the index rectangle
     updateIndexer(step) {
         this.indexer.x = this.getDrawX(step%this.maxShapes)
         this.indexer.y = this.getDrawY() + Math.floor(step/this.maxShapes)*(this.size/2 +10)
@@ -59,12 +71,14 @@ class Timeline {
         // Magic numbers
         let textX = 10
         let textY = 30
+
+        //text
         this.context.fillStyle = this.fontColor
         this.context.font = this.font
-
         let stepString = this.gameInst.getOccText()
         this.context.fillText(stepString , textX, textY)
 
+        //shapes
         let i = 0
         for(let shape of this.shapeTimeline){
             if(i<this.step){
@@ -76,10 +90,12 @@ class Timeline {
             shape.draw()
             i++
         }
+
+        //indexer
         this.updateIndexer(this.step)
         this.indexer.draw()
 
-        //TODO change this
+        //text
         this.context.fillStyle = "white";
         this.context.font = "bold 18px arial";
         this.context.fillText("TIMELINE OF FUTURE TARGETS", this.timelineElement.width - 300, 30);

@@ -1,3 +1,4 @@
+//class that store the settings
 class gameSettings{
     constructor(weights, nbTargets,
                 timeLearning, nbSliders, nbLocks, gridWidth, gridHeight,
@@ -6,7 +7,6 @@ class gameSettings{
                 showTimeline = true, easyMode = false, debug= false) {
 
         // Shape generation
-        // TODO: Generify weights
         this.weights = weights
         // Overloading this argument is not recommended
         this.shapeNames = shapeNames

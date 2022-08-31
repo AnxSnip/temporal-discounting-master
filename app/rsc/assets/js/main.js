@@ -7,7 +7,7 @@ import gameSettings from "./gameSettings.js";
 
 
 //-----------------------------------------------------------------------------------
-//                            GAME PARAMETERS
+//                            MAIN FILE OF THE EXPERIENCE
 //-----------------------------------------------------------------------------------
 
 
@@ -15,6 +15,7 @@ function updateIntroMsg(nTask, formsList) {
     document.getElementById("nTask").innerHTML = nTask + " tasks";
     document.getElementById("shapeList").innerHTML = "(" + formsList + ")";
 }
+
 function add(acc,a){
     return acc + a
 }
@@ -31,6 +32,7 @@ function shuffle(a) {
 //                  GAME variables to post in the database
 //--------------------------------------------------------------------------------
 
+//get the ip
 let ipAddress = null;
 $.getJSON("https://api.ipify.org?format=json", function(data) {
     ipAddress = data.ip;
@@ -41,18 +43,17 @@ $.getJSON("https://api.ipify.org?format=json", function(data) {
 let infoButton = document.querySelector(".infoButton")
 infoButton.addEventListener('click', Game)
 
-
-
 async function Game() {
+    //mobile tablet check
     if (window.mobileAndTabletCheck()){
         document.getElementById("mobileRestriction").style.display = '';
         document.getElementById("explainGame").style.display = 'none';
         return;
     }
 
+    //refresh check
     let reload = sessionStorage.getItem("Reloaded")
     if (!reload) {reload = 0} else {reload = parseInt(reload)}
-
 
     // Hide experiment prompt
     document.getElementById('explainGame').style.display='none'
@@ -62,9 +63,7 @@ async function Game() {
     // Get game settings
     fetch(path).then(response => response.json()).then(json => {
         let framerate = 30
-
         let stroke = 2
-
         let options = {
             method: 'GET',
             headers: {
@@ -125,6 +124,7 @@ async function Game() {
             // Bind visual elements to game logic
             tdGame.bindComponents(playField, timeline, learningPanel, targetCanvas, nextButton)
 
+            //register data before refresh or close
             window.addEventListener("beforeunload", function(event) {
                 fetch('/r'+window.location.search)
                 sessionStorage.setItem("Reloaded",String(reload + 1))

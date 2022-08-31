@@ -1,18 +1,16 @@
+
+/*Class that implements the grid
+* */
 class PlayField {
     constructor(canvasElement, framerate, height, width, nbRow, nbCol, cellSize, top, left, stroke) {
-        this.framerate = framerate
         this.height = height
         this.width = width
-        this.nbRow = nbRow
-        this.nbCol = nbCol
         this.cellSize = cellSize
         this.stroke = stroke
         this.margin = 0.75 * cellSize
-        this.selectMargin = cellSize / 8
 
         this.colorBoard = "black"
         this.colorBorder = "grey"
-        this.colorSelect = "white"
 
         this.gameInst = null
         this.canvasElement = canvasElement
@@ -88,12 +86,14 @@ class PlayField {
     }
 
     drawBoard(){
+        //board
         this.context.fillStyle = this.colorBoard
         this.context.strokeStyle = this.colorBorder
         this.context.fillRect(0, 0, this.width, this.height)
         this.context.strokeRect(this.stroke / 2, this.stroke / 2,
             this.width - this.stroke, this.height - this.stroke)
 
+        //text at the bottom
         this.context.fillStyle = "white";
         this.context.font = "bold 18px arial";
         this.context.textAlign = "center";

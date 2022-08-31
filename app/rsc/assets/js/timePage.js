@@ -1,3 +1,5 @@
+/*File that implement the calculation of time passed on tutorials*/
+
 var timer;
 var timerStart;
 var timeSpentOnSite = getTimeSpentOnSite();

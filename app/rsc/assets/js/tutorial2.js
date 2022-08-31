@@ -2,7 +2,9 @@ import Quatrefoil from "./shapes/quatrefoil.js"
 import Ring from "./shapes/ring.js";
 import Star from "./shapes/star.js";
 
-
+/*Hard coded
+* this is the expert tuto
+* copied the component that I needed and discarded a lot of element code not needed for this part*/
 
 //-----------------------------------------------------------------------------------
 //                            GAME PARAMETERS

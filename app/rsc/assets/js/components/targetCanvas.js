@@ -1,12 +1,13 @@
 // noinspection DuplicatedCode
 import tdGame from "../tdGame.js";
 
+/*Class that implement the target canvas*/
 class TargetCanvas {
     constructor(canvasElement, height, width, topMargin, cellSize,
                 top, left, stroke) {
         this.height = height
         this.width = width
-
+        //size of a shape
         this.cellSize = cellSize
         this.topMargin = topMargin
 
@@ -38,18 +39,23 @@ class TargetCanvas {
 
 
     draw(){
+        //board
         this.context.fillStyle = this.colorBoard
         this.context.strokeStyle = this.colorBorder
         this.context.fillRect(0, 0, this.width, this.height)
         this.context.strokeRect(this.stroke / 2, this.stroke / 2,
             this.width - this.stroke, this.height - this.stroke)
+
+        //shape
         this.targetShapeDisplay.draw()
 
+        //text
         this.context.fillStyle = "white"
         this.context.font = "bold 18px arial"
         this.context.textAlign = "center"
         this.context.fillText("TARGET", this.width / 2, this.height -25);
 
+        //timer
         let timerString = ""
         if(this.gameInst.settings.debug)
             timerString = TargetCanvas.msToSeconds(this.gameInst.getCurrTime())
@@ -60,10 +66,8 @@ class TargetCanvas {
         return tdGame.shapeFromName(this.gameInst.currShape, this.width / 2, this.height / 2,
             this.cellSize, false, this.context)
     }
-    getSliderLifetime() {
-        //TODO placeholder
-        return -1
-    }
+
+    //convert ms to MM:SS
     static msToSeconds(time) {
         let ts = Math.floor(time / 1000 )
         let min = Math.floor(ts/60)

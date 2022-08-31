@@ -1,12 +1,14 @@
 import gameSettings from "./gameSettings.js";
 
 import PlayField from "./components/playfield.js";
-import Timeline from "./components/timeline.js";
 import TargetCanvas from "./components/targetCanvas.js";
 import LearningPanel from "./components/learningPanel.js";
 import tuto3Logic from "./tuto3Logic.js";
 import Slider from "./components/Slider.js";
 import timeline from "./components/timeline.js";
+
+/*Main file for the tuto about learning
+* overrode some element to math with the logic*/
 
 class LearningPanelTuto3 extends LearningPanel{
     constructor(canvasElement, cellSize, maxLockCount, shapeNames, top, left, stroke,height) {
