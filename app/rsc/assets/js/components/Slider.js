@@ -37,10 +37,14 @@ class Slider {
         this.slideThreshold = slideThreshold
         this.sliderAccept = false
         this.sliderDateAppearance = Date.now()
-        this.bar = null
+        this.bar = this.createProgressBar()
+        this.time = 0
     }
 
     onInput(event){
+        if (!this.bar){
+            this.createProgressBar()
+        }
         let newValue = parseInt(this.canvasElement.value)
         if(this.sliderDirection === 'right'){
             if(newValue >= this.oldValue){
@@ -51,8 +55,7 @@ class Slider {
                 this.sliderDirection = 'left'
                 this.nbSlide++
             }
-        }
-        else{
+        }else{
             if (newValue <= this.oldValue) {
                 this.oldValue = newValue;
             } else {
@@ -64,27 +67,11 @@ class Slider {
 
         if(this.nbSlide === this.slideThreshold && !this.sliderAccept) {
             this.sliderAccept = true
-            let child = document.createElement('div');
-            child.id = "bar"
-            child.style.width = String(40)+"px";
-            child.style.height = String(40)+"px";
-            child.style.position = "absolute";
-            child.style.left = String(this.left + this.width + 5)+"px"
-            child.style.top = String(this.top)+"px"
-            document.getElementById("board").appendChild(child)
-            this.bar = new ProgressBar.Circle(child, {
-                strokeWidth: 14,
-                easing: 'easeInOut',
-                duration:this.sliderDuration,
-                color: this.canvasElement.style.backgroundColor,
-                trailColor: '#eee',
-                trailWidth: 1,
-                svgStyle: null
-            });
-            this.bar.animate(1);
         }
 
-        if(Date.now() - this.startTime > this.sliderDuration - 250 && this.sliderAccept){
+        this.bar.set((Date.now() - this.startTime + this.time)/(this.sliderDuration - 250))
+
+        if(Date.now() - this.startTime + this.time > this.sliderDuration - 250 && this.sliderAccept){
             this.parent.processUnlock()
         }
     }
@@ -100,17 +87,17 @@ class Slider {
     mouseDown(){
         this.canvasElement.style.cursor = 'grabbing';
         this.startTime = Date.now()
-        if(this.bar){
-            this.bar.set(0)
-            this.bar.animate(1)
-        }
+        if(this.sliderAccept && this.bar) this.bar.animate(1)
     }
+
 
     mouseUp(){
         this.canvasElement.style.cursor = 'grab';
-        if(this.bar) {
-            this.bar.set(0)
-        }
+        if(this.sliderAccept){
+            this.time = this.time + Date.now()-this.startTime
+            if(this.bar) {
+                this.bar.set(this.time/this.sliderDuration)
+        }}
     }
 
     getLifeTime() {
@@ -121,9 +108,31 @@ class Slider {
         try{
             document.getElementById('slider').remove()
             document.getElementById('bar').remove()
+            this.bar = null
         } catch {
             console.log('slider already killed')
         }
+    }
+
+    createProgressBar(){
+        let child = document.createElement('div');
+        child.id = "bar"
+        child.style.width = String(40)+"px";
+        child.style.height = String(40)+"px";
+        child.style.position = "absolute";
+        child.style.left = String(this.left + this.width + 5)+"px"
+        child.style.top = String(this.top)+"px"
+        document.getElementById("board").appendChild(child)
+        var bar = new ProgressBar.Circle(child, {
+            strokeWidth: 14,
+            easing: 'easeInOut',
+            duration:this.sliderDuration,
+            color: this.canvasElement.style.backgroundColor,
+            trailColor: '#eee',
+            trailWidth: 1,
+            svgStyle: null
+        });
+        return bar
     }
 }
 
