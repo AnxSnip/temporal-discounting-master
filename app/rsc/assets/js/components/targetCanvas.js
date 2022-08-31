@@ -4,7 +4,7 @@ import tdGame from "../tdGame.js";
 /*Class that implement the target canvas*/
 class TargetCanvas {
     constructor(canvasElement, height, width, topMargin, cellSize,
-                top, left, stroke) {
+                top, left, stroke,printTime = true) {
         this.height = height
         this.width = width
         //size of a shape
@@ -31,6 +31,7 @@ class TargetCanvas {
         this.targetShapeDisplay = null
 
         this.gameInst = null
+        this.printTime = printTime;
     }
 
     newStepProcess(){
@@ -56,10 +57,12 @@ class TargetCanvas {
         this.context.fillText("TARGET", this.width / 2, this.height -25);
 
         //timer
-        let timerString = ""
-        if(this.gameInst.settings.debug)
-            timerString = TargetCanvas.msToSeconds(this.gameInst.getCurrTime())
-        this.context.fillText(timerString,this.width/2,this.top-25)
+        if(this.printTime){
+            let timerString = ""
+            if(this.gameInst.settings.debug)
+                timerString = TargetCanvas.msToSeconds(this.gameInst.getCurrTime())
+            this.context.fillText(timerString,this.width/2,this.top-25)
+        }
     }
 
     getTargetShape(){

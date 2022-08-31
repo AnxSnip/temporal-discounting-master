@@ -10,7 +10,7 @@ class Triangle extends Shape {
         this.right = x + this.height / 2;
         this.left = x - this.height / 2;
         this.colorUnlit = "#fdbf6f";
-        this.colorLit = "#ffcc66";
+        this.colorLit = "#b7a282";
         this.colorGrey = "#fdbf6f80"
         // Top corner
         this.t1 = { x: this.x - this.height / 2, y: this.y + this.height / 2 };

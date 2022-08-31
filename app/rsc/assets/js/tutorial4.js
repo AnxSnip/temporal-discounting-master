@@ -136,7 +136,7 @@ async function GameTuto4() {
             let targetCanvasLeft = playField.width + playfieldLeft + 6
             let targetCanvas = new TargetCanvas(document.getElementById("targetCanvas"),
                 160, 160, playfieldTop + 20, cellSize,
-                60, targetCanvasLeft, stroke)
+                60, targetCanvasLeft, stroke,false)
 
             // Initialize target canvas (Lock status panel)
             let learningPanelLeft = targetCanvas.width + targetCanvasLeft + 10

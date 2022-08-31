@@ -1,5 +1,6 @@
 
 /*Class that implements the slider */
+
 class Slider {
     constructor(parent, top, left, width, color = "darkorange", sliderDuration = 1000, slideThreshold = 4) {
         this.parent = parent
@@ -16,8 +17,12 @@ class Slider {
         this.canvasElement.style.position = 'absolute'
         this.canvasElement.style.width = String(width) + "px"
 
+        this.top = top
+        this.left = left
+        this.width = width
+
         this.canvasElement.addEventListener("mousemove", (event) => this.setCursorStyleGrab(event))
-        this.canvasElement.addEventListener("mouseup", (event) => this.setCursorStyleGrab(event))
+        this.canvasElement.addEventListener("mouseup", (event) => this.mouseUp(event))
         this.canvasElement.addEventListener("mousedown", (event) => this.mouseDown(event))
         this.canvasElement.addEventListener("input", (event) => this.onInput(event))
 
@@ -32,14 +37,10 @@ class Slider {
         this.slideThreshold = slideThreshold
         this.sliderAccept = false
         this.sliderDateAppearance = Date.now()
+        this.bar = null
     }
 
     onInput(event){
-        if(Date.now() - this.startTime > this.sliderDuration - 250 && this.sliderAccept){
-            this.done = true
-            this.parent.processUnlock()
-        }
-
         let newValue = parseInt(this.canvasElement.value)
         if(this.sliderDirection === 'right'){
             if(newValue >= this.oldValue){
@@ -61,8 +62,31 @@ class Slider {
             }
         }
 
-        if(this.nbSlide === this.slideThreshold)
+        if(this.nbSlide === this.slideThreshold && !this.sliderAccept) {
             this.sliderAccept = true
+            let child = document.createElement('div');
+            child.id = "bar"
+            child.style.width = String(40)+"px";
+            child.style.height = String(40)+"px";
+            child.style.position = "absolute";
+            child.style.left = String(this.left + this.width + 5)+"px"
+            child.style.top = String(this.top)+"px"
+            document.getElementById("board").appendChild(child)
+            this.bar = new ProgressBar.Circle(child, {
+                strokeWidth: 14,
+                easing: 'easeInOut',
+                duration:this.sliderDuration,
+                color: this.canvasElement.style.backgroundColor,
+                trailColor: '#eee',
+                trailWidth: 1,
+                svgStyle: null
+            });
+            this.bar.animate(1);
+        }
+
+        if(Date.now() - this.startTime > this.sliderDuration - 250 && this.sliderAccept){
+            this.parent.processUnlock()
+        }
     }
 
     setColor(color){
@@ -76,6 +100,17 @@ class Slider {
     mouseDown(){
         this.canvasElement.style.cursor = 'grabbing';
         this.startTime = Date.now()
+        if(this.bar){
+            this.bar.set(0)
+            this.bar.animate(1)
+        }
+    }
+
+    mouseUp(){
+        this.canvasElement.style.cursor = 'grab';
+        if(this.bar) {
+            this.bar.set(0)
+        }
     }
 
     getLifeTime() {
@@ -85,6 +120,7 @@ class Slider {
     killSlider(){
         try{
             document.getElementById('slider').remove()
+            document.getElementById('bar').remove()
         } catch {
             console.log('slider already killed')
         }

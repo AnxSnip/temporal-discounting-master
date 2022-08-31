@@ -370,7 +370,7 @@ function GameTuto2() {
         ctxTarget.font = "bold 18px arial";
         ctxTarget.textAlign = "center";
         ctxTarget.fillText("TARGET", TC_WIDTH / 2, TC_HEIGHT -25);
-
+        /*
         let timerString = ""
         if(startTime!==null) {
             if (stopTime === null) {
@@ -380,6 +380,8 @@ function GameTuto2() {
             }
         }
         ctxTarget.fillText(timerString,TC_WIDTH/2,TC_TOP_MARGIN-25)
+
+         */
     }
 
     function createTarget(currentTargetName) {

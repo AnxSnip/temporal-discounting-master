@@ -524,11 +524,8 @@ class TDGame {
 
     getOccText(){
         let currShape = this.currShape
-        console.log(currShape)
         let occ = this.gameLog.seenShape[currShape]
-        console.log(occ)
         let total = this.gameLog.weights[currShape] * this.settings.nbBlock
-        console.log(total)
         return currShape + ": " + String(occ) + "/" + total
     }
 }
