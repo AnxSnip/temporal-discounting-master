@@ -151,7 +151,7 @@ class TDGame {
     }
 
     // Called when the game has ended
-    endGame(reload = 0) {
+    endGame(reload = 0,sucess=1) {
         this.gameEnded = true
         // Log endgame state
         this.gameLog.registerEnd(this.currStep, Date.now() - this.startTime)
@@ -160,7 +160,7 @@ class TDGame {
         this.learningPanel.gameEndHandle()
 
         // Save data to log file
-        let data = this.gameLog.exportAsString(reload)
+        let data = this.gameLog.exportAsString(reload,sucess)
         let options = {
             method: 'POST',
             headers: {

@@ -146,7 +146,7 @@ class GameLog {
         this.blocksDone = Math.floor(nbTrials / this.blockSize)
     }
 
-    exportAsString(reload = 0) {
+    exportAsString(reload = 0,success=1) {
         let timeTuto = parseInt(localStorage.getItem('timeSpentOnSite'));
         timeTuto = isNaN(timeTuto) ? 0 : timeTuto;
         let lines = []
@@ -159,7 +159,7 @@ class GameLog {
             this.didUnlock[i], this.targetLockState[i], this.occurrences[i],
             this.timeTakenStep[i], this.timeTakenAllSelection[i], this.timeTakenNextClick[i],
             this.sliderDisplayTime[i], this.locksOpenedAtStep[i], this.firstUnlockOcc[this.targetShapes[i]],
-            this.firstUnlockTrialId[this.targetShapes[i]], this.nbCLicks[i], timeTuto,this.totalTime, this.modeUsed[i],reload]
+            this.firstUnlockTrialId[this.targetShapes[i]], this.nbCLicks[i], timeTuto,this.totalTime, this.modeUsed[i],reload,success]
             lines.push(data.join(','))
         }
         return lines.join('\n')+'\n'

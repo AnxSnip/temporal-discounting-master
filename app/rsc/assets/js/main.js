@@ -129,7 +129,7 @@ async function Game() {
                 fetch('/r'+window.location.search)
                 sessionStorage.setItem("Reloaded",String(reload + 1))
                 if(!tdGame.gameEnded){
-                    tdGame.endGame(reload + 1)
+                    tdGame.endGame(reload + 1,0)
                     let params = new URLSearchParams(window.location.search);
                     let p_id = params.get("PROLIFIC_PID");
                     let stud_id = params.get("STUDY_ID");
