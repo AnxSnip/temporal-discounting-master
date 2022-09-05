@@ -7,7 +7,7 @@ class Timeline {
         //size of the shapes
         this.size = size
 
-        this.margin = 20
+        this.margin = 30
         this.height = maxShapes*(size+2) + 2 * this.margin
         this.width = Math.max(size * maxShapes,500)
 
@@ -139,19 +139,18 @@ class Indexer {
 
     draw() {
         this.ctx.strokeStyle = this.color;
-        this.ctx.lineWidth = 1;
+        this.ctx.lineWidth = 2;
         this.ctx.strokeRect(this.x - this.w / 2, this.y - this.h / 2, this.w, this.h);
 
         let rect =new Path2D()
-        rect.moveTo(0,38 + this.currentBlock*this.size)
-        rect.lineTo(0,38 + (this.currentBlock+1)*this.size )
-        rect.lineTo(this.size*this.maxShape,38+(this.currentBlock+1)*this.size)
-        rect.lineTo(this.size*this.maxShape,38 + this.currentBlock*this.size)
-        rect.lineTo(this.size,38 + this.currentBlock*this.size)
+        rect.moveTo(0,48 + this.currentBlock*this.size)
+        rect.lineTo(0,48 + (this.currentBlock+1)*this.size )
+        rect.lineTo(this.size*this.maxShape,48+(this.currentBlock+1)*this.size)
+        rect.lineTo(this.size*this.maxShape,48 + this.currentBlock*this.size)
+        rect.lineTo(this.size,48 + this.currentBlock*this.size)
         rect.closePath()
         this.ctx.fillStyle = "#D3D3D320"
         this.ctx.fill(rect,"evenodd")
-
     }
 }
 

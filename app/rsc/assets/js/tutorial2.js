@@ -44,6 +44,7 @@ function GameTuto2() {
 
         draw() {
             this.ctx.strokeStyle = COLOR_INDEX;
+            this.ctx.lineWidth = 2;
             this.ctx.strokeRect(this.x - this.w / 2, this.y - this.h / 2, this.w, this.h);
         }
     }
@@ -66,7 +67,7 @@ function GameTuto2() {
     canvTimeline.height = TL_HEIGHT;
     canvTimeline.width = TL_WIDTH;
     document.getElementById("ExplainText").innerHTML = "Click on <b>only one</b> Clover below as fast as possible."
-    document.getElementById("infoTitle").innerText = "Practice expert mode 1/3"
+    document.getElementById("infoTitle").innerHTML = "Practice <b>Expert Mode</b> 1/3"
     var currentStep = 0;
 
     //set up context
@@ -316,11 +317,11 @@ function GameTuto2() {
         }
         if(currentStep === 1 ){
             TextElement.innerHTML = "Click on <b>only one</b> Star below as fast as possible."
-            TextTitle.innerText = "Practice: Expert Mode (2/3)"
+            TextTitle.innerHTML = "Practice: <b>Expert Mode</b> (2/3)"
         }
         if(currentStep === 2 ){
             TextElement.innerHTML = "Click on <b>only one</b> Ring below as fast as possible."
-            TextTitle.innerText = "Practice: Expert Mode (3/3)"
+            TextTitle.innerHTML = "Practice: <b>Expert Mode</b> (3/3)"
         }
         //set current parameters
         nameCurrentForm = formTimeline[currentStep].constructor.name;

@@ -524,7 +524,7 @@ class TDGame {
 
     getOccText(){
         let currShape = this.currShape
-        let occ = this.gameLog.seenShape[currShape]
+        let occ = this.gameLog.seenShape[currShape] - this.getLockState(currShape)
         let total = this.gameLog.weights[currShape] * this.settings.nbBlock
         return currShape + ": " + String(occ) + "/" + total
     }

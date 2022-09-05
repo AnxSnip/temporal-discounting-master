@@ -99,7 +99,11 @@ class PlayField {
         this.context.textAlign = "center";
         this.context.fillText("GRID", this.width / 2, this.height -25);
         this.context.font = "14px arial";
-        this.context.fillText("Click on all target symbols above as fast as possible",this.width / 2, this.height -10)
+        if(this.gameInst.isShapeUnlocked(this.gameInst.currShape)){
+            this.context.fillText("Click on only one target symbol as fast as possible",this.width / 2, this.height -10)
+        }else{
+            this.context.fillText("Click on all target symbols above as fast as possible",this.width / 2, this.height -10)
+        }
     }
 
     drawShapes(){

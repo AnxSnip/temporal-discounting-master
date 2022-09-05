@@ -167,21 +167,21 @@ async function GameTuto4() {
                 let text2 = document.getElementById("textPart2")
                 if(tdGame.step===1 || tdGame.step===2){
                     tdGame.SLmode= "l"
-                    title.textContent = "PRACTICE THE LOCKER PANEL"
+                    title.innerHTML = "PRACTICE THE <b>LOCKER PANEL</b>"
                     text2.style.display="none"
                     document.getElementById("step2").style.display = "";
                 }
                 if(tdGame.step===3|| tdGame.step===4){
                     document.getElementById("step2").style.display = "none";
                     text2.style.display="";
-                    title.innerHTML="PRACTICE THE EXPERT MODE"
-                    text2.innerHTML = "Click on <b>only one</b> target symbol below as fast as possible."
+                    title.innerHTML="PRACTICE THE <b>EXPERT MODE</b>"
+                    text2.innerHTML = "Click on <b>only one</b> target symbol below as fast as possible. [Expert Mode]"
                 }
                 if(tdGame.step===0|| tdGame.step===5||tdGame.step ===6){
                     tdGame.SLmode = "p"
                     tdGame.learningPanel.unlockButtonClickable = false
-                    title.textContent = "PRACTICE THE NOVICE MODE";
-                    text2.innerText='Click on all target symbols below as fast as possible.'
+                    title.innerHTML = "PRACTICE THE <b>NOVICE MODE</b>";
+                    text2.innerText='Click on all target symbols below as fast as possible. [Novice Mode]'
                 }
                 if(tdGame.step===7){
                     window.location = "tutorial5.html"+window.location.search

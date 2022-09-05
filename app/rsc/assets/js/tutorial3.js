@@ -159,10 +159,10 @@ async function GameTuto3() {
         }
         if (tdGame.step === 3 ) {
             document.getElementById("tuto3step5").style.display = "";
-            document.getElementById("title").textContent = "PRACTICE LOCKER PANEL (2/3)";
+            document.getElementById("title").innerHTML = "PRACTICE <b>LOCKER PANEL</b> (2/3)";
         }
         if(tdGame.step === 6){
-            document.getElementById("title").textContent = "PRACTICE LOCKER PANEL (3/3)";
+            document.getElementById("title").innerHTML = "PRACTICE <b>LOCKER PANEL</b> (3/3)";
             document.getElementById("tuto3step3").innerHTML = "<b>STEP 2.</b>Drag the slider back and forth until <b>you unlock one locker</b>. This is your last locker.";
             document.getElementById("tuto3step4").innerHTML = "<b>STEP 3.</b> Congratulation you have unlocked <b>expert</b> mode\nClick on “Next” to use the EXPERT mode for your next target";
             document.getElementById("tuto3step5").style.display = "none";
